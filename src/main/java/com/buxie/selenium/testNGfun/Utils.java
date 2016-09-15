@@ -26,6 +26,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.By;
@@ -77,14 +78,24 @@ public class Utils {
 	    	  InternetExplorerDriverManager.getInstance().setup();
 	    	  driver = new InternetExplorerDriver();
 	
-	      }else 
-	
+	      }else  if (browser.equalsIgnoreCase("edge"))
 	      {
-	
-	      System.out.println("Unknown browser.");
-	
-	      return null;
-	
+	    	  String serverPath = "C:\\Users\\azurewangyx\\Downloads\\MicrosoftWebDriver.exe";
+	    	  //System.setProperty("dwebdriver.edge.driver", new File( serverPath).getAbsolutePath());
+	    	  System.setProperty("webdriver.edge.driver", serverPath);
+	    	  
+	    	//  EdgeOptions options = new EdgeOptions();
+	    	//  options.setPageLoadStrategy("eager");
+	    	  
+	    	  DesiredCapabilities capabilities = DesiredCapabilities.edge();
+	    	  capabilities.setPlatform(Platform.WIN10);
+	    	  capabilities.setBrowserName("MicrosoftEdge");
+	    	  driver = new EdgeDriver(capabilities);
+	    	  
+	      }else
+	      {
+		      System.out.println("Unknown browser.");
+		      return null;
 	      }
 	
 	      driver.manage().window().maximize();

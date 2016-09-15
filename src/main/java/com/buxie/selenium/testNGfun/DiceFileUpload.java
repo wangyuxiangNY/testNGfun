@@ -35,7 +35,7 @@ public class DiceFileUpload extends Page{
 	@FindBy(id="resumeFileInput") private WebElement  fileInput;
 	
 	
-	public void login()
+	public void login_NEW()
 	{
 		Login_1.click();
 		Email_1.sendKeys("yuxiang.wang.ny@gmail.com");

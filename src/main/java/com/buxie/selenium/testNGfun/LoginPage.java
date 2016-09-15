@@ -102,13 +102,13 @@ public class LoginPage extends Page{
 			   zipByCountry.put("NZ", "2016");
 		}
 		
-		
+		/*
 		public void login()
 		{ 
 			login(USER_NAME, PASSWORD);
 			
 		}
-		
+		*/
 		
 		public void login(String _userName, String _password)
 		{   
