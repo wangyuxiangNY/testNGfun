@@ -3,13 +3,16 @@ package com.buxie.selenium.testNGfun;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
 import java.util.Map;
 import java.util.HashMap;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -106,6 +109,82 @@ public class Utils {
 		}else 
 			return "Other";
 	}
+	
+	
+	
+	public static WebDriver  createRemoteDriver(String browser,String browserVersion) throws Exception
+	{  
+		WebDriver driver;
+		
+		 final String VIDEO_URL="LOCALHOST";
+		
+		// Example test environment. NOTE: Gridlastic auto scaling requires all
+		// these 3 environment variables in each request.
+		String platform_name = OSDetector(); //"win7";
+		String browser_name = "firefox";
+		String browser_version = "46"; // for Chrome leave empty
+
+		// optional video recording
+		String record_video = "True";
+
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+		if (platform_name.equalsIgnoreCase("win7")) {
+			capabilities.setPlatform(Platform.VISTA);
+		}
+		if (platform_name.equalsIgnoreCase("win8")) {
+			capabilities.setPlatform(Platform.WIN8);
+		}
+		if (platform_name.equalsIgnoreCase("win8_1")) {
+			capabilities.setPlatform(Platform.WIN8_1);
+		}
+		if (platform_name.equalsIgnoreCase("linux")) {
+			capabilities.setPlatform(Platform.LINUX);
+		}
+		
+		if (platform_name.equalsIgnoreCase("mac")) {
+			capabilities.setPlatform(Platform.MAC);
+		}
+		
+		capabilities.setBrowserName(browser_name);
+		capabilities.setVersion(browser_version);
+
+		// video record
+		if (record_video.equalsIgnoreCase("True")) {
+			capabilities.setCapability("video", "True"); // NOTE: "True" is a case sensitive string, not boolean.
+		} else {
+			capabilities.setCapability("video", "False"); // NOTE: "False" is a case sensitive string, not boolean.
+		}
+		//??? Here, needs refinement, or simply utilize createDriver() for LOCAL
+		if (browser_name.equalsIgnoreCase("chrome")){
+			ChromeOptions options = new ChromeOptions();
+			// On Linux start-maximized does not expand browser window to max screen size. Always set a window size.
+			if (platform_name.equalsIgnoreCase("linux")) {
+				options.addArguments(Arrays.asList("--window-size=1920,1080"));	
+				} else {
+				options.addArguments(Arrays.asList("--start-maximized"));
+				}
+			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+			} 
+		
+	
+		//replace USERNAME:ACCESS_KEY@SUBDOMAIN with your credentials found in the Gridlastic dashboard
+		driver = new RemoteWebDriver(new URL("http://USERNAME:ACCESS_KEY@localhost:80/wd/hub"),capabilities);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		driver.manage().window().maximize(); // Always maximize firefox on windows
+		
+     // On LINUX/FIREFOX the "driver.manage().window().maximize()" option does not expand browser window to max screen size. Always set a window size.
+ 	if (platform_name.equalsIgnoreCase("linux") && browser_name.equalsIgnoreCase("firefox")) {
+ 		driver.manage().window().setSize(new Dimension(1920, 1080));	
+ 	}
+     
+
+		if (record_video.equalsIgnoreCase("True")) {
+			System.out.println("Test Video: " + VIDEO_URL + ((RemoteWebDriver) driver).getSessionId());
+		}
+		
+		return driver;
+	}	
+	
 	
 	public static WebDriver  createRemoteDriver(String browser,String browserVersion, String osName, String os_version) 
 	{  
