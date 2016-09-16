@@ -1,5 +1,7 @@
 package com.buxie.selenium.testNGfun;
 
+import java.lang.reflect.Method;
+
 //NOTE: replace USERNAME:ACCESS_KEY@YOUR_SUBDOMAIN and VIDEO_URL with your credentials found in the Gridlastic dashboard
 //ALSO SEE https://github.com/Gridlastic/demo1 FOR JAVA TESTNG EXAMPLES WITH PARALLEL TEST EXECUTIONS
 //NOTE: THE FIRST TEST ON A GRID NODE AFTER BEING LAUNCHED CAN BE SLOW, FOLLOWING TESTS ARE MUCH FASTER AFTER THE NODE IS "WARMED" UP.
@@ -20,6 +22,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.buxie.selenium.testCases.ArtistRadioCases;
+import com.buxie.selenium.testCases.ForYouCases;
+import com.buxie.selenium.testCases.LiveRadioCases;
+import com.buxie.selenium.testCases.PerfectForCases;
+import com.buxie.selenium.testCases.PodcastCases;
+import com.buxie.selenium.testCases.ProfileCases;
+
 public class GridTest {
 
 	// VIDEO_URL set to like "https://s3-ap-southeast-2.amazonaws.com/b2729248-ak68-6948-a2y8-80e7479te16a/9ag7b09j-6a38-58w2-bb01-17qw724ce46t/play.html?".
@@ -27,79 +36,54 @@ public class GridTest {
 	private static final String VIDEO_URL = null; 
 	private RemoteWebDriver driver;
 
-	@BeforeMethod(alwaysRun = true)
-	public void beforeMethod() throws Exception {
-
-		// Example test environment. NOTE: Gridlastic auto scaling requires all
-		// these 3 environment variables in each request.
-		String platform_name = "win7";
-		String browser_name = "firefox";
-		String browser_version = "46"; // for Chrome leave empty
-
-		// optional video recording
-		String record_video = "True";
-
-		DesiredCapabilities capabilities = new DesiredCapabilities();
-		if (platform_name.equalsIgnoreCase("win7")) {
-			capabilities.setPlatform(Platform.VISTA);
-		}
-		if (platform_name.equalsIgnoreCase("win8")) {
-			capabilities.setPlatform(Platform.WIN8);
-		}
-		if (platform_name.equalsIgnoreCase("win8_1")) {
-			capabilities.setPlatform(Platform.WIN8_1);
-		}
-		if (platform_name.equalsIgnoreCase("linux")) {
-			capabilities.setPlatform(Platform.LINUX);
-		}
-		capabilities.setBrowserName(browser_name);
-		capabilities.setVersion(browser_version);
-
-		// video record
-		if (record_video.equalsIgnoreCase("True")) {
-			capabilities.setCapability("video", "True"); // NOTE: "True" is a case sensitive string, not boolean.
-		} else {
-			capabilities.setCapability("video", "False"); // NOTE: "False" is a case sensitive string, not boolean.
-		}
-		
-		if (browser_name.equalsIgnoreCase("chrome")){
-			ChromeOptions options = new ChromeOptions();
-			// On Linux start-maximized does not expand browser window to max screen size. Always set a window size.
-			if (platform_name.equalsIgnoreCase("linux")) {
-				options.addArguments(Arrays.asList("--window-size=1920,1080"));	
-				} else {
-				options.addArguments(Arrays.asList("--start-maximized"));
-				}
-			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-			} 
-		
+	ArtistRadioCases artistRadioCases;
+	ForYouCases forYouCases;
+	PerfectForCases perfectForCases;
+	ProfileCases profileCases;
+	LiveRadioCases liveRadioCases;
+	PodcastCases podcastCases;
 	
-		//replace USERNAME:ACCESS_KEY@SUBDOMAIN with your credentials found in the Gridlastic dashboard
-		driver = new RemoteWebDriver(new URL("http://USERNAME:ACCESS_KEY@YOUR_SUBDOMAIN.gridlastic.com:80/wd/hub"),capabilities);
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		driver.manage().window().maximize(); // Always maximize firefox on windows
-		
-     // On LINUX/FIREFOX the "driver.manage().window().maximize()" option does not expand browser window to max screen size. Always set a window size.
- 	if (platform_name.equalsIgnoreCase("linux") && browser_name.equalsIgnoreCase("firefox")) {
- 		driver.manage().window().setSize(new Dimension(1920, 1080));	
- 	}
-     
-
-		if (record_video.equalsIgnoreCase("True")) {
-			System.out.println("Test Video: " + VIDEO_URL + ((RemoteWebDriver) driver).getSessionId());
-		}
+	 String browser = "chrome";
+	final String URL = "http://www.iheart.com";
+	
+	@BeforeMethod(alwaysRun = true)
+	public void beforeMethod(Method method) throws Exception {
+		//String AUT_URL ="http://www.iheart.com";
+		String nodeURL = "http://192.168.1.4:5566/wd/hub";
+		driver = Utils.createRemoteDriver(nodeURL, browser);
+		driver.get(URL);
+        WaitUtility.waitForPageToLoad(driver);
+        
+        forYouCases = new ForYouCases(driver);
+        perfectForCases = new PerfectForCases(driver);
+        profileCases = new ProfileCases(driver);
+        liveRadioCases = new LiveRadioCases(driver);
+        podcastCases = new PodcastCases(driver);
+        artistRadioCases = new ArtistRadioCases(driver);
+        
+        Page.setDriver (driver);
+        Page.setBrowser(browser);
+        
+        System.out.println("test method:" +  method.getName() + " started." );
 	}
 
-	@Test(enabled = true)
-	 public void test_site() throws Exception  { 	
-		driver.get("https://www.google.com/ncr");
-		Thread.sleep(10000); //slow down for demo purposes
-		WebElement element = driver.findElement(By.name("q"));
-     element.sendKeys("webdriver");
-     element.submit();
-     Thread.sleep(5000); //slow down for demo purposes
-	}
+	 @Test
+     public void testPopularUserFlow() 
+     {
+         forYouCases.flowAlong();
+     }
 
+	@Test(groups ="ArtistRadioTest")
+	 public void testFilterAndPlayCustomAfterLogin() throws Exception
+	 {  
+		artistRadioCases.filterAndPlayCustomAfterLogin();
+	 }
+	
+	@Test(groups ="ArtistRadioTest")
+	 public void testFavorite() throws Exception
+	 {  
+		artistRadioCases.favorite();
+	 }
 	@AfterMethod(alwaysRun = true)
 	public void tearDown() throws Exception {
 		driver.quit();

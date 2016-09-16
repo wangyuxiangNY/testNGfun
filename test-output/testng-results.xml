@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="9" failed="0" total="9" passed="0">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="48541" started-at="2016-09-16T13:18:31Z" finished-at="2016-09-16T13:19:20Z">
+    <groups>
+      <group name="ArtistRadioTest">
+        <method signature="RunWithTestNG.testFavorite()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testFavorite" class="com.buxie.selenium.testNGfun.RunWithTestNG"/>
+        <method signature="RunWithTestNG.testFilterAndPlayCustomAfterLogin()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testFilterAndPlayCustomAfterLogin" class="com.buxie.selenium.testNGfun.RunWithTestNG"/>
+      </group> <!-- ArtistRadioTest -->
+      <group name="podCastTest">
+        <method signature="RunWithTestNG.testPodcastThumbDown()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testPodcastThumbDown" class="com.buxie.selenium.testNGfun.RunWithTestNG"/>
+      </group> <!-- podCastTest -->
+      <group name="liveRadioTest">
+        <method signature="RunWithTestNG.testThumbUpLive()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testThumbUpLive" class="com.buxie.selenium.testNGfun.RunWithTestNG"/>
+      </group> <!-- liveRadioTest -->
+      <group name="PerfectFor">
+        <method signature="RunWithTestNG.testBrowsePerfectFor()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testBrowsePerfectFor" class="com.buxie.selenium.testNGfun.RunWithTestNG"/>
+      </group> <!-- PerfectFor -->
+      <group name="profileTest">
+        <method signature="RunWithTestNG.testPlayStastionFromProfile()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testPlayStastionFromProfile" class="com.buxie.selenium.testNGfun.RunWithTestNG"/>
+      </group> <!-- profileTest -->
+      <group name="searchTest">
+        <method signature="RunWithTestNG.testSearchFromPodcast()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testSearchFromPodcast" class="com.buxie.selenium.testNGfun.RunWithTestNG"/>
+        <method signature="RunWithTestNG.testSearchJoshInAll()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testSearchJoshInAll" class="com.buxie.selenium.testNGfun.RunWithTestNG"/>
+      </group> <!-- searchTest -->
+    </groups>
+    <test name="Default test" duration-ms="48541" started-at="2016-09-16T13:18:31Z" finished-at="2016-09-16T13:19:20Z">
+      <class name="com.buxie.selenium.testNGfun.RunWithTestNG">
+        <test-method status="FAIL" signature="init(java.lang.reflect.Method)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="init" is-config="true" duration-ms="0" started-at="2016-09-16T09:18:31Z" finished-at="2016-09-16T09:18:31Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.buxie.selenium.testNGfun.RunWithTestNG.testBrowsePerfectFor() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <exception class="org.openqa.selenium.WebDriverException">
+            <message>
+              <![CDATA[Failed to connect to binary FirefoxBinary(C:\Program Files (x86)\Mozilla Firefox\firefox.exe) on port 7055; process output follows: 
+,"syncGUID":"b6w_FG_MHSp-","location":"app-global","version":"48.0.2","type":"theme","internalName":"classic/1.0","updateURL":null,"updateKey":null,"optionsURL":null,"optionsType":null,"aboutURL":null,"icons":{"32":"icon.png","48":"icon.png"},"iconURL":null,"icon64URL":null,"defaultLocale":{"name":"Default","description":"The default theme.","creator":"Mozilla","homepageURL":null,"contributors":["Mozilla Contributors"]},"visible":true,"active":true,"userDisabled":false,"appDisabled":false,"descriptor":"C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}.xpi","installDate":1472018554000,"updateDate":1472018554000,"applyBackgroundUpdates":1,"skinnable":true,"size":21905,"sourceURI":null,"releaseNotesURI":null,"softDisabled":false,"foreignInstall":false,"hasBinaryComponents":false,"strictCompatibility":true,"locales":[],"targetApplications":[{"id":"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}","minVersion":"48.0.2","maxVersion":"48.0.2"}],"targetPlatforms":[],"seen":true}
+1474031914908	addons.xpi	DEBUG	getModTime: Recursive scan of {972ce4c6-7e08-4474-a285-3208198ce6fd}
+1474031914909	DeferredSave.extensions.json	DEBUG	Save changes
+1474031914909	addons.xpi	DEBUG	Updating database with changes to installed add-ons
+1474031914909	addons.xpi-utils	DEBUG	Updating add-on states
+1474031914910	addons.xpi-utils	DEBUG	Writing add-ons list
+1474031914913	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\features\e10srollout@mozilla.org.xpi
+1474031914914	addons.xpi	DEBUG	Calling bootstrap method startup on e10srollout@mozilla.org version 1.1
+1474031914914	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\features\firefox@getpocket.com.xpi
+1474031914914	addons.xpi	DEBUG	Calling bootstrap method startup on firefox@getpocket.com version 1.0.4
+1474031914915	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\features\loop@mozilla.org.xpi
+1474031914915	addons.xpi	DEBUG	Calling bootstrap method startup on loop@mozilla.org version 1.4.4
+1474031914934	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1474031914934	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1474031914934	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1474031914934	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1474031914935	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1474031914935	addons.manager	DEBUG	Starting provider: GMPProvider
+1474031914940	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1474031914941	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1474031914941	addons.manager	DEBUG	Starting provider: PluginProvider
+1474031914941	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1474031914941	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1474031914942	addons.manager	DEBUG	Completed startup sequence
+1474031915317	addons.manager	DEBUG	Starting provider: <unnamed-provider>
+1474031915317	addons.manager	DEBUG	Registering shutdown blocker for <unnamed-provider>
+1474031915317	addons.manager	DEBUG	Provider finished startup: <unnamed-provider>
+1474031915318	DeferredSave.extensions.json	DEBUG	Starting write
+1474031915622	addons.repository	DEBUG	No addons.json found.
+1474031915622	DeferredSave.addons.json	DEBUG	Save changes
+1474031915627	DeferredSave.addons.json	DEBUG	Starting timer
+1474031915659	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1474031915659	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1474031915662	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+1474031915664	DeferredSave.extensions.json	DEBUG	Write succeeded
+1474031915665	addons.xpi-utils	DEBUG	XPI Database saved, setting schema version preference to 17
+1474031915686	DeferredSave.addons.json	DEBUG	Starting write
+1474031915729	DeferredSave.addons.json	DEBUG	Write succeeded
+
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'DESKTOP-D75Q99P', ip: '192.168.1.5', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_101'
+Driver info: driver.version: FirefoxDriver]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.WebDriverException: Failed to connect to binary FirefoxBinary(C:\Program Files (x86)\Mozilla Firefox\firefox.exe) on port 7055; process output follows: 
+,"syncGUID":"b6w_FG_MHSp-","location":"app-global","version":"48.0.2","type":"theme","internalName":"classic/1.0","updateURL":null,"updateKey":null,"optionsURL":null,"optionsType":null,"aboutURL":null,"icons":{"32":"icon.png","48":"icon.png"},"iconURL":null,"icon64URL":null,"defaultLocale":{"name":"Default","description":"The default theme.","creator":"Mozilla","homepageURL":null,"contributors":["Mozilla Contributors"]},"visible":true,"active":true,"userDisabled":false,"appDisabled":false,"descriptor":"C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}.xpi","installDate":1472018554000,"updateDate":1472018554000,"applyBackgroundUpdates":1,"skinnable":true,"size":21905,"sourceURI":null,"releaseNotesURI":null,"softDisabled":false,"foreignInstall":false,"hasBinaryComponents":false,"strictCompatibility":true,"locales":[],"targetApplications":[{"id":"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}","minVersion":"48.0.2","maxVersion":"48.0.2"}],"targetPlatforms":[],"seen":true}
+1474031914908	addons.xpi	DEBUG	getModTime: Recursive scan of {972ce4c6-7e08-4474-a285-3208198ce6fd}
+1474031914909	DeferredSave.extensions.json	DEBUG	Save changes
+1474031914909	addons.xpi	DEBUG	Updating database with changes to installed add-ons
+1474031914909	addons.xpi-utils	DEBUG	Updating add-on states
+1474031914910	addons.xpi-utils	DEBUG	Writing add-ons list
+1474031914913	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\features\e10srollout@mozilla.org.xpi
+1474031914914	addons.xpi	DEBUG	Calling bootstrap method startup on e10srollout@mozilla.org version 1.1
+1474031914914	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\features\firefox@getpocket.com.xpi
+1474031914914	addons.xpi	DEBUG	Calling bootstrap method startup on firefox@getpocket.com version 1.0.4
+1474031914915	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\features\loop@mozilla.org.xpi
+1474031914915	addons.xpi	DEBUG	Calling bootstrap method startup on loop@mozilla.org version 1.4.4
+1474031914934	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1474031914934	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1474031914934	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1474031914934	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1474031914935	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1474031914935	addons.manager	DEBUG	Starting provider: GMPProvider
+1474031914940	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1474031914941	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1474031914941	addons.manager	DEBUG	Starting provider: PluginProvider
+1474031914941	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1474031914941	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1474031914942	addons.manager	DEBUG	Completed startup sequence
+1474031915317	addons.manager	DEBUG	Starting provider: <unnamed-provider>
+1474031915317	addons.manager	DEBUG	Registering shutdown blocker for <unnamed-provider>
+1474031915317	addons.manager	DEBUG	Provider finished startup: <unnamed-provider>
+1474031915318	DeferredSave.extensions.json	DEBUG	Starting write
+1474031915622	addons.repository	DEBUG	No addons.json found.
+1474031915622	DeferredSave.addons.json	DEBUG	Save changes
+1474031915627	DeferredSave.addons.json	DEBUG	Starting timer
+1474031915659	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1474031915659	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1474031915662	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+1474031915664	DeferredSave.extensions.json	DEBUG	Write succeeded
+1474031915665	addons.xpi-utils	DEBUG	XPI Database saved, setting schema version preference to 17
+1474031915686	DeferredSave.addons.json	DEBUG	Starting write
+1474031915729	DeferredSave.addons.json	DEBUG	Write succeeded
+
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'DESKTOP-D75Q99P', ip: '192.168.1.5', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_101'
+Driver info: driver.version: FirefoxDriver
+	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.start(NewProfileExtensionConnection.java:125)
+	at org.openqa.selenium.firefox.FirefoxDriver.startClient(FirefoxDriver.java:271)
+	at org.openqa.selenium.remote.RemoteWebDriver.<init>(RemoteWebDriver.java:119)
+	at org.openqa.selenium.firefox.FirefoxDriver.<init>(FirefoxDriver.java:216)
+	at org.openqa.selenium.firefox.FirefoxDriver.<init>(FirefoxDriver.java:211)
+	at org.openqa.selenium.firefox.FirefoxDriver.<init>(FirefoxDriver.java:207)
+	at org.openqa.selenium.firefox.FirefoxDriver.<init>(FirefoxDriver.java:120)
+	at com.buxie.selenium.testNGfun.Utils.createWebDriver(Utils.java:62)
+	at com.buxie.selenium.testNGfun.Utils.launchBrowser(Utils.java:263)
+	at com.buxie.selenium.testNGfun.RunWithTestNG.init(RunWithTestNG.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:100)
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:515)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:216)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:590)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:811)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1129)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
+	at org.testng.TestRunner.privateRun(TestRunner.java:746)
+	at org.testng.TestRunner.run(TestRunner.java:600)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:366)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:361)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:319)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:268)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1264)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1189)
+	at org.testng.TestNG.runSuites(TestNG.java:1104)
+	at org.testng.TestNG.run(TestNG.java:1076)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:152)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:57)
+Caused by: org.openqa.selenium.firefox.NotConnectedException: Unable to connect to host 127.0.0.1 on port 7055 after 45000 ms. Firefox console output:
+,"syncGUID":"b6w_FG_MHSp-","location":"app-global","version":"48.0.2","type":"theme","internalName":"classic/1.0","updateURL":null,"updateKey":null,"optionsURL":null,"optionsType":null,"aboutURL":null,"icons":{"32":"icon.png","48":"icon.png"},"iconURL":null,"icon64URL":null,"defaultLocale":{"name":"Default","description":"The default theme.","creator":"Mozilla","homepageURL":null,"contributors":["Mozilla Contributors"]},"visible":true,"active":true,"userDisabled":false,"appDisabled":false,"descriptor":"C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}.xpi","installDate":1472018554000,"updateDate":1472018554000,"applyBackgroundUpdates":1,"skinnable":true,"size":21905,"sourceURI":null,"releaseNotesURI":null,"softDisabled":false,"foreignInstall":false,"hasBinaryComponents":false,"strictCompatibility":true,"locales":[],"targetApplications":[{"id":"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}","minVersion":"48.0.2","maxVersion":"48.0.2"}],"targetPlatforms":[],"seen":true}
+1474031914908	addons.xpi	DEBUG	getModTime: Recursive scan of {972ce4c6-7e08-4474-a285-3208198ce6fd}
+1474031914909	DeferredSave.extensions.json	DEBUG	Save changes
+1474031914909	addons.xpi	DEBUG	Updating database with changes to installed add-ons
+1474031914909	addons.xpi-utils	DEBUG	Updating add-on states
+1474031914910	addons.xpi-utils	DEBUG	Writing add-ons list
+1474031914913	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\features\e10srollout@mozilla.org.xpi
+1474031914914	addons.xpi	DEBUG	Calling bootstrap method startup on e10srollout@mozilla.org version 1.1
+1474031914914	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\features\firefox@getpocket.com.xpi
+1474031914914	addons.xpi	DEBUG	Calling bootstrap method startup on firefox@getpocket.com version 1.0.4
+1474031914915	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\features\loop@mozilla.org.xpi
+1474031914915	addons.xpi	DEBUG	Calling bootstrap method startup on loop@mozilla.org version 1.4.4
+1474031914934	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1474031914934	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1474031914934	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1474031914934	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1474031914935	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1474031914935	addons.manager	DEBUG	Starting provider: GMPProvider
+1474031914940	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1474031914941	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1474031914941	addons.manager	DEBUG	Starting provider: PluginProvider
+1474031914941	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1474031914941	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1474031914942	addons.manager	DEBUG	Completed startup sequence
+1474031915317	addons.manager	DEBUG	Starting provider: <unnamed-provider>
+1474031915317	addons.manager	DEBUG	Registering shutdown blocker for <unnamed-provider>
+1474031915317	addons.manager	DEBUG	Provider finished startup: <unnamed-provider>
+1474031915318	DeferredSave.extensions.json	DEBUG	Starting write
+1474031915622	addons.repository	DEBUG	No addons.json found.
+1474031915622	DeferredSave.addons.json	DEBUG	Save changes
+1474031915627	DeferredSave.addons.json	DEBUG	Starting timer
+1474031915659	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1474031915659	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1474031915662	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+1474031915664	DeferredSave.extensions.json	DEBUG	Write succeeded
+1474031915665	addons.xpi-utils	DEBUG	XPI Database saved, setting schema version preference to 17
+1474031915686	DeferredSave.addons.json	DEBUG	Starting write
+1474031915729	DeferredSave.addons.json	DEBUG	Write succeeded
+
+	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.start(NewProfileExtensionConnection.java:113)
+	... 36 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.WebDriverException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="SKIP" signature="testBrowsePerfectFor()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testBrowsePerfectFor" duration-ms="2" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testBrowsePerfectFor -->
+        <test-method status="SKIP" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="SKIP" signature="init(java.lang.reflect.Method)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="init" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="SKIP" signature="testFavorite()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testFavorite" duration-ms="4" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testFavorite -->
+        <test-method status="SKIP" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="SKIP" signature="init(java.lang.reflect.Method)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="init" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="SKIP" signature="testFilterAndPlayCustomAfterLogin()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testFilterAndPlayCustomAfterLogin" duration-ms="3" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testFilterAndPlayCustomAfterLogin -->
+        <test-method status="SKIP" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="SKIP" signature="init(java.lang.reflect.Method)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="init" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="SKIP" signature="testPlayStastionFromProfile()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testPlayStastionFromProfile" duration-ms="3" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPlayStastionFromProfile -->
+        <test-method status="SKIP" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="SKIP" signature="init(java.lang.reflect.Method)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="init" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="SKIP" signature="testPodcastThumbDown()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testPodcastThumbDown" duration-ms="3" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPodcastThumbDown -->
+        <test-method status="SKIP" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="SKIP" signature="init(java.lang.reflect.Method)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="init" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="SKIP" signature="testPopularUserFlow()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testPopularUserFlow" duration-ms="4" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPopularUserFlow -->
+        <test-method status="SKIP" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="SKIP" signature="init(java.lang.reflect.Method)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="init" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="SKIP" signature="testSearchFromPodcast()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testSearchFromPodcast" duration-ms="2" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSearchFromPodcast -->
+        <test-method status="SKIP" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="SKIP" signature="init(java.lang.reflect.Method)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="init" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="SKIP" signature="testSearchJoshInAll()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testSearchJoshInAll" duration-ms="5" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSearchJoshInAll -->
+        <test-method status="SKIP" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="SKIP" signature="init(java.lang.reflect.Method)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="init" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="SKIP" signature="testThumbUpLive()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="testThumbUpLive" duration-ms="2" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testThumbUpLive -->
+        <test-method status="SKIP" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="SKIP" signature="bye()[pri:0, instance:com.buxie.selenium.testNGfun.RunWithTestNG@146ba0ac]" name="bye" is-config="true" duration-ms="0" started-at="2016-09-16T09:19:20Z" finished-at="2016-09-16T09:19:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- bye -->
+      </class> <!-- com.buxie.selenium.testNGfun.RunWithTestNG -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

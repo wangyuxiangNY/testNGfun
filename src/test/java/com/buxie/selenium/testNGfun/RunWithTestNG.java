@@ -47,7 +47,7 @@ public class RunWithTestNG {
 	static String userCity = "";
 	
 	 
-	final String URL = "http://www.iheart.com";
+	final String URL = "http://www.iheart.com/";
 
 	@BeforeMethod
 	public void init(Method method) {

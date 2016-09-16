@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
+    <classes>
+      <class name="com.buxie.selenium.testNGfun.RunWithTestNG">
+        <methods>
+          <include name="testFilterAndPlayCustomAfterLogin"/>
+          <include name="testSearchJoshInAll"/>
+          <include name="testPopularUserFlow"/>
+          <include name="testPodcastThumbDown"/>
+          <include name="testSearchFromPodcast"/>
+          <include name="testPlayStastionFromProfile"/>
+          <include name="init"/>
+          <include name="testFavorite"/>
+          <include name="testBrowsePerfectFor"/>
+          <include name="testThumbUpLive"/>
+        </methods>
+      </class> <!-- com.buxie.selenium.testNGfun.RunWithTestNG -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->
