@@ -1,6 +1,6 @@
 /bin/
 target/
-test-outupt/
+test-output/
 
 .DS_STORE
 *.local
