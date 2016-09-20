@@ -75,8 +75,9 @@ public abstract class Page {
 	
 	
 	public static void login()
-	{
-		login.click();
+	{  
+	    login.click();
+		System.out.println("wait a second.");
 		WaitUtility.fluentWaitIgnoreAll(driver, By.name("username"), 2).sendKeys(USER_NAME);
 		WaitUtility.waitForPageToLoad(driver);
 		password.sendKeys(PASSWORD);

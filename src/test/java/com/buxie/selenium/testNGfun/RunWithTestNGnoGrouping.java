@@ -27,11 +27,7 @@ import org.testng.asserts.Assertion;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
-
-
-//show the use of @BeforeSuite and @BeforeTest
-public class RunWithTestNG {
-	
+public class RunWithTestNGnoGrouping {
 
 	static WebDriver driver;
 	ArtistRadioCases artistRadioCases;
@@ -96,70 +92,115 @@ public class RunWithTestNG {
 	
 	 @Test
      public void testPopularUserFlow() 
-     {
-         forYouCases.flowAlong();
+     {  
+		try{
+           forYouCases.flowAlong();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
      }
 
-	@Test(groups ="ArtistRadioTest")
+	@Test
 	 public void testFilterAndPlayCustomAfterLogin() throws Exception
 	 {  
-		artistRadioCases.filterAndPlayCustomAfterLogin();
+		try{
+	           artistRadioCases.filterAndPlayCustomAfterLogin();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	 }
 	
-	@Test(groups ="ArtistRadioTest")
+	@Test
 	 public void testFavorite() throws Exception
 	 {  
-		artistRadioCases.favorite();
+		try{
+	           artistRadioCases.favorite();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	 }
 	
-	 @Test(groups ="searchTest")
+	 @Test
 	 public void testSearchJoshInAll() throws Exception
 	 {  
-		 podcastCases.searchJoshInAll();
+		 try{
+	            podcastCases.searchJoshInAll();
+		 }catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 	 }
 	
-	 @Test(groups ="searchTest")
+	 @Test
 	 public void testSearchFromPodcast() throws Exception
 	 {  
-		 podcastCases.searchJoshInPodcast();
+		 try{
+	            podcastCases.searchJoshInPodcast();
+		 }catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 	 }	 
  
-	 @Test(groups ="podCastTest")
+	 @Test
     public void testPodcastThumbDown() throws Exception
     {  
-		 podcastCases.thumbDown();
+		 try{
+	            podcastCases.thumbDown();
+		 }catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		
     }
 			
 	
 	
-	 @Test(groups ="liveRadioTest")
+	 @Test
     public void testThumbUpLive() throws Exception
     {  
-		 liveRadioCases.thumbUp();
+		 try{
+	           liveRadioCases.thumbUp();
+		 }catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		
     }
 			
 	
-	 @Test(groups ="profileTest")
+	 @Test
     public void testPlayStastionFromProfile() throws Exception
     {  
-		 profileCases.playMyStation(1);
+		 try{
+	           profileCases.playMyStation(1);
+		 }catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		
     }
 		
 			
 
-	 @Test(groups = "PerfectFor")
+	 @Test
 	 public void testBrowsePerfectFor() throws Exception
 	 {
 	    
-		 perfectForCases.browsePerfectFor();
+		 try{
+	           perfectForCases.browsePerfectFor();
+		 }catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 	 }
 	
 
 		@AfterMethod
-	    public void tearDown(ITestResult result) throws Exception{
+	    public void tearDown(ITestResult result){
 			Verify.softAssert.assertAll();
 			if(result.getStatus() == ITestResult.FAILURE)
 	        {
@@ -180,11 +221,13 @@ public class RunWithTestNG {
 	
 	    @AfterTest
 	    public void bye() throws Exception{
+	    	if (driver != null)
+	    		driver.quit();
     	    System.out.println("Done done done.!");
 	    	
 	    }
 	
 	   
 	
-
+	
 }

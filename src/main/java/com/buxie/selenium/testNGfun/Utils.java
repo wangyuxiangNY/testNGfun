@@ -1,5 +1,6 @@
 package com.buxie.selenium.testNGfun;
 
+import java.io.File;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
@@ -27,12 +28,14 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.EdgeDriverManager;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 
 
@@ -58,8 +61,18 @@ public class Utils {
 	
 	    if (browser.equalsIgnoreCase("firefox"))
 	    {  
-	         System.setProperty("webdriver.gecko.driver","C:\\Users\\azurewangyx\\seleniumDownloads\\geckodriver.exe");
-	    	 driver = new FirefoxDriver();
+	      //  System.setProperty("webdriver.gecko.driver","C:\\Users\\azurewangyx\\seleniumDownloads\\geckodriver.exe");
+	    	FirefoxProfile profile = new FirefoxProfile();
+	    //	profile.setPreference("browser.usedOnWindows10", false);
+	    //	profile.setPreference("browser.usedOnWindows10.introURL", "about:blank");
+	        profile.setPreference("browser.startup.homepage_override.mstone", "ignore");
+	    	profile.setPreference("browser.startup.homepage","about:blank");
+
+
+	    	//profile.setPreference("startup.homepage_welcome_url.additional",  "about:blank");
+	    	
+	    	driver = new FirefoxDriver(profile);
+	    	//driver = new FirefoxDriver();
 	
 	    }else if (browser.equalsIgnoreCase("chrome"))
 	    {   
@@ -80,17 +93,16 @@ public class Utils {
 	
 	      }else  if (browser.equalsIgnoreCase("edge"))
 	      {
-	    	  String serverPath = "C:\\Users\\azurewangyx\\Downloads\\MicrosoftWebDriver.exe";
-	    	  //System.setProperty("dwebdriver.edge.driver", new File( serverPath).getAbsolutePath());
+	    	  
+	    	  String serverPath = "C:\\Program Files (x86)\\Microsoft Web Driver\\MicrosoftWebDriver.exe";
 	    	  System.setProperty("webdriver.edge.driver", serverPath);
 	    	  
-	    	//  EdgeOptions options = new EdgeOptions();
-	    	//  options.setPageLoadStrategy("eager");
+	    	  //EdgeDriverManager.getInstance().setup();
 	    	  
-	    	  DesiredCapabilities capabilities = DesiredCapabilities.edge();
-	    	  capabilities.setPlatform(Platform.WIN10);
-	    	  capabilities.setBrowserName("MicrosoftEdge");
-	    	  driver = new EdgeDriver(capabilities);
+	    	  // EdgeOptions options = new EdgeOptions();
+	    	   //options.setPageLoadStrategy("eager");
+	    	  
+	    	   driver = new EdgeDriver();
 	    	  
 	      }else
 	      {
@@ -123,26 +135,18 @@ public class Utils {
 	
 	
 	
-	public static RemoteWebDriver  createRemoteDriver(String nodeURL, String browser) throws Exception
+	public static RemoteWebDriver  createRemoteDriver(String hubURL, String browser, String platform) throws Exception
 	{  
 		RemoteWebDriver driver;
 		
-		 final String VIDEO_URL="LOCALHOST";
-		
-		// Example test environment. NOTE: Gridlastic auto scaling requires all
-		// these 3 environment variables in each request.
-		 
-		 //???How to detect remote nodes' OS? 
+	
 		 String platform_name = OSDetector(); //"win7";
-	//	String browser_name = "firefox";
-	//	String browser_version = "46"; // for Chrome leave empty
-
-		// optional video recording
-		String record_video = "True";
-
-		//??????something wrong here. Need to set property for driver path for firefox/edge/chrome as well
+	
+	
 		
 		DesiredCapabilities capabilities = new DesiredCapabilities();
+		//??????something wrong here. Need to set property for driver path for firefox/edge/chrome as well
+				/*
 		if (platform_name.equalsIgnoreCase("win7")) {
 			capabilities.setPlatform(Platform.VISTA);
 		}
@@ -159,17 +163,23 @@ public class Utils {
 		if (platform_name.equalsIgnoreCase("mac")) {
 			capabilities.setPlatform(Platform.MAC);
 		}
+		*/
+		 
+		if (browser.equalsIgnoreCase("intenet explorer"))
+		{
+			File file = new File("C:\\Users\\azurewangyx\\seleniumDownloads\\iexploredriver.exe");
+			System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
+			capabilities = DesiredCapabilities.internetExplorer();
+		//	capabilities.setVersion("11");
+		}else if (browser.equalsIgnoreCase("chrome"))
+		{
+			File file = new File("C:\\Users\\azurewangyx\\seleniumDownloads\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
+			capabilities = DesiredCapabilities.chrome();
+		//	capabilities.setVersion("11");
+		}else 
+	    	capabilities.setBrowserName(browser);
 		
-		capabilities.setBrowserName(browser);
-		//capabilities.setVersion(browser_version);
-
-		// video record
-		if (record_video.equalsIgnoreCase("True")) {
-			capabilities.setCapability("video", "True"); // NOTE: "True" is a case sensitive string, not boolean.
-		} else {
-			capabilities.setCapability("video", "False"); // NOTE: "False" is a case sensitive string, not boolean.
-		}
-		//??? Here, needs refinement, or simply utilize createDriver() for LOCAL
 		if (browser.equalsIgnoreCase("chrome")){
 			ChromeOptions options = new ChromeOptions();
 			// On Linux start-maximized does not expand browser window to max screen size. Always set a window size.
@@ -181,9 +191,13 @@ public class Utils {
 			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 			} 
 		
+		if (platform.equalsIgnoreCase("windows"))
+	    	capabilities.setPlatform(Platform.WIN10);
+		else
+			capabilities.setPlatform(Platform.MAC);
 	
 		//replace USERNAME:ACCESS_KEY@SUBDOMAIN with your credentials found in the Gridlastic dashboard
-		driver = new RemoteWebDriver(new URL(nodeURL),capabilities);
+		driver = new RemoteWebDriver(new URL(hubURL),capabilities);
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		driver.manage().window().maximize(); // Always maximize firefox on windows
 		
@@ -192,10 +206,6 @@ public class Utils {
  		driver.manage().window().setSize(new Dimension(1920, 1080));	
  	}
      
-
-		if (record_video.equalsIgnoreCase("True")) {
-			System.out.println("Test Video: " + VIDEO_URL + ((RemoteWebDriver) driver).getSessionId());
-		}
 		
 		return driver;
 	}	
@@ -206,6 +216,8 @@ public class Utils {
 		WebDriver driver;
 		
 		DesiredCapabilities caps = new DesiredCapabilities();
+		
+		
 	    caps.setCapability("browser", browser);
 	    caps.setCapability("browser_version", browserVersion);
 	    caps.setCapability("os", osName);

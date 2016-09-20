@@ -29,7 +29,8 @@ import com.buxie.selenium.testCases.PerfectForCases;
 import com.buxie.selenium.testCases.PodcastCases;
 import com.buxie.selenium.testCases.ProfileCases;
 
-public class GridTest {
+public class GridTest2 {
+	
 
 	// VIDEO_URL set to like "https://s3-ap-southeast-2.amazonaws.com/b2729248-ak68-6948-a2y8-80e7479te16a/9ag7b09j-6a38-58w2-bb01-17qw724ce46t/play.html?".
 	// Find this VIDEO_URL value in your Gridlastic dashboard.
@@ -43,16 +44,16 @@ public class GridTest {
 	LiveRadioCases liveRadioCases;
 	PodcastCases podcastCases;
 	
-	// String browser = "chrome";
-	 String browser = "firefox";
+	 String browser = "chrome";
+	// String browser = "firefox";
+	//String browser = "internet explorer";
 	final String URL = "http://www.iheart.com";
 	
 	@BeforeMethod(alwaysRun = true)
 	public void beforeMethod(Method method) throws Exception {
 		
-		//String nodeURL = "http://192.168.1.4:5566/wd/hub";
 		String hubURL = "http://192.168.1.5:4444/wd/hub";
-		driver = Utils.createRemoteDriver(hubURL, browser, "mac");
+		driver = Utils.createRemoteDriver(hubURL, browser, "windows");
 		driver.get(URL);
         WaitUtility.waitForPageToLoad(driver);
         
@@ -90,5 +91,6 @@ public class GridTest {
 	public void tearDown() throws Exception {
 		driver.quit();
 	}
+	
 
 }

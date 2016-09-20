@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
-  <test name="Default test(failed)">
+<suite guice-stage="DEVELOPMENT" verbose="10" name="Failed suite [Test IHEART In Firefox]">
+  <test name="Test in Firefox(failed)">
     <classes>
       <class name="com.buxie.selenium.testNGfun.RunWithTestNGnoGrouping">
         <methods>
@@ -13,10 +13,11 @@
           <include name="testSearchFromPodcast"/>
           <include name="testSearchJoshInAll"/>
           <include name="testFavorite"/>
+          <include name="testBrowsePerfectFor"/>
           <include name="tearDown"/>
           <include name="testFilterAndPlayCustomAfterLogin"/>
         </methods>
       </class> <!-- com.buxie.selenium.testNGfun.RunWithTestNGnoGrouping -->
     </classes>
-  </test> <!-- Default test(failed) -->
-</suite> <!-- Failed suite [Default suite] -->
+  </test> <!-- Test in Firefox(failed) -->
+</suite> <!-- Failed suite [Test IHEART In Firefox] -->
