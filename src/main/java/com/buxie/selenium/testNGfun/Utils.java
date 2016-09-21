@@ -145,27 +145,8 @@ public class Utils {
 	
 		
 		DesiredCapabilities capabilities = new DesiredCapabilities();
-		//??????something wrong here. Need to set property for driver path for firefox/edge/chrome as well
-				/*
-		if (platform_name.equalsIgnoreCase("win7")) {
-			capabilities.setPlatform(Platform.VISTA);
-		}
-		if (platform_name.equalsIgnoreCase("win8")) {
-			capabilities.setPlatform(Platform.WIN8);
-		}
-		if (platform_name.equalsIgnoreCase("win8_1")) {
-			capabilities.setPlatform(Platform.WIN8_1);
-		}
-		if (platform_name.equalsIgnoreCase("linux")) {
-			capabilities.setPlatform(Platform.LINUX);
-		}
 		
-		if (platform_name.equalsIgnoreCase("mac")) {
-			capabilities.setPlatform(Platform.MAC);
-		}
-		*/
-		 
-		if (browser.equalsIgnoreCase("intenet explorer"))
+		if (browser.equalsIgnoreCase("intenet explorer") || browser.equalsIgnoreCase("ie"))
 		{
 			File file = new File("C:\\Users\\azurewangyx\\seleniumDownloads\\iexploredriver.exe");
 			System.setProperty("webdriver.ie.driver", file.getAbsolutePath());

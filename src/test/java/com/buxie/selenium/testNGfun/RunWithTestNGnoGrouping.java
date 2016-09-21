@@ -201,7 +201,13 @@ public class RunWithTestNGnoGrouping {
 
 		@AfterMethod
 	    public void tearDown(ITestResult result){
-			Verify.softAssert.assertAll();
+			try{
+			   Verify.softAssert.assertAll();
+			   
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 			if(result.getStatus() == ITestResult.FAILURE)
 	        {
 				try{
