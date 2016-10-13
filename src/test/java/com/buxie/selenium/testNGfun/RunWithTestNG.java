@@ -42,9 +42,9 @@ public class RunWithTestNG {
 	PodcastCases podcastCases;
 	
 	
-	//String browser = "chrome";
+	String browser = "chrome";
 	// String browser = "firefox";
-	 String browser = "edge";
+	// String browser = "edge";
 	//String browser = "ie";
 	
 	String methodName ="";
