@@ -57,11 +57,24 @@ public class SignUpPage extends Page{
 		//icon_close.click();
 	}
 	
+	public void getSignupPage()
+	{
+		try{
+		  loginButton.click();
+		}catch(Exception e)
+		{
+			return;
+		}
+		
+	   WaitUtility.waitForPageToLoad(driver);
+	   
+	   driver.findElement(By.cssSelector("#dialog > div > div > div > header > div.type-secondary > span > a")).click();
+	   WaitUtility.waitForPageToLoad(driver);
+	}
+	
 	 public void signUp()
 	 {  
-		   loginButton.click();
-		   driver.findElement(By.cssSelector("#dialog > div > div > div > header > div.type-secondary > span > a")).click();
-		   
+		    getSignupPage();
 		   String  randomEmail_firstPart = Utils.getCurrentDateInMilli();
 			String _email = randomEmail_firstPart + "@mailinator.com";
 			System.out.println("See randomEmail:" + _email);
@@ -69,12 +82,13 @@ public class SignUpPage extends Page{
 		    password.sendKeys("iheart001");
 		    zipCode.sendKeys("10013");
 		    new Select(birthYear).selectByVisibleText("1980");
-		    WaitUtility.waitForPageToLoad(driver);
+		    WaitUtility.sleep(2000);
 		    gender_female.click();
 		    signUp.click();
 		    WaitUtility.waitForPageToLoad(driver);
 		    System.out.println("see signed account:" + signedAccount.getText() );
 		    signedAccount.click();
+		    
 		    
 		    if (!signedAccount.getText().contains(randomEmail_firstPart))
 		    	Page.getErrors().append("Signup failed.");

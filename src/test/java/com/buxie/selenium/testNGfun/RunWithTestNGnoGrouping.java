@@ -38,8 +38,8 @@ public class RunWithTestNGnoGrouping {
 	PodcastCases podcastCases;
 	
 	
-	//String browser = "chrome";
-	 String browser = "firefox";
+	String browser = "chrome";
+	 //String browser = "firefox";
 	// String browser = "edge";
 	
 	static String userCity = "";
@@ -71,7 +71,7 @@ public class RunWithTestNGnoGrouping {
 	*/
 	
 	
-	@BeforeMethod
+	@BeforeMethod(alwaysRun = true)
 	public void init(Method method) {
         driver = Utils.launchBrowser(URL, browser);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -199,7 +199,7 @@ public class RunWithTestNGnoGrouping {
 	 }
 	
 
-		@AfterMethod
+		@AfterMethod(alwaysRun = true)
 	    public void tearDown(ITestResult result){
 			try{
 			   Verify.softAssert.assertAll();

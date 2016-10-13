@@ -166,7 +166,6 @@ public class Navigation extends Page{
 		
 		 driver.get(newURL);
 		
-		 WaitUtility.waitForPageToLoad(driver);
 	}
 	
 	
@@ -187,7 +186,7 @@ public class Navigation extends Page{
 	    	count++;
 		}while (!driver.getCurrentUrl().contains("artist") && count < 3); 
 		
-		WaitUtility.waitForPageToLoad(driver);
+		//WaitUtility.waitForPageToLoad(driver);
 	}
 
 
@@ -207,7 +206,7 @@ public class Navigation extends Page{
 			count++;
 		}while (!driver.getCurrentUrl().contains("perfect") && count < 3);
 		
-		WaitUtility.waitForPageToLoad(driver);
+		//WaitUtility.waitForPageToLoad(driver);
 	}
 
 	
@@ -229,7 +228,7 @@ public class Navigation extends Page{
 			count++;
 		}while (!driver.getCurrentUrl().contains("show") && count < 3);
 		
-		WaitUtility.waitForPageToLoad(driver);
+		//WaitUtility.waitForPageToLoad(driver);
 	}
 
 
@@ -246,7 +245,7 @@ public class Navigation extends Page{
 		System.out.println("SEE new url:"  + newURL );
 		
 		driver.get(newURL);
-		WaitUtility.waitForPageToLoad(driver);
+	//	WaitUtility.waitForPageToLoad(driver);
 
 	}
 	

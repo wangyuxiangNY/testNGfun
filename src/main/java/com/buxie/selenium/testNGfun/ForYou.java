@@ -44,6 +44,22 @@ public class ForYou  extends Page{
 	    })
 	protected List<WebElement> stationPlayIcons;
 	
+	//hover over the station, get 'more' out, then hover over to 'not for me', then click
+	
+	@FindBys({
+	    @FindBy(css = "div.tile-dropdown"),
+	    @FindBy(css = "div>button"),
+	    @FindBy(css = "i.icon-more-horizontal")
+	    })
+	protected List<WebElement> horizontalMoreIcons;
+	
+	@FindBys({
+	    @FindBy(css = "div.dropdown-content"),
+	    @FindBy(css = "nav.dropdown > ul >li"),
+	    @FindBy(css = "a[title='Add to Favorites']")
+	    })
+	protected List<WebElement> addToFavoriteIcons;
+	
 	//for Z100.com/Popular User Flow
 		@FindBy(css=".ihr-icon-listen-live")
 				private WebElement listenLive;
@@ -81,13 +97,8 @@ public class ForYou  extends Page{
 	    	 if (count == index)
 	    	 {   //first scoll down if elment is not visible
 	    		 if (index > 4)
-	    		     //station.sendKeys(Keys.PAGE_DOWN);
 	    			 Utils.scrollScreenDown(driver, 700);
-	    		 //ul.station-tiles:nth-child(2) > li:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(3) > button:nth-child(2)
-	    		 														//	.favorites > div:nth-child(1) > a:nth-child(1) > div:nth-child(3) > button:nth-child(2)
-	    		//  ul.station-tiles:nth-child(2) > li:nth-child(9) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(3) > button:nth-child(2)
-	    		 By  by = By.cssSelector("ul.station-tiles:nth-child(2) > li:nth-child(" + index  + ") > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(3) > button:nth-child(2)" );
-	    		// hoverThenClick(station, stationPlayIcons.get(index));
+	    		 	 By  by = By.cssSelector("ul.station-tiles:nth-child(2) > li:nth-child(" + index  + ") > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(3) > button:nth-child(2)" );
 	    		 hoverThenClick(station, by, 5);
 	    		 break;
 	    	 }else
@@ -95,6 +106,33 @@ public class ForYou  extends Page{
 	     }
 	}
 	
+	
+	public void notForMe(int stationIndex)
+	{  
+		Actions action = new Actions(driver);
+		Utils.scrollElementIntoView(driver, stations.get(0));
+		Utils.scrollScreenDown(driver, -50);
+		action.moveToElement(stations.get(0)).build().perform();
+		action.moveToElement(horizontalMoreIcons.get(0)).build().perform();
+		WebElement notForMe = driver.findElement(By.cssSelector("#main > ul > li:nth-child(1) > div > div.station-thumb-wrapper.ui-on-dark > div > div.dropdown-content > nav > ul > li:nth-child(2) > a"));
+				
+		action.moveToElement(notForMe).click().build().perform();
+		
+	}
+	
+	public void addToFavorite(int stationIndex)
+	{  
+		Actions action = new Actions(driver);
+		Utils.scrollElementIntoView(driver, stations.get(0));
+		Utils.scrollScreenDown(driver, -50);
+		action.moveToElement(stations.get(0)).build().perform();
+		action.moveToElement(horizontalMoreIcons.get(0)).build().perform();
+	//	action.moveToElement(addToFavoriteIcons.get(0)).click().build().perform();
+		WebElement fav = driver.findElement(By.cssSelector("ul.station-tiles:nth-child(2) > li:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)"));
+		
+		action.moveToElement(fav).click().build().perform();
+		
+	}
 	
 	public void playFromZ100()
 	{

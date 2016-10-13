@@ -34,7 +34,13 @@ public class PodcastsPage extends Page {
 		    })
 		protected List<WebElement> stationPlayIcons;
 	    
-	 
+		 
+		 @FindBys({
+			    @FindBy(css = "table.episodes"),
+			    @FindBy(css = "tr.playable-row")
+			    })
+			protected List<WebElement> episodes;
+		    
 	 
 	 @FindBys({
 		    @FindBy(css = "table.episodes"),
@@ -97,9 +103,14 @@ public class PodcastsPage extends Page {
 		 * @Return playing-station name
 		 */
 		public void playEpisodeByIndex(int stationIndex, int episodeIndex)
-		{
+		{  
+		   System.out.println("See episode index:" + episodeIndex);
 	       String chosenStationName = chooseStation(stationIndex);
 	       WaitUtility.waitForPageToLoad(driver);
+	       //True reason is that element needs to scroll up to be visible
+	       Utils.scrollElementIntoView(driver, episodes.get(episodeIndex));
+	       //Sometimes it goes down a little bit too much, thus need adjustment
+	       Utils.scrollScreenDown(driver, -35);
 	       episodePlayIcons.get(episodeIndex).click();
 	       WaitUtility.waitForPageToLoad(driver);
 	       waitForPreroll();

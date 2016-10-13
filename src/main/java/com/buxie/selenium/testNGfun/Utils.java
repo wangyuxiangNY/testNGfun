@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -19,6 +20,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.FileDetector;
 import org.openqa.selenium.remote.LocalFileDetector;
@@ -47,11 +49,8 @@ public class Utils {
 
 
 	public static WebDriver  createWebDriver() 
-	
 	{
-	
-	return createWebDriver("firefox");
-	
+		return createWebDriver("firefox");
 	}
 	
 	
@@ -161,16 +160,20 @@ public class Utils {
 		}else 
 	    	capabilities.setBrowserName(browser);
 		
-		if (browser.equalsIgnoreCase("chrome")){
+		if (browser.equalsIgnoreCase("chrome"))
+		{
 			ChromeOptions options = new ChromeOptions();
 			// On Linux start-maximized does not expand browser window to max screen size. Always set a window size.
-			if (platform_name.equalsIgnoreCase("linux")) {
+			if (platform_name.equalsIgnoreCase("linux")) 
+			{
 				options.addArguments(Arrays.asList("--window-size=1920,1080"));	
-				} else {
+			} else
+			{
 				options.addArguments(Arrays.asList("--start-maximized"));
-				}
+			}
+			
 			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-			} 
+		} 
 		
 		if (platform.equalsIgnoreCase("windows"))
 	    	capabilities.setPlatform(Platform.WIN10);
@@ -222,7 +225,6 @@ public class Utils {
 	
 	
 	
-	
 	public static void waitForPageToLoad(WebDriver driver) {
 	    ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
 	
@@ -255,6 +257,7 @@ public class Utils {
 	{       Page.setBrowser(browser);
 			WebDriver driver = createWebDriver(browser);
 			
+				
 			driver.get(url);
 			
 		//	driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -305,17 +308,27 @@ public class Utils {
 	
 	
 	public static void scrollElementIntoView(WebDriver driver, WebElement element)
-	{
+	{   
 		JavascriptExecutor jse = (JavascriptExecutor)driver; 
 		jse.executeScript("arguments[0].scrollIntoView()", element);
+		
 	}
 	
+	
+
+	public static void scrollToTopOfElement(WebDriver driver,   WebElement element)
+	{
+		int offset = element.getSize().getHeight() * (-1);
+		System.out.println("See element height:" + offset);
+		JavascriptExecutor jse = (JavascriptExecutor)driver; 
+		jse.executeScript("window.scrollBy(0," + offset + ")", "");
+		
+	}
 	
 	public static void scrollScreenDown(WebDriver driver,  int offset)
 	{
 		JavascriptExecutor jse = (JavascriptExecutor)driver; 
 		jse.executeScript("window.scrollBy(0," + offset + ")", "");
-		//jse.executeScript("window.scrollBy(0,450)", "");
 		
 	}
 	
@@ -323,7 +336,6 @@ public class Utils {
 	{
 		JavascriptExecutor jse = (JavascriptExecutor)driver; 
 		jse.executeScript("scroll(0," + offset);
-		//jse.executeScript("scroll(0, 250)"); // if the element is on bottom.
 	}
 	
 	
@@ -331,6 +343,17 @@ public class Utils {
 	{
 		//to be done
 	}
+	
+	//hover to, then hover to the next, .... then finally, click on the element
+	public static void hoverToThenClick(WebDriver driver, List<WebElement> hoverTos,  WebElement clickOnElement)
+	{
+		Actions action = new Actions(driver);
+		for (WebElement element: hoverTos)
+		   action.moveToElement(element);
+		
+		action.moveToElement(clickOnElement).click().build().perform();
+	}
+	
 	
 	//If file resides locally
 	public static void uploadFile(WebDriver driver, By by, String pathToFile)

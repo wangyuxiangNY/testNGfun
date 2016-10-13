@@ -25,7 +25,7 @@ public class Player extends Page {
 
 	@FindBy(css="div.player-center > div.player-controls > button:nth-child(1)") protected WebElement thumpDown;
 	@FindBy(css="div.player-center > div.player-controls > button:nth-child(2)") protected WebElement thumpUp;
-	@FindBy(css="div.player-center > div.player-controls > button:nth-child(3)") protected WebElement playControl;
+	@FindBy(xpath="//*[@id='player']/div[2]/div/button[1]") protected WebElement playControl;
 	@FindBy(css="div.player-center > div.player-controls > button:nth-child(3)") protected WebElement scan;
 	@FindBy(css=".slider-range-appearance") protected WebElement volumeBar;
 	

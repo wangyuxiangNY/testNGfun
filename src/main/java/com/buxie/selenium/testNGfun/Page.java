@@ -46,10 +46,10 @@ public abstract class Page {
 	public static WebDriver driver;
 	
 	static String browser ="";
-	static final String USER_NAME ="iheartrocks888@gmail.com";
-	static final String PASSWORD ="iheart001";
-	static final String FACEBOOK_USER_NAME = USER_NAME;
-	static final String GOOGLE_USER_NAME = USER_NAME;
+	static  String USER_NAME ="iheartrocks888@gmail.com";
+	static  String PASSWORD ="iheart001";
+	static  String FACEBOOK_USER_NAME = USER_NAME;
+	static  String GOOGLE_USER_NAME = USER_NAME;
 	
 	
 	
@@ -75,9 +75,13 @@ public abstract class Page {
 	
 	
 	public static void login()
-	{  
-	    login.click();
-		System.out.println("wait a second.");
+	{    USER_NAME ="iheartrocks888@gmail.com";
+		 PASSWORD ="iheart001";
+	   // login.click();
+		 //can I detect ajax call count?  Will fluentwait solve problem? Will @FindBy give me trouble?
+		WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
+		mylogin.click();
+		WaitUtility.waitForPageToLoad(driver);
 		WaitUtility.fluentWaitIgnoreAll(driver, By.name("username"), 2).sendKeys(USER_NAME);
 		WaitUtility.waitForPageToLoad(driver);
 		password.sendKeys(PASSWORD);

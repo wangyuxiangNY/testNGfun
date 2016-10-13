@@ -19,6 +19,7 @@ import org.openqa.selenium.NoSuchElementException;
 import com.sun.corba.se.impl.orbutil.threadpool.TimeoutException;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +31,8 @@ import java.util.concurrent.TimeUnit;
 import com.google.common.base.Function;
 
 public class WaitUtility {
+	
+	private static List<Object>  ajaxCalls;
 
 	public static void sleep(long milliSecond)
 	{
@@ -58,7 +61,7 @@ public class WaitUtility {
 	              System.out.println("Timeout waiting for Page Load Request to complete.");
 	      }
 	      
-	      WaitUtility.sleep(2000); //Give it extra time to wait.
+	      WaitUtility.sleep(3000); //Give it extra time to wait.
 	 } 
 	
 	
@@ -140,6 +143,8 @@ public class WaitUtility {
 	 */
 	protected static WebElement waitForElementToAppear(WebDriver driver, final By locator, int timeOutInSecond)
 	{
+		 driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+	        
 	  Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(timeOutInSecond, TimeUnit.SECONDS).pollingEvery(1, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
 
 	  WebElement element = null;
@@ -167,6 +172,8 @@ public class WaitUtility {
 	    throw new NoSuchElementException("Timeout reached when searching for element!", e);
 	  }
 
+	  driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+      
 	  return element;
 	}
 	 
@@ -186,7 +193,7 @@ public class WaitUtility {
 		 exceptionsToIgnore.add(NoSuchElementException.class);
 		 exceptionsToIgnore.add(StaleElementReferenceException.class);
 		 exceptionsToIgnore.add(WebDriverException.class);
-		 exceptionsToIgnore.add(Exception.class);
+		 //exceptionsToIgnore.add(Exception.class);
 		
 		  Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(timeOutInSecond, TimeUnit.SECONDS).pollingEvery(1, TimeUnit.SECONDS).ignoreAll(exceptionsToIgnore);
 	
@@ -199,21 +206,11 @@ public class WaitUtility {
 		    	  return driver.findElement(locator);
 		      }
 		    });
-		  } catch (Exception e) {
-			    try {
-			      // I want the error message on what element was not found
-			      driver.findElement(locator);
-			    } catch (NoSuchElementException renamedErrorOutput) {
-			      // print that error message
-			      renamedErrorOutput.addSuppressed(e);
-			      // throw new
-			      // NoSuchElementException("Timeout reached when waiting for element to be found!"
-			      // + e.getMessage(), correctErrorOutput);
-			      throw renamedErrorOutput;
-			    }
-			    e.addSuppressed(e);
-			    throw new NoSuchElementException("Timeout reached when searching for element!", e);
-			  }
+		  } catch (Exception e)
+		  {
+			  System.out.println("Exception is thrown while fluentWait..");
+			  e.printStackTrace();
+		  }
 	
 		  setImplicitWait(driver, 20);
 		  	return element;
@@ -285,4 +282,138 @@ public class WaitUtility {
 		element.click();
 	}
 	
+	   public static List tryScript(WebDriver driver) throws Exception
+	    {
+	    	JavascriptExecutor js = (JavascriptExecutor) driver;
+	        //List<Object> result = new LinkedList<Object>();
+	    	List<Object> result = (List)js.executeScript("window.myURLs = ['aa']; window.myURLs.push('bb'); return window.myURLs");
+	    	 
+	    	return result;
+
+	    }
+	   
+
+	
+	   
+    public static String fetchAjax(WebDriver driver) throws Exception
+    {
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+    	
+        String result = "";
+    	
+     
+        result = (String)js.executeAsyncScript("(function(open, callback) {" +
+        		   		" var ajaxURL;" +
+        		        " var ajaxResponse;" +
+        		        "var dataArray = [];" +
+        		   		"function onStateChange(event) { "+
+		        		    "console.log('STATE HAS changed.' + this.readyState + '/' + this.status );" +
+		        		    " if (this.readyState === 4 && this.status == 200) {" +
+		        		     "console.log('AJAX IS DONE. see response:' + this.responseText);"+
+		        		     " ajaxResponse = this.responseText;" +
+							//" console.log('see event.data/target:' + event.data + '/' + event.target);"+ 
+		        		    
+		        		    // fires on every readystatechange ever
+		        		    // use `this` to determine which XHR object fired the change event
+		        		    " setTimeout(function() {" +
+		        		    "    console.log('2s wait is done.'); " +
+		        		   " }, 2000);" +
+		        		 "}}"+
+		        		    
+		        		 
+        		   		"XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {" +
+        		   		   " ajaxURL =  url;" +
+        		   	
+                    	"	 this.addEventListener('readystatechange', onStateChange);" +
+        				
+                    	"  open.call(this, method, url, async, user, pass);" +
+                    	" dataArray.push(url);"+
+                    	"callback(url);" + 
+        				"};" +
+                   //callback(dataArray);"+
+				
+       		"})(XMLHttpRequest.prototype.open,arguments[arguments.length - 1]);" 
+        	
+           		 );  
+         
+       return result;
+  }						
+    
+    
+	
+    public static void interceptAjax(WebDriver driver) throws Exception
+    {
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+        String result = "";
+     
+         result = (String)js.executeAsyncScript("(function(open, callback) {" +
+        		   		" var ajaxURL;" +
+        		   
+        		   		"function onStateChange(event) { "+
+		        		    "console.log('STATE HAS changed.' + this.readyState + '/' + this.status );" +
+		        		    " if (this.readyState === 4 && this.status == 200) {" +
+		        		     "console.log('AJAX IS DONE. see response:' + this.responseText);"+
+							//" console.log('see event.data/target:' + event.data + '/' + event.target);"+ 
+		        		    
+		        		    // fires on every readystatechange ever
+		        		    // use `this` to determine which XHR object fired the change event
+		        		    " setTimeout(function() {" +
+		        		    "    console.log('2s wait is done.'); " +
+		        		   " }, 2000);" +
+		        		 "}}"+
+		        		    
+		        		 
+        		   		"XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {" +
+        		   		" ajaxURL =  url;" +
+        		   		"	    console.log('see ajax calls:' + url  );"+
+                    	//"	   console.log('WHY? url contains getTracks?' + url.indexOf('getTracks'));"+
+        		   		" if (url.indexOf('getStreamUrl') >=0 ){ " +
+                    	"	    this.addEventListener('readystatechange', onStateChange);}" +
+        				
+                    	"  open.call(this, method, url, async, user, pass);" +
+        			
+        				"};" +
+				"callback();"+
+        		"})(XMLHttpRequest.prototype.open,arguments[arguments.length - 1]);" 
+        	
+           		 );  
+          
+  }						
+    
+    
+    public static String fetchtAjaxSendData(WebDriver driver) throws Exception
+    {   String result="";
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+        result = (String) js.executeAsyncScript("(function(send, callback) {" +
+        		  "var callback = arguments[arguments.length - 1];" +
+						"XMLHttpRequest.prototype.send = function(data) {" +
+							"	    console.log('see data:' + data  );"+
+						    " sentData = data;" +
+							"	send.call(this, data);" +
+						    " callback(data);" +
+						"};" + 
+				//"callback(sentData);"+
+        		"})(XMLHttpRequest.prototype.send,arguments[arguments.length - 1]);" 
+        );  
+        System.out.println("See sent ajax data:" + result);
+        return result;
+        
+    }						
+    
+    
+    public static void interceptAjaxSendData(WebDriver driver) throws Exception
+    {
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeAsyncScript("(function(send, callback) {" +
+						"XMLHttpRequest.prototype.send = function(data) {" +
+							"	    console.log('see data:' + data  );"+
+							"	send.call(this, data);" +
+						"};" + 
+				"callback();"+
+        		"})(XMLHttpRequest.prototype.send,arguments[arguments.length - 1]);" 
+        );  
+    }						
+    
+    
+    
 }

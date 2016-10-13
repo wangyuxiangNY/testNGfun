@@ -10,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.ui.Select;
 
+
 public class ArtistRadioPage extends Page {
 	
 	//Hero section
@@ -102,5 +103,7 @@ public class ArtistRadioPage extends Page {
 	{
 		return favorite.getAttribute("class").contains("-filled");
 	}
+	
+	
 	
 }

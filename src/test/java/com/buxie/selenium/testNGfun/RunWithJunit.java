@@ -7,9 +7,9 @@ import com.buxie.selenium.testCases.LiveRadioCases;
 import com.buxie.selenium.testCases.PerfectForCases;
 import com.buxie.selenium.testCases.PodcastCases;
 import com.buxie.selenium.testCases.ProfileCases;
-
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test; 
@@ -34,12 +34,15 @@ public class RunWithJunit {
 	PodcastCases podcastCases;
 	
 	
-	//String browser = "chrome";
-	 String browser = "firefox";
+	String browser = "chrome";
+	 //String browser = "firefox";
 	//String browser = "edge";
 	// String browser = "ie";
 	 
 	final String URL = "http://www.iheart.com/";
+	
+
+	
 	
 	@Rule public TestName name = new TestName();
 	
@@ -47,14 +50,10 @@ public class RunWithJunit {
 	@Before
     public void init()throws Exception
 	{
-		// driver = Utils.launchBrowser(URL, browser);
-		String hubURL = "http://192.168.1.5:4444/wd/hub";
-		driver = Utils.createRemoteDriver(hubURL, browser, "windows");
-		driver.get(URL);
-		
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        WaitUtility.waitForPageToLoad(driver);
+		driver = Utils.launchBrowser(URL, browser);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         
+         
         forYouCases = new ForYouCases(driver);
         perfectForCases = new PerfectForCases(driver);
         profileCases = new ProfileCases(driver);
@@ -62,13 +61,48 @@ public class RunWithJunit {
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
 	    Page.setDriver (driver);
+	    
+	    Page.getErrors().delete(0, Page.getErrors().length());
 	        
     }
+	
+	@Ignore("skip")
+	public void huntAjax() throws Exception
+	{  
+		//WaitUtility.injectJQuery(driver);
+		//WaitUtility.fetchAjax(driver);
+		//WaitUtility.fetchtAjaxSendData(driver);
+        List<Object> result = WaitUtility.tryScript(driver);
+        System.out.println(result.toString());
+		
+	}
+	
+	
+	@Test
+	 public void testForYou_NotForMe() throws Exception
+	 {  
+		forYouCases.notForMe(0);
+	 }
+	
+	
+	@Test
+	 public void testForYou_Favorite() throws Exception
+	 {  
+		forYouCases.addToFavorite(0);
+	 }
 
 	@Test
 	 public void testFavorite() throws Exception
 	 {  
 		artistRadioCases.favorite();
+		/*
+		WaitUtility.injectJQuery(driver);
+		WaitUtility.fetchAjax(driver);
+		WaitUtility.fetchtAjaxSendData(driver);
+		
+		WaitUtility.sleep(600*000);
+		*/
+      
 	 }
 	
 	 @Test
@@ -135,9 +169,14 @@ public class RunWithJunit {
 
      @After
     public void tearDown() throws Exception{
-	    driver.quit(); 
+	   // driver.quit();
+    	 
+    	 
     	if (Page.getErrors().length() > 0)
-			 fail(Page.getErrors().toString());
+    	{	
+    		fail(Page.getErrors().toString());
+    		
+    	}	
     	
     	
     }

@@ -53,7 +53,6 @@ public class RunJunitTest2 {
 			driver = Utils.createRemoteDriver(hubURL, browser, "windows");
 			driver.get(URL);
 	        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-	        WaitUtility.waitForPageToLoad(driver);
 	        
 	        forYouCases = new ForYouCases(driver);
 	        perfectForCases = new PerfectForCases(driver);
@@ -64,6 +63,8 @@ public class RunJunitTest2 {
 		    Page.setDriver (driver);
 		        
 	    }
+		
+		
 
 		@Test
 		 public void testFavorite() throws Exception

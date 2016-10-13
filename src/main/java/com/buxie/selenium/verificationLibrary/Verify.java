@@ -8,8 +8,8 @@ import org.testng.asserts.SoftAssert;
 
 public interface Verify {
 	
-	 static Assertion hardAssert = new Assertion();
-     static SoftAssert softAssert = new SoftAssert();
+	  Assertion hardAssert = new Assertion();
+      SoftAssert softAssert = new SoftAssert();
      
     
 }

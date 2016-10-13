@@ -14,6 +14,22 @@ public class ForYouCases extends TestCase{
 		super(driver);
 	}
 	
+	public void addToFavorite(int stationIndex)
+	{
+		forYouPage.chooseGenre(0);
+	    forYouPage.getStations();
+	    forYouPage.addToFavorite(0);
+	}
+	
+	public void notForMe(int stationIndex)
+	{
+		forYouPage.chooseGenre(0);
+	    forYouPage.getStations();
+	    forYouPage.notForMe(0);
+	}
+	
+	
+	
 	public void playStation(int genreIndex, int stationIndex)
 	{ 
 	    forYouPage.chooseGenre(genreIndex);
@@ -29,7 +45,7 @@ public class ForYouCases extends TestCase{
 		public void  flowAlong()
 		{
 			forYouPage.playFromZ100();
-			
+			forYouPage.waitForPreroll();
 			forYouPage.switchWindow();
 		
 			//Here, need to wait for signup pop

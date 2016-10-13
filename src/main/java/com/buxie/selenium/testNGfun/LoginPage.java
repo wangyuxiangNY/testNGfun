@@ -38,30 +38,6 @@ public class LoginPage extends Page{
 				public WebElement login;
 
 		
-		 //For Signup Page
-		//
-		/*
-		@FindBy(css=".dialog-close > div:nth-child(1) > button:nth-child(1)") public WebElement icon_close;
-		 @FindBy(css="header.dialog-section > div:nth-child(2) > span:nth-child(1) > a:nth-child(3)")  public WebElement signUpLink;
-		@FindBy(css="#dialog > div > div.dialog.ui-on-grey > div.wrapper > header > h2") public WebElement signupHeader;
-		@FindBy(css=".dialog-title")   public WebElement signupHint; //Have an account? Log In
-		          
-		@FindBy(css="[name='userName'][type='text']")  public WebElement email;
-		@FindBy(css="[name='password'][type='password']")  public WebElement password;
-		
-		@FindBy(css="[name='zipCode']")
-			public WebElement zipCode;
-		
-		@FindBy(name="birthYear") public WebElement birthYear; 
-		
-		@FindBy(css= "[name='gender'][value='Female']")
-					public WebElement gender_female;		
-		
-		@FindBy(css="#dialog > div > div > div > div > div > form > button") public WebElement signUp;
-		
-		
-		@FindBy(css="#page-view-container > div > div.header > div.header-wrapper > div > div.header-right > div > div:nth-child(1) > button > span") public WebElement signedAccount;
-		*/
 		
 		//Put different country use different account for testing
 		   public static Map<String, String> userAccountByCountry, faceBookByCountry, zipByCountry;
@@ -102,13 +78,7 @@ public class LoginPage extends Page{
 			   zipByCountry.put("NZ", "2016");
 		}
 		
-		/*
-		public void login()
-		{ 
-			login(USER_NAME, PASSWORD);
-			
-		}
-		*/
+		
 		
 		public void login(String _userName, String _password)
 		{   
