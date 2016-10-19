@@ -1,0 +1,99 @@
+function(send, callback) 
+{
+	XMLHttpRequest.prototype.send = function(data) 
+	{
+		console.log('see data:' + data  );
+		send.call(this, data);
+	};
+	callback();
+})(XMLHttpRequest.prototype.send,arguments[arguments.length - 1]);
+						
+
+
+
+function(open, callback) 
+{
+       var ajaxURL;
+       
+       function onStateChange(event) 
+       {
+		   console.log('STATE HAS changed.' + this.readyState + '/' + this.status );
+		    if (this.readyState === 4 && this.status == 200)
+			{
+		        console.log('AJAX IS DONE. see response:' + this.responseText);
+						
+				//" console.log('see event.data/target:' + event.data + '/' + event.target);"+ 
+		        // fires on every readystatechange ever
+		        // use `this` to determine which XHR object fired the change event
+		        
+		         setTimeout(function() 
+		         {
+		        	 console.log('2s wait is done.'); 
+		          }, 2000);
+		          
+		     }
+		}//onStateChange()
+		        		    
+		 
+   		XMLHttpRequest.prototype.open = function(method, url, async, user, pass) 
+   		{
+   		    ajaxURL =  url;
+   		    console.log('see ajax calls:' + url  );
+    	    //console.log('WHY? url contains getTracks?' + url.indexOf('getTracks'));
+   		    if (url.indexOf('getStreamUrl') >=0 )
+   		    { 
+    	       this.addEventListener('readystatechange', onStateChange);
+    	    }
+		
+    	    open.call(this, method, url, async, user, pass);
+	
+		};
+		
+        callback();
+ })(XMLHttpRequest.prototype.open,arguments[arguments.length - 1]);
+ 
+ 
+ //Add a hook to AjaX
+ function addXMLRequestCallback(callback){
+    var oldSend, i;
+    if( XMLHttpRequest.callbacks ) {
+        // we've already overridden send() so just add the callback
+        XMLHttpRequest.callbacks.push( callback );
+    } else {
+        // create a callback queue
+        XMLHttpRequest.callbacks = [callback];
+        // store the native send()
+        oldSend = XMLHttpRequest.prototype.send;
+        // override the native send()
+        XMLHttpRequest.prototype.send = function(){
+            // process the callback queue
+            // the xhr instance is passed into each callback but seems pretty useless
+            // you can't tell what its destination is or call abort() without an error
+            // so only really good for logging that a request has happened
+            // I could be wrong, I hope so...
+            // EDIT: I suppose you could override the onreadystatechange handler though
+            for( i = 0; i < XMLHttpRequest.callbacks.length; i++ ) {
+                XMLHttpRequest.callbacks[i]( this );
+            }
+            // call the native send()
+            oldSend.apply(this, arguments);
+        }
+    }
+}
+
+// e.g.
+addXMLRequestCallback( function( xhr ) {
+    console.log( xhr.responseText ); // (an empty string)
+});
+addXMLRequestCallback( function( xhr ) {
+    console.dir( xhr ); // have a look if there is anything useful here
+});
+        	
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+          

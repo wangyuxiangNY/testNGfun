@@ -328,7 +328,8 @@ public class WaitUtility {
         				
                     	"  open.call(this, method, url, async, user, pass);" +
                     	" dataArray.push(url);"+
-                    	"callback(url);" + 
+                      	"callback(url);" + 
+                    
         				"};" +
                    //callback(dataArray);"+
 				
