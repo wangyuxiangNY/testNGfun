@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
@@ -63,6 +64,14 @@ public class ForYou  extends Page{
 	//for Z100.com/Popular User Flow
 		@FindBy(css=".ihr-icon-listen-live")
 				private WebElement listenLive;
+	
+		
+	 public ForYou(WebDriver driver)
+	    {
+	    	super(driver);
+	    }
+	    
+		
 		
 	public void chooseGenre(int index)
 	{    

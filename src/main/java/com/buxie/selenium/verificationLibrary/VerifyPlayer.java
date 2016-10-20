@@ -9,14 +9,20 @@ public class VerifyPlayer extends Player implements Verify {
 	
 	private Player player;
 	
-	public VerifyPlayer()
+	public VerifyPlayer(WebDriver driver)
 	{
+		super(driver);
 		player = PageFactory.initElements(driver, Player.class);
 	}
 	
 	
 	public void verifyPlayerIsPlaying()
 	{
+		if (softAssert == null)
+			System.out.println("softAssert is null...");
+		
+		if (player == null)
+			System.out.println("player is null...");
 		softAssert.assertTrue(player.isPlaying(), "Player is not playing.");
 	}
 	

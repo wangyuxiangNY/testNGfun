@@ -187,6 +187,8 @@ public class WaitUtility {
 	 */
 	protected static WebElement fluentWaitIgnoreAll(WebDriver driver, final By locator, int timeOutInSecond)
 	{
+		if (driver == null)
+		   System.out.println("WaitUtility.fluentWaitIgnoreAll(): driver is null");
 		cancelImplicitWait(driver);
 		 
 		 List<Class <? extends Exception>> exceptionsToIgnore = new ArrayList<Class <? extends Exception>>();

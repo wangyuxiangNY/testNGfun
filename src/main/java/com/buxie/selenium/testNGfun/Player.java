@@ -1,6 +1,7 @@
 package com.buxie.selenium.testNGfun;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -35,7 +36,10 @@ public class Player extends Page {
 	@FindBy(css="div.player-center > button:nth-child(2)") protected WebElement listenHistory;
 	@FindBy(css="div.player-center > button:nth-child(3)") protected WebElement fullScreen;
 	
-	
+	public Player(WebDriver driver)
+	{
+		super(driver);
+	}
 	public void play()
 	{
 		if (!isPlaying())
@@ -83,7 +87,12 @@ public class Player extends Page {
 	
 	
 	public  boolean isPlaying()
-	{   
+	{ 
+		System.out.println("check isPlaying..");
+		
+		if (playControl == null)
+		System.out.println("playControl is null..");
+	
 		String classes = playControl.getAttribute("class");
 		System.out.println("See button class:"+ classes) ;
 		if (classes.contains("buffering"))

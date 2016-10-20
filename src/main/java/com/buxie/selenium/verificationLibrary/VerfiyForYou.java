@@ -1,5 +1,6 @@
 package com.buxie.selenium.verificationLibrary;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import com.buxie.selenium.testNGfun.ForYou;
@@ -7,6 +8,11 @@ import com.buxie.selenium.testNGfun.Player;
 
 public class VerfiyForYou extends ForYou implements Verify{
 	
+	
+	public VerfiyForYou(WebDriver driver)
+	{
+		super(driver);
+	}
 	public void verifyStationsAreShown()
 	{
 		softAssert.assertTrue(sectionHeader.isDisplayed(), "Section Header is not shown.");

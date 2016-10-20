@@ -55,15 +55,10 @@ public class PerfectForPage extends Page {
 	    })
 	protected List<WebElement> stationNames;
 	
+	  public PerfectForPage( )
+	    {
+	    }
 	
-	
-	
-	
-	public PerfectForPage()
-    {
-    	this(driver);
-    }
-    
     public PerfectForPage(WebDriver driver)
     {
     	super(driver);

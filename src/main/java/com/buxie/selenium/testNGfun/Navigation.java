@@ -48,18 +48,14 @@ public class Navigation extends Page{
 		private static  WebElement settings;
 
 	
-	public Navigation()
-	    {
-	    	this(driver);
-	    }
-	    
+	
 	    public Navigation(WebDriver driver)
 	    {
 	    	super(driver);
 	    }
 	
 	    
-	public static LiveRadioPage gotoLive()
+	public  LiveRadioPage gotoLive()
 	{  
 		WaitUtility.waitForElementToBeClickable(driver, liveRadio).click();
 		
@@ -67,7 +63,7 @@ public class Navigation extends Page{
         return PageFactory.initElements(driver, LiveRadioPage.class);
 	}
 	
-	public  static  ForYou gotoForYou()
+	public    ForYou gotoForYou()
 	{   
 		forYou.click();
 		
@@ -76,7 +72,7 @@ public class Navigation extends Page{
 	}
 	
 	
-	public  static   PerfectForPage gotoPerfectFor()
+	public     PerfectForPage gotoPerfectFor()
 	{   
 		//WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".header-menu-main > li:nth-child(6) > a:nth-child(1)"), 60).click();//perfectFor.click();
 		//WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".header-menu-main > li > a[title='Perfect For']"), 60).click();//perfectFor.click();
@@ -92,14 +88,14 @@ public class Navigation extends Page{
 	}
 	
 	
-	public  static  ArtistRadioPage gotoArtistRadio()
+	public    ArtistRadioPage gotoArtistRadio()
 	{   
 		WaitUtility.waitForElementToBeClickable(driver, artistRadio).click();
 		WaitUtility.waitForPageToLoad(driver);
         return PageFactory.initElements(driver, ArtistRadioPage.class);
 	}
 	
-	public  static  GenresPage gotoGenres()
+	public    GenresPage gotoGenres()
 	{   
 		genres.click();
 		WaitUtility.waitForPageToLoad(driver);
@@ -107,7 +103,7 @@ public class Navigation extends Page{
 	}
 	
 	
-	public  static  PodcastsPage gotoPodcasts()
+	public    PodcastsPage gotoPodcasts()
 	{   
 		podcasts.click();
 		WaitUtility.waitForPageToLoad(driver);
@@ -116,7 +112,7 @@ public class Navigation extends Page{
 	
 	
 	//After user logs in
-	public  static  ProfilePage gotoProfile()
+	public    ProfilePage gotoProfile()
 	{   
 		//profile.click();
 		Actions builder  = new Actions(driver);
@@ -127,7 +123,7 @@ public class Navigation extends Page{
 	}
 	
 	
-	public  static  MyStationsPage gotoMyStations()
+	public    MyStationsPage gotoMyStations()
 	{   
 		//profile.click();
 		Actions builder  = new Actions(driver);
@@ -138,7 +134,7 @@ public class Navigation extends Page{
 	}
 	
 	
-	public  static  ListenHistoryPage gotoListenHistory()
+	public    ListenHistoryPage gotoListenHistory()
 	{   
 		//profile.click();
 		Actions builder  = new Actions(driver);
@@ -150,7 +146,7 @@ public class Navigation extends Page{
 	
 	
 	
-	public static void gotoLiveRadioPage_direct()
+	public  void gotoLiveRadioPage_direct()
 	{   
 		String currentURL = driver.getCurrentUrl();
 	
@@ -167,7 +163,7 @@ public class Navigation extends Page{
 	}
 	
 	
-	public static void gotoArtistRadioPage_direct()
+	public  void gotoArtistRadioPage_direct()
 	{  
 		String currentURL = driver.getCurrentUrl();
 		System.out.println("SEE current url:"  + currentURL);
@@ -189,7 +185,7 @@ public class Navigation extends Page{
 
 
 	
-	public static void gotoPerfectFor_direct()
+	public  void gotoPerfectFor_direct()
 	{   String currentURL = driver.getCurrentUrl();
 		System.out.println("SEE current url:"  + currentURL);
 	    String part1 = currentURL.split("//")[0];
@@ -209,7 +205,7 @@ public class Navigation extends Page{
 
 	
 	
-	public static void gotoPodcastPage_direct()
+	public  void gotoPodcastPage_direct()
 	{   String currentURL = driver.getCurrentUrl();
 		System.out.println("SEE current url:"  + currentURL);
 	    String part1 = currentURL.split("//")[0];

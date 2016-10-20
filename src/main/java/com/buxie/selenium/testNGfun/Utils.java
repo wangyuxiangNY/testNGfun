@@ -53,6 +53,23 @@ public class Utils {
 		return createWebDriver("firefox");
 	}
 	
+	public static WebDriver  createThreadSafeWebDriver(String browser) 
+	{   
+		
+		ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>() // thread local driver object for webdriver
+        {
+		      @Override
+		      protected WebDriver initialValue()
+		      {
+		         return createWebDriver(browser); // can be replaced with other browser drivers
+		      }
+		};
+		
+		
+		return driver.get();
+	  }
+	
+    
 	
 	public static WebDriver  createWebDriver(String browser) 
 	
@@ -252,14 +269,19 @@ public class Utils {
 	
 	
 	public static WebDriver launchBrowser(String url, String browser)
-	{       Page.setBrowser(browser);
-			WebDriver driver = createWebDriver(browser);
-			
-				
-			driver.get(url);
-			
-			return driver;
+	{      
+		return launchBrowser(url, browser, false);
+	}
 	
+	public static WebDriver launchBrowser(String url, String browser, boolean threadSafe)
+	{     
+		WebDriver driver;
+	    if (threadSafe)
+	    	driver = createThreadSafeWebDriver(browser);
+	    else 
+	    	driver = createWebDriver(browser);
+		driver.get(url);
+		return driver;
 	}
 	
 	public static int getRandomInt()

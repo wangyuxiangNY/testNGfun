@@ -10,8 +10,9 @@ public class VerifySignup extends SignUpPage implements Verify
 {
     private SignUpPage signUpPage;
 	
-	public VerifySignup()
+	public VerifySignup(WebDriver driver)
 	{
+		super(driver);
 		signUpPage = PageFactory.initElements(driver, SignUpPage.class);
 	}
 	

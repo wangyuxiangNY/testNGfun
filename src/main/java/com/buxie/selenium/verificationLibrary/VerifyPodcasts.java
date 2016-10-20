@@ -1,6 +1,7 @@
 package com.buxie.selenium.verificationLibrary;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import com.buxie.selenium.testNGfun.ForYou;
@@ -9,6 +10,11 @@ import com.buxie.selenium.testNGfun.Page;
 import com.buxie.selenium.testNGfun.PodcastsPage;
 
 public class VerifyPodcasts extends PodcastsPage implements Verify{
+	
+	public VerifyPodcasts(WebDriver driver )
+	{
+		super(driver);
+	}
 	
 	public void verifyEpisodeIsPlaying()
 	{   

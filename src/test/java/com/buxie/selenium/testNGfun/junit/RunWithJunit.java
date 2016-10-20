@@ -62,9 +62,8 @@ public class RunWithJunit {
         liveRadioCases = new LiveRadioCases(driver);
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
-	    Page.setDriver (driver);
-	    
-	    Page.getErrors().delete(0, Page.getErrors().length());
+	   
+        artistRadioCases.getErrors().delete(0, artistRadioCases.getErrors().length());
 	        
     }
 	
@@ -174,9 +173,9 @@ public class RunWithJunit {
 	    driver.quit();
     	 
     	 
-    	if (Page.getErrors().length() > 0)
+    	if (artistRadioCases.getErrors().length() > 0)
     	{	
-    		fail(Page.getErrors().toString());
+    		fail(artistRadioCases.getErrors().toString());
     		
     	}	
     	
@@ -184,7 +183,7 @@ public class RunWithJunit {
     }
 
     private void handleException(Exception e)
-    {   Page.getErrors().append("Exception is thrown.");
+    {   artistRadioCases.getErrors().append("Exception is thrown.");
         e.printStackTrace();
         try{
     	   Page.takeScreenshot(driver, name.getMethodName());

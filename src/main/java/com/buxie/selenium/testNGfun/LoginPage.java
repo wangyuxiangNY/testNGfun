@@ -48,13 +48,7 @@ public class LoginPage extends Page{
 		   public final String facebook_AU = "iheart.au999@gmail.com"; //"iheart.aus@gmail.com";
 		   public final String facebook_NZ = "iheart.nz@gmail.com";
 	  
-		   
-		
-		public LoginPage()
-		{
-			this(driver);
-			
-		}
+	
 		
 		public LoginPage(WebDriver driver)
 		{

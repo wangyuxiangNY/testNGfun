@@ -14,8 +14,8 @@ public class PodcastCases extends TestCase{
 	
 	public void thumbDown()
 	{   
-		Page.login();
-		Navigation.gotoPodcastPage_direct();
+		podcastsPage.login();
+		navigation.gotoPodcastPage_direct();
 		podcastsPage.filterStation(1);
 	    podcastsPage.playEpisodeByIndex(0, 0);
 	    verifyPlayer.isPlaying();
@@ -26,16 +26,16 @@ public class PodcastCases extends TestCase{
 	
 	public void searchJoshInAll()
 	{   
-		Page.login();
-		Navigation.gotoPodcastPage_direct();
+		podcastsPage.login();
+		navigation.gotoPodcastPage_direct();
 		podcastsPage.search("JOSH", -1);
 	    verifyCommon.verifySearch_expectingResult();
 	}
 	
 	public void searchJoshInPodcast()
 	{   
-		Page.login();
-		Navigation.gotoPodcastPage_direct();
+		podcastsPage.login();
+		navigation.gotoPodcastPage_direct();
 		podcastsPage.search("JOSH GROBAN", "Podcasts");
 	    verifyCommon.verifySearch_notExpectingResult();
 	}

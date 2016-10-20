@@ -75,7 +75,7 @@ public class RunTestParallelOptionOne {
 	@Before
     public void init()throws Exception
 	{
-		 driver = Utils.launchBrowser(URL, browserName);
+		 driver = Utils.launchBrowser(URL, browserName, true);
 		
 		
 		//driver = Utils.createRemoteDriver(hubURL, browserName, "windows");
@@ -91,7 +91,6 @@ public class RunTestParallelOptionOne {
         liveRadioCases = new LiveRadioCases(driver);
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
-	    Page.setDriver (driver);
 	        
     }
 
@@ -166,14 +165,14 @@ public class RunTestParallelOptionOne {
 	     @After
 	    public void tearDown() throws Exception{
 		    driver.quit(); 
-	    	if (Page.getErrors().length() > 0)
-				 fail(Page.getErrors().toString());
+	    	if (artistRadioCases.getErrors().length() > 0)
+				 fail(artistRadioCases.getErrors().toString());
 	    	
 	    	
 	    }
 
 	    private void handleException(Exception e)
-	    {   Page.getErrors().append("Exception is thrown.");
+	    {   artistRadioCases.getErrors().append("Exception is thrown.");
 	        e.printStackTrace();
 	        try{
 	    	   Page.takeScreenshot(driver, name.getMethodName());

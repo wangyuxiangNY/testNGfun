@@ -68,10 +68,8 @@ public class TestJavascript {
         liveRadioCases = new LiveRadioCases(driver);
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
-	    Page.setDriver (driver);
 	    
-	    Page.getErrors().delete(0, Page.getErrors().length());
-	        
+	   
     }
 	
 	@Test
@@ -141,17 +139,10 @@ public class TestJavascript {
 	   // driver.quit();
     	 
     	 
-    	if (Page.getErrors().length() > 0)
-    	{	
-    		fail(Page.getErrors().toString());
-    		
-    	}	
-    	
-    	
     }
 
     private void handleException(Exception e)
-    {   Page.getErrors().append("Exception is thrown.");
+    {   
         e.printStackTrace();
         try{
     	   Page.takeScreenshot(driver, name.getMethodName());

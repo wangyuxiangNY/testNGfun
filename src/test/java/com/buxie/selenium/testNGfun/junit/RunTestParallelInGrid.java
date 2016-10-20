@@ -97,8 +97,7 @@ public class RunTestParallelInGrid {
         liveRadioCases = new LiveRadioCases(driver);
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
-	    Page.setDriver (driver);
-	        
+	    
     }
 
 	@Test
@@ -172,14 +171,13 @@ public class RunTestParallelInGrid {
 	     @After
 	    public void tearDown() throws Exception{
 		    driver.quit(); 
-	    	if (Page.getErrors().length() > 0)
-				 fail(Page.getErrors().toString());
-	    	
-	    	
+		   
+	    	if (forYouCases.getErrors().length() > 0)
+				 fail(forYouCases.getErrors().toString());
 	    }
 
 	    private void handleException(Exception e)
-	    {   Page.getErrors().append("Exception is thrown.");
+	    {   forYouCases.getErrors().append("Exception is thrown.");
 	        e.printStackTrace();
 	        try{
 	    	   Page.takeScreenshot(driver, name.getMethodName());

@@ -35,7 +35,6 @@ public class ArtistRadioPage extends Page {
     
     public ArtistRadioPage()
     {
-    	this(driver);
     }
     
     public ArtistRadioPage(WebDriver driver)

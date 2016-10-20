@@ -29,9 +29,9 @@ import java.util.concurrent.TimeUnit;
 
 
 
-//show the use of @BeforeSuite and @BeforeTest
-public class RunWithTestNG {
-	
+
+public class TestNGParallelRun {
+
 
 	private WebDriver driver;
 	ArtistRadioCases artistRadioCases;
@@ -52,13 +52,13 @@ public class RunWithTestNG {
 	final String URL = "http://www.iheart.com/";
 
 	
-	
-	
+	@Parameters({ "browser" })
 	@BeforeMethod
-	public void init(Method method) {
+	public void init(Method method, String browser) {
+		System.out.println("Test in Browser:" + browser);
         driver = Utils.launchBrowser(URL, browser, true);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        
+        WaitUtility.waitForPageToLoad(driver);
         
         forYouCases = new ForYouCases(driver);
         perfectForCases = new PerfectForCases(driver);
@@ -66,15 +66,11 @@ public class RunWithTestNG {
         liveRadioCases = new LiveRadioCases(driver);
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
-        
-        forYouCases.setBrowser(browser);
-        
      
-        methodName = method.getName();
-        
-        System.out.println("test method:" +  method.getName() + " started." );
+        System.out.println("test method:" +  method.getName() + " run in Browser : " + browser);
+        System.out.println("test method:" +  method.getName() +  "run with Thread Id." + Thread.currentThread().getId());
     }
-
+	
 	
 	 @Test
      public void testPopularUserFlow() 
@@ -186,7 +182,9 @@ public class RunWithTestNG {
 	    	
 	    }
 	
-	   
-	
 
 }
+
+
+
+

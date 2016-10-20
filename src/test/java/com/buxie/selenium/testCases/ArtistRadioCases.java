@@ -18,8 +18,8 @@ public class ArtistRadioCases extends TestCase{
 	
 	public void favorite()
 	{   
-		Page.login();
-		Navigation.gotoArtistRadio();
+		artistRadioPage.login();
+		navigation.gotoArtistRadio();
 	    artistRadioPage.playFirstStation();
 	    artistRadioPage.waitForPreroll();
 	    verifyPlayer.isPlaying();
@@ -29,8 +29,8 @@ public class ArtistRadioCases extends TestCase{
 	
 	public void filterAndPlayCustomAfterLogin() throws Exception
 	{
-		Page.login();
-		Navigation.gotoArtistRadio();
+		artistRadioPage.login();
+		navigation.gotoArtistRadio();
 		artistRadioPage.chooseGenre(1);
 	    artistRadioPage.playFirstStation();
 	    artistRadioPage.waitForPreroll();
@@ -40,8 +40,8 @@ public class ArtistRadioCases extends TestCase{
 	
 	public void playArtistRadio() throws Exception
 	{
-		Page.login();
-		Navigation.gotoArtistRadio();
+		artistRadioPage.login();
+		navigation.gotoArtistRadio();
 		//artistRadioPage.chooseGenre(1);
 	    artistRadioPage.playFirstStation();
 	   

@@ -63,8 +63,7 @@ public class GridTest {
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
         
-        Page.setDriver (driver);
-        Page.setBrowser(browser);
+        forYouCases.setBrowser(browser);
         
         System.out.println("test method:" +  method.getName() + " started." );
 	}

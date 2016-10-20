@@ -44,7 +44,6 @@ public  class LiveRadioPage extends Page{
     
     public LiveRadioPage()
     {
-    	this(driver);
     }
     
     public LiveRadioPage(WebDriver driver)

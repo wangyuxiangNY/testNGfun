@@ -16,8 +16,8 @@ public class LiveRadioCases extends TestCase {
 	
 	public void thumbUp()
 	{   
-		Page.login();
-		Navigation.gotoLive();
+		liveRadioPage.login();
+		navigation.gotoLive();
 	    liveRadioPage.playFirstStation();
 	    verifyPlayer.isPlaying();
 	    liveRadioPage.waitForPreroll();

@@ -38,7 +38,6 @@ public class TestFileUploadDownload {
         
         cases = new UploadDownloadCases(driver);
         
-        Page.setDriver (driver);
         
         System.out.println("test method:" +  method.getName() + " started." );
     }

@@ -31,30 +31,31 @@ public abstract class Page {
 	   
 	
 	@FindBy(css=".icon-account")
-	   private static WebElement login;
-	@FindBy(name="userName") private static  WebElement userName;
-	@FindBy(name ="password") private  static WebElement password;
+	   private  WebElement login;
+	@FindBy(name="userName") private   WebElement userName;
+	@FindBy(name ="password") private   WebElement password;
 	
-	@FindBy(css="button.btn-login") private static  WebElement loginButton;
+	@FindBy(css="button.btn-login") private   WebElement loginButton;
 	
 	@FindBy(css=".account-dropdown > div:nth-child(1) > button:nth-child(1)") 
 		public WebElement signedAccount;
 	
 	
+	
 	final static Logger logger = Logger.getLogger(Page.class);
  	
-	public static WebDriver driver;
+	public  WebDriver driver;
 	
-	static String browser ="";
-	static  String USER_NAME ="iheartrocks888@gmail.com";
-	static  String PASSWORD ="iheart001";
-	static  String FACEBOOK_USER_NAME = USER_NAME;
-	static  String GOOGLE_USER_NAME = USER_NAME;
+	 String browser ="";
+	  String USER_NAME ="iheartrocks888@gmail.com";
+	  String PASSWORD ="iheart001";
+	  String FACEBOOK_USER_NAME = USER_NAME;
+	  String GOOGLE_USER_NAME = USER_NAME;
 	
-	private static String country ="US";  //Default to US
+	private  String country ="US";  //Default to US
 	
 	
-	private static StringBuffer errors = new StringBuffer(); 
+	private  StringBuffer errors = new StringBuffer(); 
 	
 		
 	public Page()
@@ -67,13 +68,16 @@ public abstract class Page {
 	{   
 		this.driver = _driver;
 		PageFactory.initElements(driver, this);
+		if (this.driver != null)
+			System.out.println("Driver is set successfully");
 	}
 	
 	
-	public static void login()
+	public  void login()
 	{    USER_NAME ="iheartrocks888@gmail.com";
 		 PASSWORD ="iheart001";
-		
+		 if(this.driver != null)
+			 System.out.println("In page.login(): driver is good---" + driver.getCurrentUrl());
 	   // login.click();
 		 //can I detect ajax call count?  Will fluentwait solve problem? Will @FindBy give me trouble?
 		//WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
@@ -106,19 +110,13 @@ public abstract class Page {
 		   }
 	}
 	
-	public static void setBrowser(String _browser)
+	public  void setBrowser(String _browser)
 	{
 		browser = _browser;
 	}
 	
 	
-	public static void setDriver(WebDriver _driver)
-	{
-		driver = _driver;
-	}
-	
-	
-	public static StringBuffer getErrors()
+	public  StringBuffer getErrors()
 	{
 		return errors;
 	}
@@ -146,23 +144,23 @@ public abstract class Page {
 	
 	
 	
-	public static void clearErrors()
+	public  void clearErrors()
 	{
 		errors.setLength(0);
 	}
 	
-	public static String getUserName()
+	public  String getUserName()
 	{
 		return USER_NAME;
 	}
 	
-	public static String getPassword()
+	public  String getPassword()
 	{
 		return PASSWORD;
 	}
 	
 	
-	public static WebDriver getDriver()
+	public  WebDriver getDriver()
 	{
 		return driver;
 	}
@@ -187,6 +185,8 @@ public abstract class Page {
 	
 	public boolean searchResultShown()
 	{
+		if (driver == null)
+			System.out.println("driver is null in searchResultShown()");
 		List<WebElement> resultRows = driver.findElements(By.className("search-section"));
 		System.out.println(resultRows.size() + " rows are suggested.");
 		
@@ -219,7 +219,7 @@ public abstract class Page {
     }
     
     
-    public static WebElement waitForElement( WebElement element, long timeOutInMilliSecond)
+    public  WebElement waitForElement( WebElement element, long timeOutInMilliSecond)
 	{
     	return waitForElement(driver, element, timeOutInMilliSecond);
 	}
@@ -251,7 +251,7 @@ public abstract class Page {
 	}
 	
 	
-	public static void hoverThenClick(WebElement hoverTo, WebElement clickTarget)
+	public  void hoverThenClick(WebElement hoverTo, WebElement clickTarget)
 	{
 		Actions actionBuilder = new Actions(driver);
 		actionBuilder.moveToElement(hoverTo).click(clickTarget).build().perform();
@@ -259,7 +259,7 @@ public abstract class Page {
 	}
 	
 	
-	public static void hoverThenClick(WebElement hoverTo, By locator , int timeOutInSecond)
+	public  void hoverThenClick(WebElement hoverTo, By locator , int timeOutInSecond)
 	{
 		Actions actionBuilder = new Actions(driver);
 		actionBuilder.moveToElement(hoverTo).perform();

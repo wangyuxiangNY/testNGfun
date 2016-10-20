@@ -15,8 +15,8 @@ public class ProfileCases extends TestCase{
 	public void playMyStation( int stationIndex)
 	{
 	   //Need to login first
-	    Page.login();
-	    Navigation.gotoProfile();
+		profilePage.login();
+	    navigation.gotoProfile();
 	    profilePage.extendMyStaion();
 	    profilePage.playStation(stationIndex);
 	    profilePage.waitForPreroll();

@@ -100,13 +100,6 @@ public class ProfilePage extends Page{
 		protected List<WebElement> favoriteSongPlayIcons;
 	    	
 		
-		
-	
-	public ProfilePage()
-    {
-    	this(driver);
-    }
-    
     public ProfilePage(WebDriver driver)
     {
     	super(driver);

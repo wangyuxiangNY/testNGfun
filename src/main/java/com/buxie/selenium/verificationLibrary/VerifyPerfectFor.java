@@ -7,15 +7,15 @@ import com.buxie.selenium.testNGfun.PerfectForPage;
 
 public class VerifyPerfectFor  extends PerfectForPage implements Verify  {
 	
-    private PerfectForPage perfectForPage;
+  
     
-	
-    public VerifyPerfectFor( )
+	public VerifyPerfectFor(WebDriver driver)
 	{
-		perfectForPage = PageFactory.initElements(driver, PerfectForPage.class);
+		super(driver);
+		
 	}
-	
-	
+    
+    
 	public void verifySoftGateIsShown()
 	{
 		softAssert.assertTrue(getSignUpPage().isSoftGateShown(), "Softgate is not shown.");

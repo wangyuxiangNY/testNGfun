@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
@@ -41,6 +42,10 @@ public class SignUpPage extends Page{
 	
 	@FindBy(css="#dialog > div > div > div > div > div > form > button") public WebElement signUp;
 	
+	public SignUpPage(WebDriver driver)
+	{
+		super(driver);
+	}
 	
 	public boolean isSoftGateShown()
 	{
@@ -89,9 +94,7 @@ public class SignUpPage extends Page{
 		    System.out.println("see signed account:" + WaitUtility.waitForElementToBeClickable(driver,signedAccount).getText() );
 		    signedAccount.click();
 		    
-		    
-		    if (!signedAccount.getText().contains(randomEmail_firstPart))
-		    	Page.getErrors().append("Signup failed.");
+		   
 		    
 		}   
 	

@@ -20,12 +20,12 @@ public class TestCase {
 	protected ProfilePage profilePage;
 	
 	
-	protected static VerfiyForYou verifyForYou;
-	protected static VerifyPerfectFor verifyPerfectFor;
-	protected static VerifySignup verifySignup;
-	protected static VerifyPlayer verifyPlayer;
-	protected static VerifyPodcasts verifyPodcasts;
-	protected static VerifyCommon verifyCommon;
+	protected  VerfiyForYou verifyForYou;
+	protected  VerifyPerfectFor verifyPerfectFor;
+	protected  VerifySignup verifySignup;
+	protected  VerifyPlayer verifyPlayer;
+	protected  VerifyPodcasts verifyPodcasts;
+	protected  VerifyCommon verifyCommon;
 	
 	
 	public TestCase(WebDriver driver)
@@ -43,14 +43,22 @@ public class TestCase {
 	   profilePage = PageFactory.initElements(driver, ProfilePage.class);
 		
 	   
-	   verifyForYou = new VerfiyForYou();
-	   verifyPerfectFor = new VerifyPerfectFor();
-	   verifyPlayer = new VerifyPlayer();
-	   verifySignup = new VerifySignup();
-	   verifyPodcasts = new VerifyPodcasts();
-	   verifyCommon  = new VerifyCommon();
+	   verifyForYou = new VerfiyForYou(driver);
+	   verifyPerfectFor = new VerifyPerfectFor(driver);
+	   verifyPlayer = new VerifyPlayer(driver);
+	   verifySignup = new VerifySignup(driver);
+	   verifyPodcasts = new VerifyPodcasts(driver);
+	   verifyCommon  = new VerifyCommon(driver);
 	}
 	
-	  
-    
+	 
+	public void setBrowser(String browser)
+	{
+		forYouPage.setBrowser(browser);
+	}
+	
+	public StringBuffer getErrors()
+	{
+		return forYouPage.getErrors();
+	}
 }
