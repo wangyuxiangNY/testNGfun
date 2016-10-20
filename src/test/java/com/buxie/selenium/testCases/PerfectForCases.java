@@ -32,7 +32,7 @@ public class PerfectForCases extends TestCase {
 		//Navigation.gotoPerfectFor();
 		Navigation.gotoPerfectFor_direct();
 		browsePerfect(-1, 0);
-		signUpPage.closeDialog();
+		//signUpPage.closeDialog();
 		System.out.println("first round is done.");
 		//Navigation.gotoPerfectFor_direct();
 		Navigation.gotoPerfectFor();

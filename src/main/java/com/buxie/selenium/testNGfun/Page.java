@@ -51,16 +51,12 @@ public abstract class Page {
 	static  String FACEBOOK_USER_NAME = USER_NAME;
 	static  String GOOGLE_USER_NAME = USER_NAME;
 	
-	
-	
 	private static String country ="US";  //Default to US
 	
 	
 	private static StringBuffer errors = new StringBuffer(); 
 	
-	
-
-	
+		
 	public Page()
 	{  
 		PageFactory.initElements(driver, this);
@@ -77,10 +73,19 @@ public abstract class Page {
 	public static void login()
 	{    USER_NAME ="iheartrocks888@gmail.com";
 		 PASSWORD ="iheart001";
+		
 	   // login.click();
 		 //can I detect ajax call count?  Will fluentwait solve problem? Will @FindBy give me trouble?
-		WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
-		mylogin.click();
+		//WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
+		WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 25).click();
+/*
+		try{
+		   mylogin.click();
+		}catch(Exception e)
+		{
+			WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15).click();
+		}
+		*/
 		WaitUtility.waitForPageToLoad(driver);
 		WaitUtility.fluentWaitIgnoreAll(driver, By.name("username"), 2).sendKeys(USER_NAME);
 		WaitUtility.waitForPageToLoad(driver);

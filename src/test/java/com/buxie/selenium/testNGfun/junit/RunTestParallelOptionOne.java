@@ -1,6 +1,5 @@
 package com.buxie.selenium.testNGfun.junit;
 
-
 import com.buxie.selenium.testCases.ArtistRadioCases;
 import com.buxie.selenium.testCases.ForYouCases;
 import com.buxie.selenium.testCases.LiveRadioCases;
@@ -35,8 +34,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 @RunWith(Parallelized.class)
-public class RunTestParallel {
-	
+
+public class RunTestParallelOptionOne {
+
 	private WebDriver driver;
 	ArtistRadioCases artistRadioCases;
 	ForYouCases forYouCases;
@@ -49,10 +49,6 @@ public class RunTestParallel {
 	 private String browserName;
 	 private String browserVersion;
 	  
-		//String browser = "chrome";
-		// String browser = "firefox";
-		//String browser = "edge";
-		// String browser = "ie";
 		 
 	final String URL = "http://www.iheart.com/";
 	
@@ -62,16 +58,15 @@ public class RunTestParallel {
 	  public static LinkedList<String[]> getEnvironments() throws Exception {
 	    LinkedList<String[]> env = new LinkedList<String[]>();
 	    env.add(new String[]{Platform.WINDOWS.toString(), "chrome", "53"});
-	    env.add(new String[]{Platform.MAC.toString(),"firefox","44"});
+	    env.add(new String[]{Platform.WINDOWS.toString(),"firefox","46"});
 	   // env.add(new String[]{Platform.WINDOWS.toString(),"ie","11"});
 
-	    //add more browsers here
 
 	    return env;
 	  }
 	
 	  
-   public RunTestParallel(String platform, String browserName, String browserVersion) {
+   public RunTestParallelOptionOne(String platform, String browserName, String browserVersion) {
 	    this.platform = platform;
 	    this.browserName = browserName;
 	    this.browserVersion = browserVersion;
@@ -80,11 +75,10 @@ public class RunTestParallel {
 	@Before
     public void init()throws Exception
 	{
-		// driver = Utils.launchBrowser(URL, browser);
+		 driver = Utils.launchBrowser(URL, browserName);
 		
-		String hubURL = "http://192.168.1.5:4444/wd/hub";
 		
-		driver = Utils.createRemoteDriver(hubURL, browserName, "windows");
+		//driver = Utils.createRemoteDriver(hubURL, browserName, "windows");
 		driver.get(URL);
 	
 		
@@ -189,5 +183,5 @@ public class RunTestParallel {
 	        }
 	    }
 	    
-
+	
 }

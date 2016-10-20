@@ -60,10 +60,8 @@ public class Navigation extends Page{
 	
 	    
 	public static LiveRadioPage gotoLive()
-	{   
-	   if (!liveRadio.isEnabled())
-		  WaitUtility.sleep(1000);
-		liveRadio.click();
+	{  
+		WaitUtility.waitForElementToBeClickable(driver, liveRadio).click();
 		
 		WaitUtility.waitForPageToLoad(driver);
         return PageFactory.initElements(driver, LiveRadioPage.class);
@@ -96,7 +94,7 @@ public class Navigation extends Page{
 	
 	public  static  ArtistRadioPage gotoArtistRadio()
 	{   
-		artistRadio.click();
+		WaitUtility.waitForElementToBeClickable(driver, artistRadio).click();
 		WaitUtility.waitForPageToLoad(driver);
         return PageFactory.initElements(driver, ArtistRadioPage.class);
 	}

@@ -42,7 +42,7 @@ public class AllAboutJavascript {
 	        boolean ajaxIsComplete =(Boolean) ((JavascriptExecutor)driver ).executeScript("return jQuery.active == 0");
 	        if (ajaxIsComplete)
 	            break;
-	        WaitUtility.sleep(1000);
+	        WaitUtility.sleep(500);
 	    }
 	   
 	    ajaxCallCount = (Long)((JavascriptExecutor)driver ).executeScript("return jQuery.active");

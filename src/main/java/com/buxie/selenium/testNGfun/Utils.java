@@ -109,6 +109,7 @@ public class Utils {
 		      return null;
 	      }
 	
+	      driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	      driver.manage().window().maximize();
 	
 	      return driver;
@@ -137,11 +138,8 @@ public class Utils {
 	public static RemoteWebDriver  createRemoteDriver(String hubURL, String browser, String platform) throws Exception
 	{  
 		RemoteWebDriver driver;
-		
 	
-		 String platform_name = OSDetector(); //"win7";
-	
-	
+		String platform_name = OSDetector(); //This is meaningless cos it only detects local platform
 		
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		
@@ -259,8 +257,6 @@ public class Utils {
 			
 				
 			driver.get(url);
-			
-		//	driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			
 			return driver;
 	

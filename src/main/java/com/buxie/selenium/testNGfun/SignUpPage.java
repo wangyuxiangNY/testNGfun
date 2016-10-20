@@ -86,7 +86,7 @@ public class SignUpPage extends Page{
 		    gender_female.click();
 		    signUp.click();
 		    WaitUtility.waitForPageToLoad(driver);
-		    System.out.println("see signed account:" + signedAccount.getText() );
+		    System.out.println("see signed account:" + WaitUtility.waitForElementToBeClickable(driver,signedAccount).getText() );
 		    signedAccount.click();
 		    
 		    

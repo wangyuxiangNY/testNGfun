@@ -27,6 +27,7 @@ public class ProfilePage extends Page{
 	@FindBy(css="section.section-block:nth-child(1) > h3:nth-child(1) > a:nth-child(1)")
 	   private WebElement myStationsLink;
 	
+	//This way is dangerous if application is heavily ajaxed. 
     @FindBys({
     	@FindBy(css="section.section-block:nth-child(1)"),
 	    @FindBy(css = "ul.station-tiles"),
@@ -140,6 +141,7 @@ public class ProfilePage extends Page{
 	public String playStation(int index)
 	{   
 		String stationName ="";
+		
 		System.out.println("station count:" + stations.size());
 		int count = 0;
 	     for (WebElement station: stations)

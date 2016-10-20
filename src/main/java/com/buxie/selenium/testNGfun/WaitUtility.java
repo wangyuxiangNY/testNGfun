@@ -61,7 +61,7 @@ public class WaitUtility {
 	              System.out.println("Timeout waiting for Page Load Request to complete.");
 	      }
 	      
-	      WaitUtility.sleep(3000); //Give it extra time to wait.
+	      WaitUtility.sleep(3000);
 	 } 
 	
 	
@@ -272,6 +272,16 @@ public class WaitUtility {
 		return element;
 	}	
 	
+	
+	public static WebElement waitForElementToBeClickable(WebDriver driver, WebElement element)
+	{
+		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		WebDriverWait wait = new WebDriverWait(driver, 20); //here, wait time is 20 seconds
+	
+		WebElement newElement = wait.until(ExpectedConditions.elementToBeClickable(element)); //this will wait for elememt to be visible for 20 seconds
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		return newElement;
+	}	
 	
 	public void clickElement(WebDriver driver, By locator)
 	{

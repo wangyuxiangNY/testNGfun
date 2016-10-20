@@ -1,4 +1,4 @@
-package com.buxie.selenium.testNGfun;
+package com.buxie.selenium.testNGfun.junit;
 
 
 import com.buxie.selenium.testCases.ArtistRadioCases;
@@ -7,6 +7,10 @@ import com.buxie.selenium.testCases.LiveRadioCases;
 import com.buxie.selenium.testCases.PerfectForCases;
 import com.buxie.selenium.testCases.PodcastCases;
 import com.buxie.selenium.testCases.ProfileCases;
+import com.buxie.selenium.testNGfun.Page;
+import com.buxie.selenium.testNGfun.Utils;
+import com.buxie.selenium.testNGfun.WaitUtility;
+
 import static org.junit.Assert.*;
 
 import java.util.List;
@@ -34,15 +38,14 @@ public class RunWithJunit {
 	PodcastCases podcastCases;
 	
 	
-	String browser = "chrome";
-	 //String browser = "firefox";
+	//String browser = "chrome";
+	 String browser = "firefox";
 	//String browser = "edge";
 	// String browser = "ie";
 	 
 	final String URL = "http://www.iheart.com/";
 	
 
-	
 	
 	@Rule public TestName name = new TestName();
 	
@@ -51,9 +54,8 @@ public class RunWithJunit {
     public void init()throws Exception
 	{
 		driver = Utils.launchBrowser(URL, browser);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        
-         
+		 WaitUtility.waitForPageToLoad(driver);
+		 
         forYouCases = new ForYouCases(driver);
         perfectForCases = new PerfectForCases(driver);
         profileCases = new ProfileCases(driver);
@@ -169,7 +171,7 @@ public class RunWithJunit {
 
      @After
     public void tearDown() throws Exception{
-	   // driver.quit();
+	    driver.quit();
     	 
     	 
     	if (Page.getErrors().length() > 0)
