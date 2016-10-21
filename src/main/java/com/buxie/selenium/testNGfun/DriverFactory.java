@@ -1,6 +1,6 @@
 package com.buxie.selenium.testNGfun;
 
-	import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -69,7 +69,7 @@ public class DriverFactory
 		   return createWebDriver("chrome");
 	   }
 	   
-	   public static WebDriver  createWebDriver(String browser) 
+	   public  WebDriver  createWebDriver(String browser) 
 		
 		{   WebDriver driver;
 		
@@ -132,7 +132,7 @@ public class DriverFactory
 		  }
 		
 	   
-	   public static String OSDetector() 
+	   public  String OSDetector() 
 		{
 			String os = System.getProperty("os.name").toLowerCase();
 			System.out.println("see os:" + os) ;

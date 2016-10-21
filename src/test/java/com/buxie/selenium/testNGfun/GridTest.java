@@ -1,22 +1,8 @@
 package com.buxie.selenium.testNGfun;
 
 import java.lang.reflect.Method;
-
-//NOTE: replace USERNAME:ACCESS_KEY@YOUR_SUBDOMAIN and VIDEO_URL with your credentials found in the Gridlastic dashboard
-//ALSO SEE https://github.com/Gridlastic/demo1 FOR JAVA TESTNG EXAMPLES WITH PARALLEL TEST EXECUTIONS
-//NOTE: THE FIRST TEST ON A GRID NODE AFTER BEING LAUNCHED CAN BE SLOW, FOLLOWING TESTS ARE MUCH FASTER AFTER THE NODE IS "WARMED" UP.
-
-
-import java.net.URL;
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Platform;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -31,9 +17,6 @@ import com.buxie.selenium.testCases.ProfileCases;
 
 public class GridTest {
 
-	// VIDEO_URL set to like "https://s3-ap-southeast-2.amazonaws.com/b2729248-ak68-6948-a2y8-80e7479te16a/9ag7b09j-6a38-58w2-bb01-17qw724ce46t/play.html?".
-	// Find this VIDEO_URL value in your Gridlastic dashboard.
-	private static final String VIDEO_URL = null; 
 	private RemoteWebDriver driver;
 
 	ArtistRadioCases artistRadioCases;
@@ -50,11 +33,15 @@ public class GridTest {
 	@BeforeMethod(alwaysRun = true)
 	public void beforeMethod(Method method) throws Exception {
 		
-		//String nodeURL = "http://192.168.1.4:5566/wd/hub";
 		String hubURL = "http://192.168.1.5:4444/wd/hub";
-		driver = Utils.createRemoteDriver(hubURL, browser, "mac");
+		RemoteDriverFactory.getInstance().setBrowser(browser);
+		RemoteDriverFactory.getInstance().setPlatform(platform);
+
+		driver = RemoteDriverFactory.getInstance().getDriver();
 		driver.get(URL);
-        WaitUtility.waitForPageToLoad(driver);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	   
         
         forYouCases = new ForYouCases(driver);
         perfectForCases = new PerfectForCases(driver);
@@ -85,9 +72,10 @@ public class GridTest {
 	 {  
 		artistRadioCases.favorite();
 	 }
+	
 	@AfterMethod(alwaysRun = true)
 	public void tearDown() throws Exception {
-		driver.quit();
+		DriverFactory.getInstance().removeDriver();
 	}
 
 }

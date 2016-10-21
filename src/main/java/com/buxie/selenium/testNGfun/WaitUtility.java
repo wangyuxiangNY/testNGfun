@@ -173,7 +173,7 @@ public class WaitUtility {
 	 * @param locator
 	 * @return
 	 */
-	protected synchronized static WebElement fluentWaitIgnoreAll(WebDriver driver, final By locator, int timeOutInSecond)
+	protected  static WebElement fluentWaitIgnoreAll(WebDriver driver, final By locator, int timeOutInSecond)
 	{
 		if (driver == null)
 		   System.out.println("WaitUtility.fluentWaitIgnoreAll(): driver is null");
@@ -253,7 +253,7 @@ public class WaitUtility {
 	
 	}
 	
-	public synchronized WebElement waitForElementToBeVisible(WebDriver driver, By locator)
+	public  WebElement waitForElementToBeVisible(WebDriver driver, By locator)
 	{
 		WebElement element = driver.findElement(locator);
 		WebDriverWait wait = new WebDriverWait(driver, 20); //here, wait time is 20 seconds
@@ -263,10 +263,10 @@ public class WaitUtility {
 	}	
 	
 	
-	public synchronized static WebElement waitForElementToBeClickable(WebDriver driver, WebElement element)
+	public  static WebElement waitForElementToBeClickable(WebDriver driver, WebElement element)
 	{
 		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-		WebDriverWait wait = new WebDriverWait(driver, 20); //here, wait time is 20 seconds
+		WebDriverWait wait = new WebDriverWait(driver, 30); //here, wait time is 20 seconds
 	
 		WebElement newElement = wait.until(ExpectedConditions.elementToBeClickable(element)); //this will wait for elememt to be visible for 20 seconds
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
