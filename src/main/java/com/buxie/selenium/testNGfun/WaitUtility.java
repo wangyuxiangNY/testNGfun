@@ -121,18 +121,6 @@ public class WaitUtility {
 	
 	
 	
-	@Test
-	public static void testWebDriverWait(WebDriver driver)
-	{
-	
-		WebElement myDynamicElement = (new WebDriverWait(driver, 10))
-		  .until(ExpectedConditions.presenceOfElementLocated(By.id("myDynamicElement")));
-		
-		System.out.println("See element:" + myDynamicElement.getText() );
-
-	}
-	
-	
 	/**  This one is no good. I don't like it. 
 	 * Waits for an element to appear on the page before returning. Example:
 	 * WebElement waitElement =
@@ -185,7 +173,7 @@ public class WaitUtility {
 	 * @param locator
 	 * @return
 	 */
-	protected static WebElement fluentWaitIgnoreAll(WebDriver driver, final By locator, int timeOutInSecond)
+	protected synchronized static WebElement fluentWaitIgnoreAll(WebDriver driver, final By locator, int timeOutInSecond)
 	{
 		if (driver == null)
 		   System.out.println("WaitUtility.fluentWaitIgnoreAll(): driver is null");
@@ -265,7 +253,7 @@ public class WaitUtility {
 	
 	}
 	
-	public WebElement waitForElementToBeVisible(WebDriver driver, By locator)
+	public synchronized WebElement waitForElementToBeVisible(WebDriver driver, By locator)
 	{
 		WebElement element = driver.findElement(locator);
 		WebDriverWait wait = new WebDriverWait(driver, 20); //here, wait time is 20 seconds
@@ -275,7 +263,7 @@ public class WaitUtility {
 	}	
 	
 	
-	public static WebElement waitForElementToBeClickable(WebDriver driver, WebElement element)
+	public synchronized static WebElement waitForElementToBeClickable(WebDriver driver, WebElement element)
 	{
 		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		WebDriverWait wait = new WebDriverWait(driver, 20); //here, wait time is 20 seconds

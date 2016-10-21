@@ -68,8 +68,7 @@ public abstract class Page {
 	{   
 		this.driver = _driver;
 		PageFactory.initElements(driver, this);
-		if (this.driver != null)
-			System.out.println("Driver is set successfully");
+		
 	}
 	
 	
@@ -80,16 +79,16 @@ public abstract class Page {
 			 System.out.println("In page.login(): driver is good---" + driver.getCurrentUrl());
 	   // login.click();
 		 //can I detect ajax call count?  Will fluentwait solve problem? Will @FindBy give me trouble?
-		//WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
-		WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 25).click();
-/*
+		WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
+		//WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 25).click();
+
 		try{
 		   mylogin.click();
 		}catch(Exception e)
 		{
-			WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15).click();
+			WaitUtility.waitForElementToBeClickable(driver, mylogin).click();
 		}
-		*/
+		
 		WaitUtility.waitForPageToLoad(driver);
 		WaitUtility.fluentWaitIgnoreAll(driver, By.name("username"), 2).sendKeys(USER_NAME);
 		WaitUtility.waitForPageToLoad(driver);

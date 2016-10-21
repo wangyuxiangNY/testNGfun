@@ -50,15 +50,15 @@ public class RunWithTestNG {
 	String methodName ="";
 	 
 	final String URL = "http://www.iheart.com/";
-
-	
-	
 	
 	@BeforeMethod
 	public void init(Method method) {
-        driver = Utils.launchBrowser(URL, browser, true);
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        
+       // driver = Utils.launchBrowser(URL, browser, true);
+		driver = DriverFactory.getInstance().getDriver();
+		driver.get(URL);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	   
         
         forYouCases = new ForYouCases(driver);
         perfectForCases = new PerfectForCases(driver);
@@ -150,7 +150,8 @@ public class RunWithTestNG {
 	
 
 		@AfterMethod
-	    public void tearDown(ITestResult result) throws Exception{
+	    public void tearDown(ITestResult result) throws Exception
+		{
 			
 			if(result.getStatus() == ITestResult.FAILURE)
 	        {
@@ -163,20 +164,9 @@ public class RunWithTestNG {
 		            }
 	        }
 			
-			//if(result.getStatus() == ITestResult.SUCCESS)	 
-    	   driver.quit(); 
+			DriverFactory.getInstance().removeDriver();
     	   System.out.println("Test case:" +  result.getMethod().getMethodName() +" is done!");
-    	   /*
-    	   @AfterMethod(alwaysRun = true)
-    	   public void afterMethod(ITestResult result) {
-    	       try {
-    	           sa.assertAll();
-    	       } catch(Throwable t) {
-    	           result.setStatus(FAILURE);
-    	           result.setThrowable(t);
-    	       }
-    	   }
-    	   */
+    	   
 	    	
 	    }
 	

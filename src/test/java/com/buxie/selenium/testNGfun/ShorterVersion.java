@@ -33,8 +33,8 @@ package com.buxie.selenium.testNGfun;
 	public class ShorterVersion {
 
 		
-
-		private WebDriver driver;
+		WebDriver driver;
+		private ThreadLocal<WebDriver> driverInstance;
 		ArtistRadioCases artistRadioCases;
 		ForYouCases forYouCases;
 		PerfectForCases perfectForCases;
@@ -57,8 +57,17 @@ package com.buxie.selenium.testNGfun;
 		
 		@BeforeMethod
 		public void init(Method method) {
-	        driver = Utils.launchBrowser(URL, browser, true);
-	        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			/*
+			 driverInstance = Utils.createThreadSafeWebDriver(browser);
+			 driver = driverInstance.get();
+	         driver.get(URL);
+	         driver.manage().window().maximize();
+	         */
+			driver = DriverFactory.getInstance().getDriver();
+			 driver.get(URL);
+	         driver.manage().window().maximize();
+	         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		   
 	        
 	        
 	        forYouCases = new ForYouCases(driver);
@@ -87,7 +96,7 @@ package com.buxie.selenium.testNGfun;
 		 }
 		
 		//@Test(groups ="ArtistRadioTest")
-		@Test(enabled = false)
+		@Test
 		 public void testFavorite() throws Exception
 		 {  
 			artistRadioCases.favorite();
@@ -102,13 +111,6 @@ package com.buxie.selenium.testNGfun;
 		 }
 		 
 		 
-		 @Test(groups ="podCastTest")
-	    public void testPodcastThumbDown() throws Exception
-	    {  
-			 podcastCases.thumbDown();
-			// Verify.softAssert.assertAll();
-	    }
-		 /*
 		
 		 @Test
 	     public void testPopularUserFlow() 
@@ -159,46 +161,34 @@ package com.buxie.selenium.testNGfun;
 			 perfectForCases.browsePerfectFor();
 			// Verify.softAssert.assertAll();
 		 }
-		*/
+		
 
-			@AfterMethod
-		    public void tearDown(ITestResult result) throws Exception{
-				
-				if(result.getStatus() == ITestResult.FAILURE)
-		        {
-					try{
-				    	  // Page.takeScreenshot(driver, name.getMethodName());
-			            	Page.takeScreenshot(driver, result.getMethod().getMethodName());
-			            }catch(Exception eX)
-			            {
-			            	
-			            }
-		        }
-				
-				//if(result.getStatus() == ITestResult.SUCCESS)	 
-	    	   driver.quit(); 
-	    	   System.out.println("Test case:" +  result.getMethod().getMethodName() +" is done!");
-	    	   /*
-	    	   @AfterMethod(alwaysRun = true)
-	    	   public void afterMethod(ITestResult result) {
-	    	       try {
-	    	           sa.assertAll();
-	    	       } catch(Throwable t) {
-	    	           result.setStatus(FAILURE);
-	    	           result.setThrowable(t);
-	    	       }
-	    	   }
-	    	   */
-		    	
-		    }
-		
-		    @AfterTest
-		    public void bye() throws Exception{
-	    	    System.out.println("Done done done.!");
-		    	
-		    }
-		
-		   
-		
+		@AfterMethod
+	    public void tearDown(ITestResult result) throws Exception{
+			
+			if(result.getStatus() == ITestResult.FAILURE)
+	        {
+				try{
+		            	Page.takeScreenshot(driver, result.getMethod().getMethodName());
+		            }catch(Exception eX)
+		            {
+		            	
+		            }
+	        }
+			
+		  // driver.quit();
+    	  DriverFactory.getInstance().removeDriver();
+    	   System.out.println("Test case:" +  result.getMethod().getMethodName() +" is done!");
+    	  
+	    }
+	
+	    @AfterTest
+	    public void bye() throws Exception{
+    	    System.out.println("Done done done.!");
+	    	
+	    }
+	
+	   
+	
 
 	}

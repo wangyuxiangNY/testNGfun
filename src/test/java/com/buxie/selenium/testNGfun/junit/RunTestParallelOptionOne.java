@@ -75,7 +75,7 @@ public class RunTestParallelOptionOne {
 	@Before
     public void init()throws Exception
 	{
-		 driver = Utils.launchBrowser(URL, browserName, true);
+		 driver = Utils.launchBrowser(URL, browserName);
 		
 		
 		//driver = Utils.createRemoteDriver(hubURL, browserName, "windows");

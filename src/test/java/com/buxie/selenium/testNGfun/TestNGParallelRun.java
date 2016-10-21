@@ -56,8 +56,15 @@ public class TestNGParallelRun {
 	@BeforeMethod
 	public void init(Method method, String browser) {
 		System.out.println("Test in Browser:" + browser);
-        driver = Utils.launchBrowser(URL, browser, true);
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		DriverFactory.getInstance().setBrowser(browser);
+
+		System.out.println("Double-check Browser:" + DriverFactory.getInstance().getBrowser());
+		driver = DriverFactory.getInstance().getDriver();
+		driver.get(URL);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	   
+		
         WaitUtility.waitForPageToLoad(driver);
         
         forYouCases = new ForYouCases(driver);
@@ -159,20 +166,9 @@ public class TestNGParallelRun {
 		            }
 	        }
 			
-			//if(result.getStatus() == ITestResult.SUCCESS)	 
-    	   driver.quit(); 
-    	   System.out.println("Test case:" +  result.getMethod().getMethodName() +" is done!");
-    	   /*
-    	   @AfterMethod(alwaysRun = true)
-    	   public void afterMethod(ITestResult result) {
-    	       try {
-    	           sa.assertAll();
-    	       } catch(Throwable t) {
-    	           result.setStatus(FAILURE);
-    	           result.setThrowable(t);
-    	       }
-    	   }
-    	   */
+			DriverFactory.getInstance().removeDriver();
+			System.out.println("Test case:" +  result.getMethod().getMethodName() +" is done!");
+    	  
 	    	
 	    }
 	
