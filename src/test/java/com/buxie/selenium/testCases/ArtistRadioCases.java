@@ -30,7 +30,8 @@ public class ArtistRadioCases extends TestCase{
 	public void filterAndPlayCustomAfterLogin() throws Exception
 	{
 		artistRadioPage.login();
-		navigation.gotoArtistRadio();
+		//navigation.gotoArtistRadio();
+		navigation.gotoArtistRadioPage_direct();
 		artistRadioPage.chooseGenre(1);
 	    artistRadioPage.playFirstStation();
 	    artistRadioPage.waitForPreroll();

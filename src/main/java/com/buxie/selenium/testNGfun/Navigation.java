@@ -88,11 +88,14 @@ public class Navigation extends Page{
 	}
 	
 	
-	public    ArtistRadioPage gotoArtistRadio()
+	public    void gotoArtistRadio()
 	{   
+		 gotoArtistRadioPage_direct();
+		/*
 		WaitUtility.waitForElementToBeClickable(driver, artistRadio).click();
 		WaitUtility.waitForPageToLoad(driver);
         return PageFactory.initElements(driver, ArtistRadioPage.class);
+        */
 	}
 	
 	public    GenresPage gotoGenres()

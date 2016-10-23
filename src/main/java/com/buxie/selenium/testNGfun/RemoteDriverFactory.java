@@ -24,8 +24,6 @@ import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 public class RemoteDriverFactory {
 
 	private String hubURL;
-	 private String browser ="chrome";
-	 private String platform ="win";
 	 
      
 	   private RemoteDriverFactory()
@@ -44,10 +42,29 @@ public class RemoteDriverFactory {
 	      @Override
 	      protected RemoteWebDriver initialValue()
 	      {
-	         return createRemoteDriver(hubURL, browser, platform); // can be replaced with other browser drivers
+	         return createRemoteDriver(hubURL, browser.get(), platform.get()); // can be replaced with other browser drivers
 	      }
 	   };
 	   
+	   ThreadLocal<String> browser = new ThreadLocal<String>() // thread local driver object for webdriver
+			   {
+			      @Override
+			      protected String initialValue()
+			      {
+			         return getBrowser(); // can be replaced with other browser drivers
+			      }
+			   };
+	   
+			   
+	   ThreadLocal<String> platform = new ThreadLocal<String>() // thread local driver object for webdriver
+			   {
+			      @Override
+			      protected String initialValue()
+			      {
+			         return getPlatform(); // can be replaced with other browser drivers
+			      }
+			   };
+			   
 	   public synchronized void setHubURL(String url)
 	   {
 		   this.hubURL = url;
@@ -61,22 +78,23 @@ public class RemoteDriverFactory {
 	   
 	   public synchronized void setPlatform(String platform)
 	   {
-		   this.platform = platform;
+		   this.platform.set( platform);
 	   }
 	   
-	   public String getPlatform( )
+	   public   String getPlatform( )
 	   {
-		   return platform;
+		   return platform.get();
 	   }
+	  
 
 	   public synchronized void setBrowser(String browser)
 	   {
-		   this.browser = browser;
+		   this.browser.set(browser);
 	   }
 	   
-	   public String getBrowser( )
+	   public   String getBrowser( )
 	   {
-		   return browser;
+		   return browser.get();
 	   }
 	   
 	   public RemoteWebDriver getDriver() // call this method to get the driver object and launch the browser
@@ -87,6 +105,10 @@ public class RemoteDriverFactory {
 
 	   public void removeDriver() // Quits the driver and closes the browser
 	   {
+		  
+		  browser.remove();
+		  platform.remove();
+		   
 	      driver.get().quit();
 	      driver.remove();
 	   }

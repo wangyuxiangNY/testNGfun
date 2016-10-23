@@ -174,7 +174,9 @@ public class WaitUtility {
 	 * @return
 	 */
 	protected  static WebElement fluentWaitIgnoreAll(WebDriver driver, final By locator, int timeOutInSecond)
-	{
+	{   
+		System.out.println("fluentWaitIgnoreAll(..) by threadID: " +  Thread.currentThread().getId());
+		
 		if (driver == null)
 		   System.out.println("WaitUtility.fluentWaitIgnoreAll(): driver is null");
 		cancelImplicitWait(driver);
@@ -203,6 +205,9 @@ public class WaitUtility {
 		  }
 	
 		  setImplicitWait(driver, 20);
+		  
+		  System.out.println("fluentWaitIgnoreAll(..) DONE by threadID: " +  Thread.currentThread().getId());
+			
 		  	return element;
 	}
 	 
@@ -253,7 +258,7 @@ public class WaitUtility {
 	
 	}
 	
-	public  WebElement waitForElementToBeVisible(WebDriver driver, By locator)
+	public static WebElement waitForElementToBeVisible(WebDriver driver, By locator)
 	{
 		WebElement element = driver.findElement(locator);
 		WebDriverWait wait = new WebDriverWait(driver, 20); //here, wait time is 20 seconds
@@ -263,13 +268,17 @@ public class WaitUtility {
 	}	
 	
 	
-	public  static WebElement waitForElementToBeClickable(WebDriver driver, WebElement element)
+	public static  WebElement waitForElementToBeClickable(WebDriver driver, WebElement element)
 	{
+		System.out.println("waitForElementToBeClickable(..) by threadID: " +  Thread.currentThread().getId());
+		
 		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		WebDriverWait wait = new WebDriverWait(driver, 30); //here, wait time is 20 seconds
 	
 		WebElement newElement = wait.until(ExpectedConditions.elementToBeClickable(element)); //this will wait for elememt to be visible for 20 seconds
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		System.out.println("waitForElementToBeClickable(..). Done by threadID: " +  Thread.currentThread().getId());
+		
 		return newElement;
 	}	
 	

@@ -1,11 +1,17 @@
 package com.buxie.selenium.testNGfun;
 
 import java.lang.reflect.Method;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.buxie.selenium.testCases.ArtistRadioCases;
@@ -27,21 +33,36 @@ public class GridTest {
 	PodcastCases podcastCases;
 	
 	// String browser = "chrome";
-	 String browser = "firefox";
+	// String browser, platform;
+	final String hubURL = "http://192.168.1.5:4444/wd/hub";
 	final String URL = "http://www.iheart.com";
 	
-	@BeforeMethod(alwaysRun = true)
-	public void beforeMethod(Method method) throws Exception {
-		
-		String hubURL = "http://192.168.1.5:4444/wd/hub";
+	@BeforeSuite
+	public void beforeSuite() {
+		System.out.println("Suite started: " +  (new Date()).toString());
+		System.out.println("Suite started: " +  Calendar.getInstance().getTimeInMillis());
+	}
+
+	
+	@Parameters({ "browser", "platform" })
+	@BeforeMethod
+	public void init(Method method, String browser, String platform) {
+		System.out.println("Test in Browser/platform:" + browser + "/" + platform +" /ThreadID:" +  Thread.currentThread().getId());
+		RemoteDriverFactory.getInstance().setHubURL(hubURL);
 		RemoteDriverFactory.getInstance().setBrowser(browser);
 		RemoteDriverFactory.getInstance().setPlatform(platform);
 
+		System.out.println("Double-check :" + RemoteDriverFactory.getInstance().getBrowser() 
+				+	"/" + RemoteDriverFactory.getInstance().getPlatform() +" /ThreadID:" +  Thread.currentThread().getId());
+				
+		
 		driver = RemoteDriverFactory.getInstance().getDriver();
 		driver.get(URL);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	   
+		
+        WaitUtility.waitForPageToLoad(driver);
         
         forYouCases = new ForYouCases(driver);
         perfectForCases = new PerfectForCases(driver);
@@ -50,11 +71,14 @@ public class GridTest {
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
         
-        forYouCases.setBrowser(browser);
-        
-        System.out.println("test method:" +  method.getName() + " started." );
-	}
-
+        System.out.println("test method:" +  method.getName() + " run in : " + 
+        				RemoteDriverFactory.getInstance().getPlatform()   +
+        				"/" +  RemoteDriverFactory.getInstance().getBrowser()  +
+        				" / " + Thread.currentThread().getId());
+			
+    }
+	
+	
 	 @Test
      public void testPopularUserFlow() 
      {
@@ -65,17 +89,95 @@ public class GridTest {
 	 public void testFilterAndPlayCustomAfterLogin() throws Exception
 	 {  
 		artistRadioCases.filterAndPlayCustomAfterLogin();
+		//Verify.softAssert.assertAll();
 	 }
 	
-	@Test(groups ="ArtistRadioTest")
+	//@Test(groups ="ArtistRadioTest")
+	@Test(enabled = false)
 	 public void testFavorite() throws Exception
 	 {  
 		artistRadioCases.favorite();
+		//Verify.softAssert.assertAll();
 	 }
 	
-	@AfterMethod(alwaysRun = true)
-	public void tearDown() throws Exception {
-		DriverFactory.getInstance().removeDriver();
-	}
+	 @Test(groups ="searchTest")
+	 public void testSearchJoshInAll() throws Exception
+	 {  
+		 podcastCases.searchJoshInAll();
+		 //Verify.softAssert.assertAll();
+	 }
+	
+	 @Test(groups ="searchTest")
+	 public void testSearchFromPodcast() throws Exception
+	 {  
+		 podcastCases.searchJoshInPodcast();
+		// Verify.softAssert.assertAll();
+	 }	 
+ 
+	 @Test(groups ="podCastTest")
+    public void testPodcastThumbDown() throws Exception
+    {  
+		 podcastCases.thumbDown();
+		// Verify.softAssert.assertAll();
+    }
+			
+	
+	
+	 @Test(groups ="liveRadioTest")
+    public void testThumbUpLive() throws Exception
+    {  
+		 liveRadioCases.thumbUp();
+		// Verify.softAssert.assertAll();
+    }
+			
+	
+	 @Test(groups ="profileTest")
+    public void testPlayStastionFromProfile() throws Exception
+    {  
+		 profileCases.playMyStation(1);
+		 
+		// Verify.softAssert.assertAll();
+		
+    }
+		
+			
 
+	// @Test(groups = "PerfectFor")
+	 @Test(enabled = false)
+	 public void testBrowsePerfectFor() throws Exception
+	 {
+	    
+		 perfectForCases.browsePerfectFor();
+		// Verify.softAssert.assertAll();
+	 }
+	
+	
+	
+	
+	@AfterMethod
+    public void tearDown(ITestResult result) throws Exception{
+		
+		if(result.getStatus() == ITestResult.FAILURE)
+        {
+			try{
+		    	  
+	            	Page.takeRemoteScreenshot(driver, result.getMethod().getMethodName());
+	            }catch(Exception eX)
+	            {
+	            	
+	            }
+        }
+		
+		RemoteDriverFactory.getInstance().removeDriver();
+		System.out.println("Test case:" +  result.getMethod().getMethodName() +" is done!");
+	  
+    	
+    }
+
+	@AfterSuite
+	public void afterSuite() {
+		System.out.println("Suite ended: " +  (new Date()).toString());
+		System.out.println("After Suite: " +  Calendar.getInstance().getTimeInMillis());
+	}
+	
 }

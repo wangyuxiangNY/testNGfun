@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -75,19 +77,14 @@ public abstract class Page {
 	public  void login()
 	{    USER_NAME ="iheartrocks888@gmail.com";
 		 PASSWORD ="iheart001";
-		 if(this.driver != null)
-			 System.out.println("In page.login(): driver is good---" + driver.getCurrentUrl());
-	   // login.click();
-		 //can I detect ajax call count?  Will fluentwait solve problem? Will @FindBy give me trouble?
-		WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
-		//WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 25).click();
-
-		try{
-		   mylogin.click();
-		}catch(Exception e)
-		{
-			WaitUtility.waitForElementToBeClickable(driver, mylogin).click();
-		}
+		
+		 WaitUtility.sleep(5000);
+		 login.click();
+		// driver.findElement(By.cssSelector(".icon-account")).click();
+		 
+		//WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
+		
+	
 		
 		WaitUtility.waitForPageToLoad(driver);
 		WaitUtility.fluentWaitIgnoreAll(driver, By.name("username"), 2).sendKeys(USER_NAME);
@@ -217,6 +214,11 @@ public abstract class Page {
             System.out.println("Screenshot is taken.");
     }
     
+    
+    public static void takeRemoteScreenshot(RemoteWebDriver driver, String testMethod) throws Exception
+    {
+    	takeScreenshot(new Augmenter().augment(driver ), testMethod);
+    }
     
     public  WebElement waitForElement( WebElement element, long timeOutInMilliSecond)
 	{

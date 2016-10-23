@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Test IHEART In grid" parallel="tests" verbose="1" thread-count="5">
+
+    <listeners>
+      <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+      <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+  </listeners>
+  
+    <test name="Test in Mac/Firefox">
+    	<parameter name="platform" value="mac"/>
+    	<parameter name="browser" value="firefox"/>
+       	 	<classes>
+        		<class name="com.buxie.selenium.testNGfun.GridTest"/>
+        	</classes>
+    </test>
+     <test name="Test in WINDOWS/Chrome">
+     	<parameter name="platform" value="windows"/>
+   		 <parameter name="browser" value="chrome"/>
+        <classes>
+        	<class name="com.buxie.selenium.testNGfun.GridTest"/>
+        </classes>
+    </test>
+   
+</suite>

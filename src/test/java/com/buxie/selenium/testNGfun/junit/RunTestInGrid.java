@@ -1,13 +1,16 @@
 package com.buxie.selenium.testNGfun.junit;
 
 
+
 import com.buxie.selenium.testCases.ArtistRadioCases;
 import com.buxie.selenium.testCases.ForYouCases;
 import com.buxie.selenium.testCases.LiveRadioCases;
 import com.buxie.selenium.testCases.PerfectForCases;
 import com.buxie.selenium.testCases.PodcastCases;
 import com.buxie.selenium.testCases.ProfileCases;
+import com.buxie.selenium.testNGfun.DriverFactory;
 import com.buxie.selenium.testNGfun.Page;
+import com.buxie.selenium.testNGfun.RemoteDriverFactory;
 import com.buxie.selenium.testNGfun.Utils;
 import com.buxie.selenium.testNGfun.WaitUtility;
 
@@ -26,17 +29,13 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
+
 
 @RunWith(Parallelized.class)
-public class RunTestParallelInGrid {
-	
+public class RunTestInGrid {
+
 	private WebDriver driver;
 	ArtistRadioCases artistRadioCases;
 	ForYouCases forYouCases;
@@ -46,15 +45,13 @@ public class RunTestParallelInGrid {
 	PodcastCases podcastCases;
 	
 	 private String platform;
-	 private String browserName;
+	 private String browser;
 	 private String browserVersion;
 	  
-		//String browser = "chrome";
-		// String browser = "firefox";
-		//String browser = "edge";
-		// String browser = "ie";
+		
 		 
-	final String URL = "http://www.iheart.com/";
+	private final String URL = "http://www.iheart.com/";
+	private final String hubURL = "http://192.168.1.5:4444/wd/hub";
 	
 	@Rule public TestName name = new TestName();
 	
@@ -71,25 +68,29 @@ public class RunTestParallelInGrid {
 	  }
 	
 	  
-   public RunTestParallelInGrid(String platform, String browserName, String browserVersion) {
+   public RunTestInGrid(String platform, String browserName, String browserVersion) {
 	    this.platform = platform;
-	    this.browserName = browserName;
+	    this.browser = browserName;
 	    this.browserVersion = browserVersion;
    }  
 	
 	@Before
     public void init()throws Exception
 	{
-		// driver = Utils.launchBrowser(URL, browser);
+		System.out.println("Test in Browser/platform:" + browser + "/" + platform);
+		RemoteDriverFactory.getInstance().setHubURL(hubURL);
+		RemoteDriverFactory.getInstance().setBrowser(browser);
+		RemoteDriverFactory.getInstance().setPlatform(platform);
+
+		System.out.println("Double-check Browser/PLATFORM:" + RemoteDriverFactory.getInstance().getBrowser() 
+				+	"/" + RemoteDriverFactory.getInstance().getPlatform());
 		
-		String hubURL = "http://192.168.1.5:4444/wd/hub";
 		
-		driver = Utils.createRemoteDriver(hubURL, browserName, "windows");
+		driver = RemoteDriverFactory.getInstance().getDriver();
 		driver.get(URL);
-	
-		
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        WaitUtility.waitForPageToLoad(driver);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	   
         
         forYouCases = new ForYouCases(driver);
         perfectForCases = new PerfectForCases(driver);
@@ -170,7 +171,7 @@ public class RunTestParallelInGrid {
 
 	     @After
 	    public void tearDown() throws Exception{
-		    driver.quit(); 
+	    	 DriverFactory.getInstance().removeDriver();
 		   
 	    	if (forYouCases.getErrors().length() > 0)
 				 fail(forYouCases.getErrors().toString());
@@ -187,5 +188,6 @@ public class RunTestParallelInGrid {
 	        }
 	    }
 	    
-
+	
+	
 }
