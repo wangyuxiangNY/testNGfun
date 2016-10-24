@@ -57,22 +57,28 @@
        <version>2.19.1</version>
        
         <configuration>
-			 <properties>
-			   <property>
-			     <name>parallel</name>
-			     <value>methods</value>
-			   </property>
-			   <property>
-			     <name>threadCount</name>
-			     <value>3</value>
-			   </property>
-			   <property>
-			     <name>dataproviderthreadcount</name>
-			     <value>6</value>
-			   </property>
-			 </properties>
-	
-       </configuration>
+          <suiteXmlFiles>
+            <suiteXmlFile>testNG_remote.xml</suiteXmlFile>
+          </suiteXmlFiles>
+          
+           <property>
+              <name>usedefaultlisteners</name>
+              <value>false</value> <!-- disabling default listeners is optional -->
+            </property>
+            <property>
+              <name>listener</name>
+              <value>org.uncommons.reportng.HTMLReporter</value>
+            </property>
+            <property>
+              <name>listener</name>
+              <value>org.uncommons.reportng.JUnitXMLReporter</value>
+            </property>
+            <property>
+              <name>reporter</name>
+              <value>listenReport.Reporter</value>
+            </property>
+          
+        </configuration>
      </plugin>
       
      </plugins>

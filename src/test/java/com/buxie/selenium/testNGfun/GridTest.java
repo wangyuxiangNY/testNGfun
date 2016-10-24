@@ -1,10 +1,16 @@
 package com.buxie.selenium.testNGfun;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -159,13 +165,8 @@ public class GridTest {
 		
 		if(result.getStatus() == ITestResult.FAILURE)
         {
-			try{
-		    	  
-	            	Page.takeRemoteScreenshot(driver, result.getMethod().getMethodName());
-	            }catch(Exception eX)
-	            {
-	            	
-	            }
+			 Page.takeRemoteScreenshot(driver, result.getMethod().getMethodName());
+	         takeScreenshot(new Augmenter().augment(driver ), result);  
         }
 		
 		RemoteDriverFactory.getInstance().removeDriver();
@@ -179,5 +180,26 @@ public class GridTest {
 		System.out.println("Suite ended: " +  (new Date()).toString());
 		System.out.println("After Suite: " +  Calendar.getInstance().getTimeInMillis());
 	}
+	
+	 private void takeScreenshot(WebDriver driver,  ITestResult testResult)
+	   {
+	        try {
+	            File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+
+	            // String filePathRoot = "C:\\_Jenkins\\workspace\\" + jenkinsJobName + "\\target\\surefire-reports\\";
+	    		String currentPath =  System.getProperty("user.dir");
+	    		String path = currentPath + "\\target\\surefire-reports\\";
+	    		
+	            String fullFilePath = path +  testResult.getTestClass().getName() + "\\" + testResult.getMethod().getMethodName() + ".jpg";
+                System.out.println("see screenshot: " + fullFilePath);
+                FileUtils.copyFile(screenshot, new File(fullFilePath));
+	        } catch(Exception ex) {
+	            System.out.println(ex.toString());
+	            System.out.println(ex.getMessage());
+	        }
+
+	   }
+
+
 	
 }
