@@ -13,19 +13,31 @@ import com.buxie.selenium.testNGfun.WaitUtility;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
+import static org.junit.Assert.*; 
 
 import org.junit.Test; 
 import org.junit.Ignore; 
 import org.junit.Before; 
 import org.junit.After; 
 import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
 import org.junit.rules.TestName;
-import org.openqa.selenium.By;
+import org.junit.runner.Description;
+
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 
 public class RunWithJunit {
@@ -170,7 +182,7 @@ public class RunWithJunit {
 
      @After
     public void tearDown() throws Exception{
-	    driver.quit();
+	  //  driver.quit();
     	 
     	 
     	if (artistRadioCases.getErrors().length() > 0)
@@ -194,4 +206,32 @@ public class RunWithJunit {
     }
     
 
+    @Rule
+    public TestRule watcher = new TestWatcher() {
+        @Override
+        public void finished(Description description) {
+            driver.quit();
+        }
+
+        @Override
+        public void failed(Throwable e, Description description) {
+            try {
+                File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+
+                // String filePathRoot = "C:\\_Jenkins\\workspace\\" + jenkinsJobName + "\\target\\surefire-reports\\";
+        		String currentPath =  System.getProperty("user.dir");
+        		String path = currentPath + "\\target\\surefire-reports\\";
+        		
+                String fullFilePath = path + description.getClassName() + "\\" + description.getMethodName() + ".jpg";
+
+                FileUtils.copyFile(screenshot, new File(fullFilePath));
+            } catch(Exception ex) {
+                System.out.println(ex.toString());
+                System.out.println(ex.getMessage());
+            }
+
+            driver.quit();
+        }
+    };
+    
 }
