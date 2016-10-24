@@ -68,7 +68,7 @@ public class Utils {
 	  }
 	  */
 	
-	public static ThreadLocal<WebDriver>  createThreadSafeWebDriver(String browser) 
+	public static ThreadLocal<WebDriver>  createThreadSafeWebDriver(final String browser) 
 	{   
 		ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>() // thread local driver object for webdriver
         {
