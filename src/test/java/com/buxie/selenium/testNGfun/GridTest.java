@@ -183,6 +183,7 @@ public class GridTest {
 	
 	 private void takeScreenshot(WebDriver driver,  ITestResult testResult)
 	   {
+		   
 	        try {
 	            File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 
@@ -191,7 +192,7 @@ public class GridTest {
 	    		String path = currentPath + "\\target\\surefire-reports\\";
 	    		
 	            String fullFilePath = path +  testResult.getTestClass().getName() + "\\" + testResult.getMethod().getMethodName() + ".jpg";
-                System.out.println("see screenshot: " + fullFilePath);
+                System.out.println("see screenshot/ThreadID: " + fullFilePath + "/" + Thread.currentThread().getId());
                 FileUtils.copyFile(screenshot, new File(fullFilePath));
 	        } catch(Exception ex) {
 	            System.out.println(ex.toString());
