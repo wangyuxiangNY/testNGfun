@@ -47,10 +47,10 @@ public abstract class Page {
 	public  WebDriver driver;
 	
 	 String browser ="";
-	  String USER_NAME ="iheartrocks888@gmail.com";
-	  String PASSWORD ="iheart001";
-	  String FACEBOOK_USER_NAME = USER_NAME;
-	  String GOOGLE_USER_NAME = USER_NAME;
+	 private final String USER_NAME ="iheartrocks888@gmail.com";
+	 private final  String PASSWORD ="iheart001";
+	 private final String FACEBOOK_USER_NAME = USER_NAME;
+	 private final String GOOGLE_USER_NAME = USER_NAME;
 	
 	private  String country ="US";  //Default to US
 	
@@ -73,10 +73,7 @@ public abstract class Page {
 	
 	
 	public  void login()
-	{    USER_NAME ="iheartrocks888@gmail.com";
-		 PASSWORD ="iheart001";
-		 if(this.driver != null)
-			 System.out.println("In page.login(): driver is good---" + driver.getCurrentUrl());
+	{    
 	   // login.click();
 		 //can I detect ajax call count?  Will fluentwait solve problem? Will @FindBy give me trouble?
 		WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
