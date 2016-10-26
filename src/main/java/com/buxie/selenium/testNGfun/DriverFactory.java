@@ -17,8 +17,7 @@ import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 public class DriverFactory
 {
 
-       private String browser ="chrome";
-       
+         
 	   private DriverFactory()
 	   {
 	      //Do-nothing..Do not allow to initialize this class from outside
@@ -30,12 +29,21 @@ public class DriverFactory
 	      return instance;
 	   }
 
+	   ThreadLocal<String> browser = new ThreadLocal<String>() // thread local driver object for webdriver
+			   {
+			      @Override
+			      protected String initialValue()
+			      {
+			         return getBrowser(); // can be replaced with other browser drivers
+			      }
+			   };
+			   
 	   ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>() // thread local driver object for webdriver
 	   {
 	      @Override
 	      protected WebDriver initialValue()
 	      {
-	         return createWebDriver(browser); // can be replaced with other browser drivers
+	         return createWebDriver(browser.get()); // can be replaced with other browser drivers
 	      }
 	   };
 	   
@@ -43,12 +51,12 @@ public class DriverFactory
 
 	   public synchronized void setBrowser(String browser)
 	   {
-		   this.browser = browser;
+		   this.browser.set(browser);
 	   }
 	   
-	   public String getBrowser( )
+	   public   String getBrowser( )
 	   {
-		   return browser;
+		   return browser.get();
 	   }
 	   
 	   public WebDriver getDriver() // call this method to get the driver object and launch the browser

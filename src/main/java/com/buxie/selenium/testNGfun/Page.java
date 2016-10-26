@@ -49,12 +49,11 @@ public abstract class Page {
 	public  WebDriver driver;
 	
 	 String browser ="";
-	  String USER_NAME ="iheartrocks888@gmail.com";
-	  String PASSWORD ="iheart001";
-	  String FACEBOOK_USER_NAME = USER_NAME;
-	  String GOOGLE_USER_NAME = USER_NAME;
+	 final String USER_NAME ="iheartrocks888@gmail.com";
+	 final  String PASSWORD ="iheart001";
+	 final  String FACEBOOK_USER_NAME = USER_NAME;
+	 final String GOOGLE_USER_NAME = USER_NAME;
 	
-	private  String country ="US";  //Default to US
 	
 	
 	private  StringBuffer errors = new StringBuffer(); 
@@ -75,8 +74,8 @@ public abstract class Page {
 	
 	
 	public  void login()
-	{    USER_NAME ="iheartrocks888@gmail.com";
-		 PASSWORD ="iheart001";
+	{   // USER_NAME ="iheartrocks888@gmail.com";
+		// PASSWORD ="iheart001";
 		
 		 WaitUtility.sleep(5000);
 		 login.click();

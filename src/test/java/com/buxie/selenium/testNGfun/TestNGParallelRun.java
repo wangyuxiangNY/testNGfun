@@ -55,10 +55,10 @@ public class TestNGParallelRun {
 	@Parameters({ "browser" })
 	@BeforeMethod
 	public void init(Method method, String browser) {
-		System.out.println("Test in Browser:" + browser);
+		System.out.println("Test in Browser:" + browser + " with Thread:" + Thread.currentThread().getId());
 		DriverFactory.getInstance().setBrowser(browser);
 
-		System.out.println("Double-check Browser:" + DriverFactory.getInstance().getBrowser());
+		System.out.println("Double-check Browser:" + DriverFactory.getInstance().getBrowser() + " with Thread:" + Thread.currentThread().getId());
 		driver = DriverFactory.getInstance().getDriver();
 		driver.get(URL);
         driver.manage().window().maximize();
@@ -74,8 +74,8 @@ public class TestNGParallelRun {
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
      
-        System.out.println("test method:" +  method.getName() + " run in Browser : " + browser);
-        System.out.println("test method:" +  method.getName() +  "run with Thread Id." + Thread.currentThread().getId());
+        System.out.println("test method:" +  method.getName() + " run in Browser : " + browser +
+        		" / run with Thread Id." + Thread.currentThread().getId());
     }
 	
 	
@@ -85,6 +85,8 @@ public class TestNGParallelRun {
          forYouCases.flowAlong();
      }
 
+	 
+	 /*
 	@Test(groups ="ArtistRadioTest")
 	 public void testFilterAndPlayCustomAfterLogin() throws Exception
 	 {  
@@ -151,9 +153,12 @@ public class TestNGParallelRun {
 		// Verify.softAssert.assertAll();
 	 }
 	
-
+*/
 		@AfterMethod
-	    public void tearDown(ITestResult result) throws Exception{
+	    public void tearDown(ITestResult result) throws Exception
+		{
+			 System.out.println("Donw with :" +  result.getMethod().getMethodName() + " in Browser : " + browser +
+		        		" / with Thread Id." + Thread.currentThread().getId());
 			
 			if(result.getStatus() == ITestResult.FAILURE)
 	        {
