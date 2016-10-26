@@ -165,7 +165,7 @@ public class GridTest {
 		
 		if(result.getStatus() == ITestResult.FAILURE)
         {
-			 Page.takeRemoteScreenshot(driver, result.getMethod().getMethodName());
+			// Page.takeRemoteScreenshot(driver, result.getMethod().getMethodName());
 	         takeScreenshot(new Augmenter().augment(driver ), result);  
         }
 		
@@ -191,7 +191,7 @@ public class GridTest {
 	    		String currentPath =  System.getProperty("user.dir");
 	    		String path = currentPath + "\\target\\surefire-reports\\";
 	    		
-	            String fullFilePath = path +  testResult.getTestClass().getName() +"_inBrowser_" +
+	            String fullFilePath = path +  testResult.getTestClass().getName() + "\\" +
 	            		RemoteDriverFactory.getInstance().getBrowser()   + "\\" + testResult.getMethod().getMethodName() + ".jpg";
                 System.out.println("see screenshot/ThreadID: " + fullFilePath + "/" + Thread.currentThread().getId());
                 FileUtils.copyFile(screenshot, new File(fullFilePath));
