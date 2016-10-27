@@ -72,11 +72,6 @@ public class DriverFactory
 	   }
 	
 	   
-	   private  WebDriver  createWebDriver( ) 
-	   {  
-		   return createWebDriver("chrome");
-	   }
-	   
 	   public  WebDriver  createWebDriver(String browser) 
 		
 		{   WebDriver driver;
