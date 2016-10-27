@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.OutputType;
@@ -73,19 +74,57 @@ public abstract class Page {
 	
 	
 	public  void login(WebDriver driver)
-	{    
-	   // login.click();
-		 //can I detect ajax call count?  Will fluentwait solve problem? Will @FindBy give me trouble?
-		//WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
-		//mylogin.click();
-		
-        WaitUtility.sleep(5000);
-     
-        driver.findElement(By.cssSelector(".icon-account")).click();
-		
+	{  
+      
+	}
+	//IE STUNT
+	public  void login_old(WebDriver driver)
+	{  
+       // WaitUtility.sleep(10000);
+        
+        WebElement element = null;
+       try{
+         element = driver.findElement(By.cssSelector(".icon-account"));
+       }catch(Exception e)
+       {
+    	   System.out.println("Cannot find login button.");
+       }
+       
+        
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        if (element != null) executor.executeScript("arguments[0].click();", element);
 		
 		WaitUtility.waitForPageToLoad(driver);
+		
+		executor.executeScript("document.getElementByName('username').setAttribute('value', 'iheartrocks888@gmail.com')");
+
+	//	WaitUtility.fluentWaitIgnoreAll(driver, By.name("username"), 2).sendKeys(USER_NAME);
+		
+		WaitUtility.waitForPageToLoad(driver);
+	//	password.sendKeys(PASSWORD);
+		executor.executeScript("document.getElementByName('password').setAttribute('value', 'iheart001')");
+
+		
+	   executor.executeScript("arguments[0].click();",  driver.findElement(By.cssSelector("button.btn-login")));
+		//loginButton.click();
+		WaitUtility.waitForPageToLoad(driver);
+	}
+	
+	
+	public  void login_ORIGINAL(WebDriver driver)
+	{    
+	   // login.click();
+		
+		
+        WaitUtility.sleep(5000);
+        
+       driver.findElement(By.cssSelector(".icon-account")).click();
+         
+		
+		WaitUtility.waitForPageToLoad(driver);
+		
 		WaitUtility.fluentWaitIgnoreAll(driver, By.name("username"), 2).sendKeys(USER_NAME);
+		
 		WaitUtility.waitForPageToLoad(driver);
 		password.sendKeys(PASSWORD);
 		loginButton.click();

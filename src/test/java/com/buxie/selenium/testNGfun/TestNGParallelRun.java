@@ -86,14 +86,14 @@ public class TestNGParallelRun {
         		" run with Thread Id." + Thread.currentThread().getId());
     }
 	
-/*
+
 	 @Test
      public void testPopularUserFlow() 
      {
          forYouCases.flowAlong();
      }
-     
-*/
+    
+
 	@Test(groups ="ArtistRadioTest")
 	 public void testFilterAndPlayCustomAfterLogin() throws Exception
 	 {  
@@ -173,11 +173,13 @@ public class TestNGParallelRun {
 		          takeScreenshot(driver, result);
 	        }
 			
+			System.out.println("Test case is done:" +  result.getMethod().getMethodName() +" / threadID:" +
+	                 Thread.currentThread().getId() + " Now About to close driver:" + Thread.currentThread().getId());
+ 
+			
 			DriverFactory.getInstance().removeDriver();
 			//driver.quit();
-			System.out.println("Test case is done:" +  result.getMethod().getMethodName() +" / threadID:" +
-			                 Thread.currentThread().getId());
-    	  
+			
 	    	
 	    }
 	

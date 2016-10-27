@@ -63,15 +63,12 @@ public class DriverFactory
 	      driver.remove();
 	   }
 	
-	   
-	   private  WebDriver  createWebDriver( ) 
-	   {  
-		   return createWebDriver("chrome");
-	   }
-	   
+	 
 	   public  static WebDriver  createWebDriver(String browser) 
-		
-		{   WebDriver driver;
+		{   
+		   System.out.println("*****about to create a new driver.");
+		   
+		   WebDriver driver;
 		
 		    if (browser.equalsIgnoreCase("firefox"))
 		    {  
@@ -94,10 +91,8 @@ public class DriverFactory
 			      ChromeOptions options = new ChromeOptions();
 			      options.addArguments("test-type");
 			      
-			      if (OSDetector().equals("Windows"))
-			          options.addArguments("--start-maximized");
-			      else
-			    	  options.addArguments("--kiosk");
+			      options.addArguments("--start-maximized");
+			     
 			      driver = new ChromeDriver(options);
 		      
 		      }else if (browser.equalsIgnoreCase("ie"))
@@ -132,21 +127,7 @@ public class DriverFactory
 		  }
 		
 	   
-	   public static   String OSDetector() 
-		{
-			String os = System.getProperty("os.name").toLowerCase();
-			System.out.println("see os:" + os) ;
-			if (os.contains("win")) {
-				return "Windows";
-			} else if (os.contains("nux") || os.contains("nix")) {
-				return "Linux";
-			}else if (os.contains("mac")) {
-				return "Mac";
-			}else if (os.contains("sunos")) {
-				return "Solaris";
-			}else 
-				return "Other";
-		}
+	  
 		
 		
 

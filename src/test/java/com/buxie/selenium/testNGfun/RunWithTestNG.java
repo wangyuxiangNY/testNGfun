@@ -50,10 +50,10 @@ public class RunWithTestNG {
 	PodcastCases podcastCases;
 	
 	
-	String browser = "chrome";
+	//String browser = "chrome";
 	// String browser = "firefox";
 	// String browser = "edge";
-	//String browser = "ie";
+	String browser = "ie";
 	
 	String methodName ="";
 	 
@@ -61,10 +61,12 @@ public class RunWithTestNG {
 	
 	@BeforeMethod
 	public void init(Method method) {
-       // driver = Utils.launchBrowser(URL, browser, true);
+        driver = Utils.launchBrowser(URL, browser);
+		/*
 		driver = DriverFactory.getInstance().getDriver();
 		driver.get(URL);
         driver.manage().window().maximize();
+        */
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	   
         
@@ -163,12 +165,13 @@ public class RunWithTestNG {
 			
 			if(result.getStatus() == ITestResult.FAILURE)
 	        {
-				 // Page.takeScreenshot(driver, name.getMethodName());
-				takeScreenshot(driver, result);
+				 Page.takeScreenshot(driver, result.getMethod().getMethodName());
+				//takeScreenshot(driver, result);
 		          
 	        }
 			
-			DriverFactory.getInstance().removeDriver();
+		//	driver.quit();
+		
     	   System.out.println("Test case:" +  result.getMethod().getMethodName() +" is done!");
     	   
 	    	
