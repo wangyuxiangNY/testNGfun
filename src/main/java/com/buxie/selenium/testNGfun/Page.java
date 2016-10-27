@@ -72,19 +72,17 @@ public abstract class Page {
 	}
 	
 	
-	public  void login()
+	public  void login(WebDriver driver)
 	{    
 	   // login.click();
 		 //can I detect ajax call count?  Will fluentwait solve problem? Will @FindBy give me trouble?
-		WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
-		//WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 25).click();
-
-		try{
-		   mylogin.click();
-		}catch(Exception e)
-		{
-			WaitUtility.waitForElementToBeClickable(driver, mylogin).click();
-		}
+		//WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
+		//mylogin.click();
+		
+        WaitUtility.sleep(5000);
+     
+        driver.findElement(By.cssSelector(".icon-account")).click();
+		
 		
 		WaitUtility.waitForPageToLoad(driver);
 		WaitUtility.fluentWaitIgnoreAll(driver, By.name("username"), 2).sendKeys(USER_NAME);
@@ -94,6 +92,30 @@ public abstract class Page {
 		WaitUtility.waitForPageToLoad(driver);
 	}
 	
+	public  void login()
+	{
+		login(getDriver());
+	}
+	
+	/*
+	public  void login()
+	{    
+	   // login.click();
+		 //can I detect ajax call count?  Will fluentwait solve problem? Will @FindBy give me trouble?
+		WebElement mylogin= WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 15);
+		//WaitUtility.fluentWaitIgnoreAll(driver, By.cssSelector(".icon-account"), 25).click();
+        WaitUtility.sleep(5000);
+		mylogin.click();
+		
+		
+		WaitUtility.waitForPageToLoad(driver);
+		WaitUtility.fluentWaitIgnoreAll(driver, By.name("username"), 2).sendKeys(USER_NAME);
+		WaitUtility.waitForPageToLoad(driver);
+		password.sendKeys(PASSWORD);
+		loginButton.click();
+		WaitUtility.waitForPageToLoad(driver);
+	}
+	*/
 	
 	public boolean  isElementPresent(WebElement element)
 	{

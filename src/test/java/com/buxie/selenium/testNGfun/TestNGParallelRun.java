@@ -59,11 +59,15 @@ public class TestNGParallelRun {
 	@Parameters({ "browser" })
 	@BeforeMethod
 	public void init(Method method, String browser) {
-		System.out.println("Test in Browser:" + browser);
+		System.out.println("Test in Browser:" + browser + "/" + Thread.currentThread().getId());
+		
 		DriverFactory.getInstance().setBrowser(browser);
 
-		System.out.println("Double-check Browser:" + DriverFactory.getInstance().getBrowser());
+		System.out.println("Double-check Browser/threadID:" + DriverFactory.getInstance().getBrowser()+
+				Thread.currentThread().getId());
 		driver = DriverFactory.getInstance().getDriver();
+		
+		//driver = Utils.createWebDriver(browser);
 		driver.get(URL);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -78,17 +82,18 @@ public class TestNGParallelRun {
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
      
-        System.out.println("test method:" +  method.getName() + " run in Browser : " + browser);
-        System.out.println("test method:" +  method.getName() +  "run with Thread Id." + Thread.currentThread().getId());
+         System.out.println("test method:" +  method.getName()  + " run in Browser : " + browser +
+        		" run with Thread Id." + Thread.currentThread().getId());
     }
 	
-	
+/*
 	 @Test
      public void testPopularUserFlow() 
      {
          forYouCases.flowAlong();
      }
-
+     
+*/
 	@Test(groups ="ArtistRadioTest")
 	 public void testFilterAndPlayCustomAfterLogin() throws Exception
 	 {  
@@ -96,13 +101,16 @@ public class TestNGParallelRun {
 		//Verify.softAssert.assertAll();
 	 }
 	
-	//@Test(groups ="ArtistRadioTest")
-	@Test(enabled = false)
+	
+
+	@Test(groups ="ArtistRadioTest")
 	 public void testFavorite() throws Exception
 	 {  
 		artistRadioCases.favorite();
 		//Verify.softAssert.assertAll();
 	 }
+	
+	
 	
 	 @Test(groups ="searchTest")
 	 public void testSearchJoshInAll() throws Exception
@@ -161,12 +169,14 @@ public class TestNGParallelRun {
 			
 			if(result.getStatus() == ITestResult.FAILURE)
 	        {
-				 // Page.takeScreenshot(driver, name.getMethodName());
+				 // Page.takeScreenshot(driver, result.getMethod().getMethodName());
 		          takeScreenshot(driver, result);
 	        }
 			
 			DriverFactory.getInstance().removeDriver();
-			System.out.println("Test case:" +  result.getMethod().getMethodName() +" is done!");
+			//driver.quit();
+			System.out.println("Test case is done:" +  result.getMethod().getMethodName() +" / threadID:" +
+			                 Thread.currentThread().getId());
     	  
 	    	
 	    }
@@ -185,9 +195,11 @@ public class TestNGParallelRun {
 
 	             // String filePathRoot = "C:\\_Jenkins\\workspace\\" + jenkinsJobName + "\\target\\surefire-reports\\";
 	     		String currentPath =  System.getProperty("user.dir");
-	     		String path = currentPath + "\\target\\surefire-reports\\";
+	     		//String path = currentPath + "\\target\\surefire-reports\\";
 	     		
-	             String fullFilePath = path + testResult.getTestClass() + "\\" + testResult.getTestName() + ".jpg";
+	             //String fullFilePath = path + testResult.getTestClass() + "\\" + testResult.getTestName() + ".jpg";
+	     		String fullFilePath =  currentPath + "\\" + testResult.getMethod().getMethodName() + ".jpg";
+                System.out.println("screenshot:" + fullFilePath);
 
 	             FileUtils.copyFile(screenshot, new File(fullFilePath));
 	         } catch(Exception ex) {

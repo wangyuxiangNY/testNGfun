@@ -17,7 +17,7 @@ import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 public class DriverFactory
 {
 
-       private String browser ="chrome";
+       private static String browser ="chrome";
        
 	   private DriverFactory()
 	   {
@@ -30,7 +30,7 @@ public class DriverFactory
 	      return instance;
 	   }
 
-	   ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>() // thread local driver object for webdriver
+	   static   ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>() // thread local driver object for webdriver
 	   {
 	      @Override
 	      protected WebDriver initialValue()
@@ -51,7 +51,7 @@ public class DriverFactory
 		   return browser;
 	   }
 	   
-	   public WebDriver getDriver() // call this method to get the driver object and launch the browser
+	   public static WebDriver getDriver() // call this method to get the driver object and launch the browser
 	   {
 		   
 	      return driver.get();
@@ -69,7 +69,7 @@ public class DriverFactory
 		   return createWebDriver("chrome");
 	   }
 	   
-	   public  WebDriver  createWebDriver(String browser) 
+	   public  static WebDriver  createWebDriver(String browser) 
 		
 		{   WebDriver driver;
 		
@@ -132,7 +132,7 @@ public class DriverFactory
 		  }
 		
 	   
-	   public  String OSDetector() 
+	   public static   String OSDetector() 
 		{
 			String os = System.getProperty("os.name").toLowerCase();
 			System.out.println("see os:" + os) ;

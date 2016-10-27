@@ -14,38 +14,38 @@ import org.openqa.selenium.support.ui.Select;
 
 public class Navigation extends Page{
    
-	@FindBy(css=".header-menu-main > li:nth-child(1) > a:nth-child(1)") private static WebElement forYou;
-	@FindBy(css=".header-menu-main > li:nth-child(2) > a:nth-child(1)") private static WebElement liveRadio;
-	@FindBy(css=".header-menu-main > li:nth-child(3) > a:nth-child(1)") private  static WebElement artistRadio;
-	@FindBy(css=".header-menu-main > li:nth-child(4) > a:nth-child(1)") private  static WebElement genres;
-	@FindBy(css=".header-menu-main > li:nth-child(5) > a:nth-child(1)") private  static WebElement podcasts;
-	@FindBy(css=".header-menu-main > li:nth-child(6) > a:nth-child(1)") private static  WebElement perfectFor;
-//	@FindBy(css=".header-menu-main > li:nth-child(7) > a:nth-child(1)") private  static WebElement more;
+	@FindBy(css=".header-menu-main > li:nth-child(1) > a:nth-child(1)") private WebElement forYou;
+	@FindBy(css=".header-menu-main > li:nth-child(2) > a:nth-child(1)") private WebElement liveRadio;
+	@FindBy(css=".header-menu-main > li:nth-child(3) > a:nth-child(1)") private  WebElement artistRadio;
+	@FindBy(css=".header-menu-main > li:nth-child(4) > a:nth-child(1)") private  WebElement genres;
+	@FindBy(css=".header-menu-main > li:nth-child(5) > a:nth-child(1)") private  WebElement podcasts;
+	@FindBy(css=".header-menu-main > li:nth-child(6) > a:nth-child(1)") private  WebElement perfectFor;
+//	@FindBy(css=".header-menu-main > li:nth-child(7) > a:nth-child(1)") private  WebElement more;
 	@FindBy(css="#page-view-container > div > div.header > div.header-wrapper > div > div.header-left > div > div:nth-child(1) > button > i")
-	   private  static WebElement more;
+	   private  WebElement more;
 	    //for submenus of More
 	
 	@FindBy(css="div.dropdown-trigger:nth-child(4) > div:nth-child(2) > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(2) > a:nth-child(1)") 
-	   private static WebElement more_perfectFor;
+	   private WebElement more_perfectFor;
 	
 	@FindBy(css=".icon-account") private WebElement login;
 	
 	//after login
 	@FindBy(css="div.dropdown-trigger:nth-child(2) > div:nth-child(1) > button:nth-child(1)")
-	   private static WebElement accountDropDown;
+	   private WebElement accountDropDown;
 	
 	@FindBy(css="div.dropdown-trigger:nth-child(2) > div:nth-child(2) > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)")
-	    private static WebElement profile;
+	    private WebElement profile;
 	@FindBy(css="div.dropdown-trigger:nth-child(2) > div:nth-child(2) > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(2) > a:nth-child(1)")
-		private static WebElement myStations;
+		private WebElement myStations;
 	@FindBy(css="div.dropdown-trigger:nth-child(2) > div:nth-child(2) > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1)")
-    	private  static WebElement listenHistory;
+    	private  WebElement listenHistory;
 	@FindBy(css="div.dropdown-trigger:nth-child(2) > div:nth-child(2) > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(4) > a:nth-child(1)")
-		private  static WebElement favoriteSongs;
+		private  WebElement favoriteSongs;
 	@FindBy(css="div.dropdown-trigger:nth-child(2) > div:nth-child(2) > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(5) > a:nth-child(1)")
-		private static  WebElement friends;
+		private  WebElement friends;
     @FindBy(css="div.dropdown-trigger:nth-child(2) > div:nth-child(2) > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(6) > a:nth-child(1)")
-		private static  WebElement settings;
+		private  WebElement settings;
 
 	
 	
