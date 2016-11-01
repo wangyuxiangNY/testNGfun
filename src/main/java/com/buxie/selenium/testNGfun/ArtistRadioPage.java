@@ -66,7 +66,7 @@ public class ArtistRadioPage extends Page {
 	 */
 	public String playStationByIndex(int index)
 	{
-	    System.out.println("See  STATION count:" + stations.size());
+	    logger.info("See  STATION count:" + stations.size());
      
        String chosenStationName = stations.get(index).getAttribute("alt");
        stations.get(index).click();

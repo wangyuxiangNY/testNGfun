@@ -135,7 +135,7 @@ public class ProfilePage extends Page{
 	{   
 		String stationName ="";
 		
-		System.out.println("station count:" + stations.size());
+		logger.info("station count:" + stations.size());
 		int count = 0;
 	     for (WebElement station: stations)
 	     { 

@@ -1,10 +1,5 @@
 package com.buxie.selenium.testNGfun;
 
-
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -18,56 +13,72 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 
-
-public class DriverFactory
-{
-	protected  final static  Logger logger = LoggerFactory.getLogger(DriverFactory.class);
-
-       private static String browser ="chrome";
-       
-	   private DriverFactory()
+public class MyDriverFactory {
+	 private static final ThreadLocal<WebDriver> driver;
+ 
+	 private static final ThreadLocal<String> browser;
+     
+	
+	   private MyDriverFactory()
 	   {
 	      //Do-nothing..Do not allow to initialize this class from outside
 	   }
-	   private static DriverFactory instance = new DriverFactory();
+	   private static MyDriverFactory instance = new MyDriverFactory();
 
-	   public static DriverFactory getInstance()
+	   public static MyDriverFactory getInstance()
 	   {
 	      return instance;
 	   }
 
-	  static  ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>() // thread local driver object for webdriver
+	
+		 static {
+	        /**
+	         * dirver is a ThreadLocal<ChromeDriver>. This allows the driver to be static and available for the complete project, and exclusive for each thread.
+	         */
+	        driver = new ThreadLocal<WebDriver>() {
+	            @Override
+	            protected WebDriver initialValue() {
+	                return createWebDriver(getBrowser());
+	            }
+	        };
+	    }
+		 
+		 static {
+		        /**
+		         * browser is a ThreadLocal<String>. This allows the browser to be static and available for the complete project, and exclusive for each thread.
+		         */
+		        browser = new ThreadLocal<String>() {
+		            @Override
+		            protected String initialValue( ) {
+		               return getBrowser();
+		          
+		            }
+		        };
+		    }
+		 	 
+	 
+	   public  static void setBrowser(String _browser)
 	   {
-	      @Override
-	      protected WebDriver initialValue()
-	      {
-	         return createWebDriver(browser); // can be replaced with other browser drivers
-	      }
-	   };
-	   
-	  
-
-	   public synchronized void setBrowser(String browser)
-	   {
-		   this.browser = browser;
+		   browser.set( _browser);
 	   }
 	   
-	   public String getBrowser( )
+	   public static String getBrowser( )
 	   {
-		   return browser;
+		   return browser.get();
 	   }
 	   
-	   public  synchronized WebDriver getDriver() // call this method to get the driver object and launch the browser
+	   public   WebDriver getDriver() // call this method to get the driver object and launch the browser
 	   {
 		   
 	      return driver.get();
 	   }
 
 	   public void removeDriver() // Quits the driver and closes the browser
-	   {  logger.info("About to remove driver:" + Thread.currentThread().getId());
-	      driver.get().quit();
+	   {  System.out.println("About to remove driver:" + Thread.currentThread().getId());
+	    //  driver.get().quit();
 	      driver.remove();
-	      logger.info("driver removed:" + Thread.currentThread().getId());
+	      browser.remove();
+	      System.out.println("driver removed:" + Thread.currentThread().getId());
 		    
 	   }
 	
@@ -77,10 +88,9 @@ public class DriverFactory
 		   return createWebDriver("chrome");
 	   }
 	   
-	   public  static  WebDriver  createWebDriver(String browser) 
-		
+	   private  static  WebDriver  createWebDriver(String browser) 
 		{   
-		   logger.info("About to createWebDriver().." + Thread.currentThread().getId());
+		   System.out.println("About to createWebDriver().." + Thread.currentThread().getId());
 		   WebDriver driver;
 		
 		    if (browser.equalsIgnoreCase("firefox"))
@@ -129,19 +139,19 @@ public class DriverFactory
 		    	  
 		      }else
 		      {
-			      logger.info("Unknown browser.");
+			      System.out.println("Unknown browser.");
 			      return null;
 		      }
 		
 		      driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		      driver.manage().window().maximize();
 		     
-		      logger.info("Done createWebDriver().." + Thread.currentThread().getId());
+		      System.out.println("Done createWebDriver().." + Thread.currentThread().getId());
 				
 		      return driver;
 		
 		  }
 		
 	   
-
+	
 }

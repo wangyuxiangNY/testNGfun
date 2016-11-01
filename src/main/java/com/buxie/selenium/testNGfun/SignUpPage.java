@@ -82,7 +82,7 @@ public class SignUpPage extends Page{
 		    getSignupPage();
 		   String  randomEmail_firstPart = Utils.getCurrentDateInMilli();
 			String _email = randomEmail_firstPart + "@mailinator.com";
-			System.out.println("See randomEmail:" + _email);
+			logger.info("See randomEmail:" + _email);
 		    email.sendKeys(_email);
 		    password.sendKeys("iheart001");
 		    zipCode.sendKeys("10013");
@@ -91,7 +91,7 @@ public class SignUpPage extends Page{
 		    gender_female.click();
 		    signUp.click();
 		    WaitUtility.waitForPageToLoad(driver);
-		    System.out.println("see signed account:" + WaitUtility.waitForElementToBeClickable(driver,signedAccount).getText() );
+		    logger.info("see signed account:" + WaitUtility.waitForElementToBeClickable(driver,signedAccount).getText() );
 		    signedAccount.click();
 		    
 		   

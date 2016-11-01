@@ -150,13 +150,13 @@ public class Navigation extends Page{
 	{   
 		String currentURL = driver.getCurrentUrl();
 	
-		System.out.println("SEE current url:"  + currentURL);
+		logger.info("SEE current url:"  + currentURL);
 	    String part1 = currentURL.split("//")[0];
 	    String part2  = currentURL.split("//")[1].split("/")[0];
 	    
 	  //  String newURL = part1 + "//" + part2 + "/live/country/US/" ;
 	    String newURL = part1 + "//" + part2 + "/live/country/US" +"/" ;
-		System.out.println("SEE new url:"  + newURL );
+		logger.info("SEE new url:"  + newURL );
 		
 		 driver.get(newURL);
 		
@@ -166,12 +166,12 @@ public class Navigation extends Page{
 	public  void gotoArtistRadioPage_direct()
 	{  
 		String currentURL = driver.getCurrentUrl();
-		System.out.println("SEE current url:"  + currentURL);
+		logger.info("SEE current url:"  + currentURL);
 	    String part1 = currentURL.split("//")[0];
 	    String part2  = currentURL.split("//")[1].split("/")[0];
 	    
 	    String newURL = part1 + "//" + part2 + "/artist/" ;
-		System.out.println("SEE new url:"  + newURL );
+		logger.info("SEE new url:"  + newURL );
 		
 		int count = 0;
 		do{
@@ -187,16 +187,16 @@ public class Navigation extends Page{
 	
 	public  void gotoPerfectFor_direct()
 	{   String currentURL = driver.getCurrentUrl();
-		System.out.println("SEE current url:"  + currentURL);
+		logger.info("SEE current url:"  + currentURL);
 	    String part1 = currentURL.split("//")[0];
 	    String part2  = currentURL.split("//")[1].split("/")[0];
 	    
 	    String newURL = part1 + "//" + part2 + "/perfect-for/" ;
-		System.out.println("SEE new url:"  + newURL );
+		logger.info("SEE new url:"  + newURL );
 		int count = 0;
 		do {
 		   driver.get(newURL);
-			System.out.println("See url in browser now: " + driver.getCurrentUrl());
+			logger.info("See url in browser now: " + driver.getCurrentUrl());
 			count++;
 		}while (!driver.getCurrentUrl().contains("perfect") && count < 3);
 		
@@ -207,18 +207,18 @@ public class Navigation extends Page{
 	
 	public  void gotoPodcastPage_direct()
 	{   String currentURL = driver.getCurrentUrl();
-		System.out.println("SEE current url:"  + currentURL);
+		logger.info("SEE current url:"  + currentURL);
 	    String part1 = currentURL.split("//")[0];
 	    String part2  = currentURL.split("//")[1].split("/")[0];
 	    
 	    String newURL = part1 + "//" + part2 + "/show/" ;
-		System.out.println("SEE new url:"  + newURL );
+		logger.info("SEE new url:"  + newURL );
 		
 		
 		int count = 0;
 		do {
 		   driver.get(newURL);
-			System.out.println("See url in browser now: " + driver.getCurrentUrl());
+			logger.info("See url in browser now: " + driver.getCurrentUrl());
 			count++;
 		}while (!driver.getCurrentUrl().contains("show") && count < 3);
 		
@@ -231,12 +231,12 @@ public class Navigation extends Page{
 	public void gotoGenrePage_direct()
 	{   
 		String currentURL = driver.getCurrentUrl();
-		System.out.println("SEE current url:"  + currentURL);
+		logger.info("SEE current url:"  + currentURL);
 	    String part1 = currentURL.split("//")[0];
 	    String part2  = currentURL.split("//")[1].split("/")[0];
 	    
 	    String newURL = part1 + "//" + part2 + "/genre/" ;
-		System.out.println("SEE new url:"  + newURL );
+		logger.info("SEE new url:"  + newURL );
 		
 		driver.get(newURL);
 	//	WaitUtility.waitForPageToLoad(driver);

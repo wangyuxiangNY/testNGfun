@@ -16,7 +16,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
@@ -29,6 +33,12 @@ import org.testng.asserts.Assertion;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 
@@ -36,8 +46,8 @@ import java.util.concurrent.TimeUnit;
 
 public class TestNGParallelRun {
 
-
-	private WebDriver driver;
+	//private static ThreadLocal<WebDriver> driver;
+	private   WebDriver driver;
 	ArtistRadioCases artistRadioCases;
 	ForYouCases forYouCases;
 	PerfectForCases perfectForCases;
@@ -45,8 +55,10 @@ public class TestNGParallelRun {
 	LiveRadioCases liveRadioCases;
 	PodcastCases podcastCases;
 	
-	
-	String browser = "chrome";
+	// private static final Set<WebDriver> drivers = Collections.newSetFromMap(new ConcurrentHashMap<>());
+	private static final ConcurrentHashMap<Long, WebDriver> drivers = new ConcurrentHashMap<Long, WebDriver>();
+	  
+	//String browser = "chrome";
 	// String browser = "firefox";
 	// String browser = "edge";
 	//String browser = "ie";
@@ -55,20 +67,29 @@ public class TestNGParallelRun {
 	 
 	final String URL = "http://www.iheart.com/";
 
+	protected  final static  Logger logger = LoggerFactory.getLogger(TestNGParallelRun.class);
+
 	
 	@Parameters({ "browser" })
-	@BeforeMethod
-	public void init(Method method, String browser) {
-		System.out.println("Test in Browser:" + browser + "/" + Thread.currentThread().getId());
+	@BeforeMethod(alwaysRun=true)
+	public  void  init(Method method, String browser) {
 		
-		DriverFactory.getInstance().setBrowser(browser);
+		logger.info("Test in Browser:" + browser + "/" + Thread.currentThread().getId());
+		
+		MyDriverFactory.getInstance().setBrowser(browser);
 
-		System.out.println("Double-check Browser/threadID:" + DriverFactory.getInstance().getBrowser()+
+		logger.info("Double-check Browser/threadID:" + MyDriverFactory.getInstance().getBrowser()+
 				Thread.currentThread().getId());
-		driver = DriverFactory.getInstance().getDriver();
 		
-		//driver = Utils.createWebDriver(browser);
+		 logger.info("test method:" +  method.getName()  + " run in Browser : " + browser +
+	        		" run with Thread Id." + Thread.currentThread().getId());
+		 
+		driver = MyDriverFactory.getInstance().getDriver();
+		
+		//drivers.add(driver);
+		drivers.put(Thread.currentThread().getId(), driver);
 		driver.get(URL);
+		driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	   
@@ -82,18 +103,18 @@ public class TestNGParallelRun {
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
      
-         System.out.println("test method:" +  method.getName()  + " run in Browser : " + browser +
+         logger.info("test method:" +  method.getName()  + " run in Browser : " + browser +
         		" run with Thread Id." + Thread.currentThread().getId());
     }
 	
-/*
+
 	 @Test
      public void testPopularUserFlow() 
      {
          forYouCases.flowAlong();
      }
      
-*/
+
 	@Test(groups ="ArtistRadioTest")
 	 public void testFilterAndPlayCustomAfterLogin() throws Exception
 	 {  
@@ -118,7 +139,9 @@ public class TestNGParallelRun {
 		 podcastCases.searchJoshInAll();
 		 //Verify.softAssert.assertAll();
 	 }
-	
+	 
+	 /*
+	 
 	 @Test(groups ="searchTest")
 	 public void testSearchFromPodcast() throws Exception
 	 {  
@@ -152,7 +175,7 @@ public class TestNGParallelRun {
 		
     }
 		
-			
+	*/		
 
 	// @Test(groups = "PerfectFor")
 	 @Test(enabled = false)
@@ -162,9 +185,9 @@ public class TestNGParallelRun {
 		 perfectForCases.browsePerfectFor();
 		// Verify.softAssert.assertAll();
 	 }
-	
 
-		@AfterMethod
+
+		@AfterMethod(alwaysRun = true)
 	    public void tearDown(ITestResult result) throws Exception{
 			
 			if(result.getStatus() == ITestResult.FAILURE)
@@ -173,17 +196,45 @@ public class TestNGParallelRun {
 		          takeScreenshot(driver, result);
 	        }
 			
-			DriverFactory.getInstance().removeDriver();
-			//driver.quit();
-			System.out.println("Test case is done:" +  result.getMethod().getMethodName() +" / threadID:" +
+
+			logger.info("Test case is done:" +  result.getMethod().getMethodName() +" / threadID:" +
 			                 Thread.currentThread().getId());
-    	  
+			
+			
 	    	
+		 	
 	    }
 	
-	    @AfterTest
-	    public void bye() throws Exception{
-    	    System.out.println("Done done done.!");
+	    @AfterTest(alwaysRun=true)
+	    public void bye() throws Exception
+	    {
+	    	logger.info("Done done done.! ThreadID:" + Thread.currentThread().getId());
+	    	logger.info("About to close 1 of the drivers for browser:" +  MyDriverFactory.getInstance().getBrowser());
+			logger.info("See drivers count:"+ drivers.size());
+			drivers.get(Thread.currentThread().getId()).quit();
+	    	/*
+	    	logger.info("About to close all drivers:" + drivers.size());
+	    	 for (WebDriver webDriver : drivers) {
+	             try {
+	            	 String browser = MyDriverFactory.getInstance().getBrowser();
+	            	 if (browser.equalsIgnoreCase("chrome"))
+	            	 {   
+	            		 if (webDriver instanceof ChromeDriver)
+	            			 webDriver.quit();
+	            	 }else if (browser.equalsIgnoreCase("firefox"))
+	            	 {
+	            		 if (webDriver instanceof FirefoxDriver)
+	            			 webDriver.quit();
+	            	 }
+	                     
+	             } catch (Exception e) {
+	                 e.printStackTrace();
+	             }
+	         }
+	         */
+	    	
+	    	MyDriverFactory.getInstance().removeDriver();
+    	   
 	    	
 	    }
 	
@@ -191,20 +242,19 @@ public class TestNGParallelRun {
 	    private void takeScreenshot(WebDriver driver,  ITestResult testResult)
 	    {
 	         try {
+	        	 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+	    		 Date date = new Date();
+	    		 
 	             File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-
-	             // String filePathRoot = "C:\\_Jenkins\\workspace\\" + jenkinsJobName + "\\target\\surefire-reports\\";
-	     		String currentPath =  System.getProperty("user.dir");
-	     		//String path = currentPath + "\\target\\surefire-reports\\";
-	     		
-	             //String fullFilePath = path + testResult.getTestClass() + "\\" + testResult.getTestName() + ".jpg";
-	     		String fullFilePath =  currentPath + "\\" + testResult.getMethod().getMethodName() + ".jpg";
-                System.out.println("screenshot:" + fullFilePath);
+	             String currentPath =  System.getProperty("user.dir");
+		     	 String fullFilePath =  currentPath + "\\" + testResult.getMethod().getMethodName() +
+		     			 dateFormat.format(date) + "_"+ MyDriverFactory.getInstance().getBrowser() + ".jpg";
+	             logger.info("screenshot:" + fullFilePath);
 
 	             FileUtils.copyFile(screenshot, new File(fullFilePath));
 	         } catch(Exception ex) {
-	             System.out.println(ex.toString());
-	             System.out.println(ex.getMessage());
+	             logger.info(ex.toString());
+	             logger.info(ex.getMessage());
 	         }
 
 	    }

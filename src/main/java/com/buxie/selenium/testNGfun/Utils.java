@@ -28,6 +28,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -47,6 +49,7 @@ public class Utils {
 	public static final String browserStack_AUTOMATE_KEY = "SGtW65fVhR9zqp7KpVUo";
 	public static final String browserStack_URL = "http://" + browserStack_USERNAME + ":" + browserStack_AUTOMATE_KEY + "@hub.browserstack.com/wd/hub";
 
+	protected  final static Logger logger = LoggerFactory.getLogger(Utils.class);
 
 	public static WebDriver  createWebDriver() 
 	{
@@ -70,7 +73,7 @@ public class Utils {
 	
 	public static ThreadLocal<WebDriver>  createThreadSafeWebDriver(final String browser) 
 	{   
-		ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>() // thread local driver object for webdriver
+		final ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>() // thread local driver object for webdriver
         {
 		      @Override
 		      protected WebDriver initialValue()
@@ -134,7 +137,7 @@ public class Utils {
 	    	  
 	      }else
 	      {
-		      System.out.println("Unknown browser.");
+		      logger.info("Unknown browser.");
 		      return null;
 	      }
 	
@@ -149,7 +152,7 @@ public class Utils {
 	public static String OSDetector() 
 	{
 		String os = System.getProperty("os.name").toLowerCase();
-		System.out.println("see os:" + os) ;
+		logger.info("see os:" + os) ;
 		if (os.contains("win")) {
 			return "Windows";
 		} else if (os.contains("nux") || os.contains("nix")) {
@@ -271,7 +274,7 @@ public class Utils {
 	
 	      } catch(Throwable error) {
 	
-	              System.out.println("Timeout waiting for Page Load Request to complete.");
+	              logger.info("Timeout waiting for Page Load Request to complete.");
 	
 	      }
 	
@@ -343,7 +346,7 @@ public class Utils {
 	public static void scrollToTopOfElement(WebDriver driver,   WebElement element)
 	{
 		int offset = element.getSize().getHeight() * (-1);
-		System.out.println("See element height:" + offset);
+		logger.info("See element height:" + offset);
 		JavascriptExecutor jse = (JavascriptExecutor)driver; 
 		jse.executeScript("window.scrollBy(0," + offset + ")", "");
 		

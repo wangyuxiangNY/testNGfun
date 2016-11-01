@@ -55,7 +55,7 @@ public class Player extends Page {
 		    return true;
 		}else
 		{
-			System.out.println("ThumbUp button is disabled.");
+			logger.info("ThumbUp button is disabled.");
 			return false;
 		}
 	}
@@ -68,7 +68,7 @@ public class Player extends Page {
 		    return true;
 		}else
 		{
-			System.out.println("ThumbDown button is disabled.");
+			logger.info("ThumbDown button is disabled.");
 			return false;
 		}
 	}
@@ -88,13 +88,13 @@ public class Player extends Page {
 	
 	public  boolean isPlaying()
 	{ 
-		System.out.println("check isPlaying..");
+		logger.info("check isPlaying..");
 		
 		if (playControl == null)
-		System.out.println("playControl is null..");
+		logger.info("playControl is null..");
 	
 		String classes = playControl.getAttribute("class");
-		System.out.println("See button class:"+ classes) ;
+		logger.info("See button class:"+ classes) ;
 		if (classes.contains("buffering"))
 			WaitUtility.sleep(500);
 		return playControl.getAttribute("class").contains("playing") || playControl.getAttribute("class").contains("loading");

@@ -56,7 +56,7 @@ public class WaitUtility {
 	     Wait<WebDriver> wait = new WebDriverWait(driver,5*60);   //timeInSeconds, so give it 5 minutes
 	      try {
 	              wait.until(expectation);
-	              System.out.println("Page loading is done!");
+	              System.out.println("thread:" + Thread.currentThread().getId() + "/Page loading is done!");
 	      } catch(Throwable error) {
 	              System.out.println("Timeout waiting for Page Load Request to complete.");
 	      }

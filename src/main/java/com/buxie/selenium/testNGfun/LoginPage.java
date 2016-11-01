@@ -126,7 +126,7 @@ public class LoginPage extends Page{
 				{	
 					WaitUtility.sleep(6*1000);
 					count++;
-					System.out.println("Waited for signup:" + count + " time(s)");
+					logger.info("Waited for signup:" + count + " time(s)");
 				}else 
 					break;
 			}	

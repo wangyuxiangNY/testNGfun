@@ -80,7 +80,7 @@ public  class LiveRadioPage extends Page{
 	public String playStationByIndex(int index)
 	{
 	  // List<WebElement>  stations = stations.findElements(By.className("station-thumb"));//By.className("icon-play"));
-       System.out.println("See  STATION count:" + stations.size());
+       logger.info("See  STATION count:" + stations.size());
      
        String chosenStationName = stations.get(index).getAttribute("alt");
        stations.get(index).click();

@@ -76,13 +76,13 @@ public class ForYou  extends Page{
 	public void chooseGenre(int index)
 	{    
 		//genres = driver.findElement(By.cssSelector("ul.genres")).findElements(By.cssSelector("li.genre"));
-		System.out.println("genre count:" + genres.size());
+		logger.info("genre count:" + genres.size());
 	    
 		 int count = 0;
 	     for (WebElement genre: genres)
 	     {
 	    	 if (count == index)
-	    	 {   System.out.println("Chosen genre: " + genre.getText());
+	    	 {   logger.info("Chosen genre: " + genre.getText());
 	    		 genre.click();
 	    		 break;
 	    	 }else
@@ -99,7 +99,7 @@ public class ForYou  extends Page{
 	
 	public void playStation(int index)
 	{   
-		System.out.println("station count:" + stations.size());
+		logger.info("station count:" + stations.size());
 		int count = 0;
 	     for (WebElement station: stations)
 	     { 

@@ -86,7 +86,7 @@ public class PodcastsPage extends Page {
 		
 		public String chooseStation(int index)
 		{
-			 System.out.println("See  STATION count:" + stations.size());
+			 logger.info("See  STATION count:" + stations.size());
 		     
 		      String chosenStationName = stations.get(index).getAttribute("alt");
 		      Actions builder = new Actions(driver);
@@ -98,7 +98,7 @@ public class PodcastsPage extends Page {
 		
 		public String playStation(int index)
 		{
-			 System.out.println("See  STATION count:" + stations.size());
+			 logger.info("See  STATION count:" + stations.size());
 		     
 		      String chosenStationName = stations.get(index).getAttribute("alt");
 		      stations.get(index).click();
@@ -115,7 +115,7 @@ public class PodcastsPage extends Page {
 		 */
 		public void playEpisodeByIndex(int stationIndex, int episodeIndex)
 		{  
-		   System.out.println("See episode index:" + episodeIndex);
+		   logger.info("See episode index:" + episodeIndex);
 	       String chosenStationName = chooseStation(stationIndex);
 	       WaitUtility.waitForPageToLoad(driver);
 	       //True reason is that element needs to scroll up to be visible
@@ -139,7 +139,7 @@ public class PodcastsPage extends Page {
 		
 		public WebElement thumbDownEpisode(int index)
 		{
-			System.out.println("SEE thumbDown icon count:" +  episodeThumbDownIcons.size() ) ;
+			logger.info("SEE thumbDown icon count:" +  episodeThumbDownIcons.size() ) ;
 			WebElement chosenIcon = driver.findElement(By.cssSelector("#main > div:nth-child(2) > div > section > div > table > tbody > tr:nth-child(1) > td.track-actions > button:nth-child(1) > i"));
 					// episodeThumbDownIcons.get(index);
 			if (chosenIcon.getAttribute("class").contains("-filled"))

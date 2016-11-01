@@ -1,5 +1,10 @@
 package com.buxie.selenium.testNGfun;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +17,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -21,7 +27,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-import org.apache.log4j.Logger;
 
 public abstract class Page {
 	
@@ -41,8 +46,8 @@ public abstract class Page {
 		public WebElement signedAccount;
 	
 	
+//	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
-	final static Logger logger = Logger.getLogger(Page.class);
  	
 	public  WebDriver driver;
 	
@@ -57,6 +62,8 @@ public abstract class Page {
 	
 	private  StringBuffer errors = new StringBuffer(); 
 	
+	protected  final  Logger logger = LoggerFactory.getLogger(getClass());
+
 		
 	public Page()
 	{  
@@ -120,7 +127,7 @@ public abstract class Page {
 	public boolean  isElementPresent(WebElement element)
 	{
 		 try{
-			  System.out.println("see element:" +  element.getText());
+			  logger.info("see element:" +  element.getText());
 			   return true;
 		   }catch(Exception e)
 		   {  // e.printStackTrace();
@@ -204,9 +211,9 @@ public abstract class Page {
 	public boolean searchResultShown()
 	{
 		if (driver == null)
-			System.out.println("driver is null in searchResultShown()");
+			logger.info("driver is null in searchResultShown()");
 		List<WebElement> resultRows = driver.findElements(By.className("search-section"));
-		System.out.println(resultRows.size() + " rows are suggested.");
+		logger.info(resultRows.size() + " rows are suggested.");
 		
 		if (resultRows == null || resultRows.size() <1)
 	    	return false;
@@ -227,7 +234,7 @@ public abstract class Page {
     {      
  	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
     			Date date = new Date();
-    			//System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
+    			//logger.info(dateFormat.format(date)); //2014/08/06 15:59:48
  	       String screenshotName = testMethod + dateFormat.format(date) + ".png";
  	       System.out.println("See screenshotName:" + screenshotName);
             File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
@@ -253,7 +260,7 @@ public abstract class Page {
 		
 		do{
 			try{
-			   System.out.println(element.getAttribute("outerHTML"));
+				System.out.println(element.getAttribute("outerHTML"));
 			  if (element.isEnabled())
 			      break;
 			}catch(Exception e)

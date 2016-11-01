@@ -84,7 +84,7 @@ public class PerfectForPage extends Page {
 	public String playStation(int index)
 	{   
 		String stationName ="";
-		System.out.println("station count:" + stations.size());
+		logger.info("station count:" + stations.size());
 		int count = 0;
 	     for (WebElement station: stations)
 	     { 
