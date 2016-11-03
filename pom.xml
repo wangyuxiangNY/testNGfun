@@ -58,7 +58,7 @@
        
         <configuration>
           <suiteXmlFiles>
-            <suiteXmlFile>testNG_remote_4threads.xml</suiteXmlFile>
+            <suiteXmlFile>testNG_remote.xml</suiteXmlFile>
           </suiteXmlFiles>
           <parallel>methods</parallel>
           <threadCount>4</threadCount>
