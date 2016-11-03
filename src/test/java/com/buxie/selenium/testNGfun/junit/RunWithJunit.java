@@ -1,6 +1,8 @@
 package com.buxie.selenium.testNGfun.junit;
 
-
+import com.buxie.selenium.testNGfun.Page;
+import com.buxie.selenium.testNGfun.Utils;
+import com.buxie.selenium.testNGfun.WaitUtility;
 import com.buxie.selenium.testCases.ArtistRadioCases;
 import com.buxie.selenium.testCases.ForYouCases;
 import com.buxie.selenium.testCases.LiveRadioCases;
@@ -34,8 +36,8 @@ public class RunWithJunit {
 	PodcastCases podcastCases;
 	
 	
-	String browser = "chrome";
-	 //String browser = "firefox";
+	//String browser = "chrome";
+	String browser = "firefox";
 	//String browser = "edge";
 	// String browser = "ie";
 	 
@@ -146,8 +148,12 @@ public class RunWithJunit {
 	 @Test
 	 public void testBrowsePerfectFor() throws Exception
 	 {
-	    
-		 perfectForCases.browsePerfectFor();
+	    try{
+		   perfectForCases.browsePerfectFor();
+	    }catch(Exception e)
+	    {
+	    	handleException(e);
+	    }
 	 }
 	
 
@@ -169,7 +175,7 @@ public class RunWithJunit {
 
      @After
     public void tearDown() throws Exception{
-	   // driver.quit();
+	   driver.quit();
     	 
     	 
     	if (Page.getErrors().length() > 0)

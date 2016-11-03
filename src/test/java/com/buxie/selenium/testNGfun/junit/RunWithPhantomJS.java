@@ -1,6 +1,8 @@
-package com.buxie.selenium.testNGfun;
+package com.buxie.selenium.testNGfun.junit;
 
-
+import com.buxie.selenium.testNGfun.Page;
+import com.buxie.selenium.testNGfun.Utils;
+import com.buxie.selenium.testNGfun.WaitUtility;
 import com.buxie.selenium.testCases.ArtistRadioCases;
 import com.buxie.selenium.testCases.ForYouCases;
 import com.buxie.selenium.testCases.LiveRadioCases;
@@ -9,6 +11,7 @@ import com.buxie.selenium.testCases.PodcastCases;
 import com.buxie.selenium.testCases.ProfileCases;
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -22,10 +25,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 
-public class RunWithJunit {
-	 WebDriver driver;
+public class RunWithPhantomJS {
+	
+	DesiredCapabilities dcaps;
+	PhantomJSDriver driver;
 	ArtistRadioCases artistRadioCases;
 	ForYouCases forYouCases;
 	PerfectForCases perfectForCases;
@@ -50,7 +57,17 @@ public class RunWithJunit {
 	@Before
     public void init()throws Exception
 	{
-		driver = Utils.launchBrowser(URL, browser);
+		  File file = new File("C:\\Users\\azurewangyx\\seleniumDownloads\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");				
+          System.setProperty("phantomjs.binary.path", file.getAbsolutePath());	
+          dcaps = new DesiredCapabilities();
+          dcaps.setCapability("takesScreenshot", true);
+          dcaps.setBrowserName("firefox");
+          dcaps.setVersion("46");
+          dcaps.setJavascriptEnabled(true);
+          
+           driver = new PhantomJSDriver(dcaps);	
+          driver.get(URL);
+          driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         
          
@@ -63,6 +80,8 @@ public class RunWithJunit {
 	    Page.setDriver (driver);
 	    
 	    Page.getErrors().delete(0, Page.getErrors().length());
+	    
+	    
 	        
     }
 	
@@ -88,27 +107,27 @@ public class RunWithJunit {
 	@Test
 	 public void testForYou_Favorite() throws Exception
 	 {  
-		forYouCases.addToFavorite(0);
+		try{
+			forYouCases.addToFavorite(0);
+		 }catch(Exception e)
+		{
+			handleException(e);
+		}
 	 }
 
 	@Test
 	 public void testFavorite() throws Exception
 	 {  
-		artistRadioCases.favorite();
-		/*
-		WaitUtility.injectJQuery(driver);
-		WaitUtility.fetchAjax(driver);
-		WaitUtility.fetchtAjaxSendData(driver);
+		   artistRadioCases.favorite();
 		
-		WaitUtility.sleep(600*000);
-		*/
-      
 	 }
 	
 	 @Test
 	 public void testSearchJoshInAll() throws Exception
-	 {  
-		 podcastCases.searchJoshInAll();
+	 { 
+		
+			podcastCases.searchJoshInAll();
+		
 	 }
 	
 	 @Test
@@ -146,15 +165,20 @@ public class RunWithJunit {
 	 @Test
 	 public void testBrowsePerfectFor() throws Exception
 	 {
-	    
-		 perfectForCases.browsePerfectFor();
+		   perfectForCases.browsePerfectFor();
+	   
 	 }
 	
 
 	 @Test
     public void testPopularUserFlow() 
     {
-        forYouCases.flowAlong();
+		try{
+		 	forYouCases.flowAlong();
+	    }catch(Exception e)
+		{
+			handleException(e);
+		}
     }
 
 	@Test
@@ -169,15 +193,20 @@ public class RunWithJunit {
 
      @After
     public void tearDown() throws Exception{
-	   // driver.quit();
-    	 
-    	 
+	   
     	if (Page.getErrors().length() > 0)
     	{	
     		fail(Page.getErrors().toString());
+    		try{
+    	    	   Page.takeScreenshot(driver, name.getMethodName());
+    	        }catch(Exception eX)
+    	        {
+    	        	eX.printStackTrace();
+    	        }
     		
     	}	
-    	
+    	driver.quit();
+   	 
     	
     }
 
@@ -188,7 +217,7 @@ public class RunWithJunit {
     	   Page.takeScreenshot(driver, name.getMethodName());
         }catch(Exception eX)
         {
-        	
+        	eX.printStackTrace();
         }
     }
     

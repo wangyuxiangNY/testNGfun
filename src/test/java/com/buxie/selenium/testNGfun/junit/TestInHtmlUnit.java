@@ -1,16 +1,19 @@
-package com.buxie.selenium.testNGfun;
+package com.buxie.selenium.testNGfun.junit;
 
 
 
+import com.buxie.selenium.testNGfun.Page;
+import com.buxie.selenium.testNGfun.Utils;
+import com.buxie.selenium.testNGfun.WaitUtility;
 import com.buxie.selenium.testCases.ArtistRadioCases;
 import com.buxie.selenium.testCases.ForYouCases;
 import com.buxie.selenium.testCases.LiveRadioCases;
 import com.buxie.selenium.testCases.PerfectForCases;
 import com.buxie.selenium.testCases.PodcastCases;
 import com.buxie.selenium.testCases.ProfileCases;
-
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test; 
@@ -23,10 +26,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 
-public class RunJunitTest2 {
-	
+public class TestInHtmlUnit {
+
 	 WebDriver driver;
 		ArtistRadioCases artistRadioCases;
 		ForYouCases forYouCases;
@@ -37,23 +41,28 @@ public class RunJunitTest2 {
 		
 		
 		String browser = "chrome";
-		// String browser = "firefox";
+		 //String browser = "firefox";
 		//String browser = "edge";
 		// String browser = "ie";
 		 
 		final String URL = "http://www.iheart.com/";
 		
+
+		
+		
 		@Rule public TestName name = new TestName();
 		
 		
 		@Before
-	    public void init() throws Exception{
-			// driver = Utils.launchBrowser(URL, browser);
-			String hubURL = "http://192.168.1.5:4444/wd/hub";
-			driver = Utils.createRemoteDriver(hubURL, browser, "windows");
+	    public void init()throws Exception
+		{
+			driver = new HtmlUnitDriver();
 			driver.get(URL);
-	        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            driver.manage().deleteAllCookies();
+            
+	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	        
+	         
 	        forYouCases = new ForYouCases(driver);
 	        perfectForCases = new PerfectForCases(driver);
 	        profileCases = new ProfileCases(driver);
@@ -61,15 +70,48 @@ public class RunJunitTest2 {
 	        podcastCases = new PodcastCases(driver);
 	        artistRadioCases = new ArtistRadioCases(driver);
 		    Page.setDriver (driver);
+		    
+		    Page.getErrors().delete(0, Page.getErrors().length());
 		        
 	    }
 		
+		@Ignore("skip")
+		public void huntAjax() throws Exception
+		{  
+			//WaitUtility.injectJQuery(driver);
+			//WaitUtility.fetchAjax(driver);
+			//WaitUtility.fetchtAjaxSendData(driver);
+	        List<Object> result = WaitUtility.tryScript(driver);
+	        System.out.println(result.toString());
+			
+		}
 		
+		
+		@Test
+		 public void testForYou_NotForMe() throws Exception
+		 {  
+			forYouCases.notForMe(0);
+		 }
+		
+		
+		@Test
+		 public void testForYou_Favorite() throws Exception
+		 {  
+			forYouCases.addToFavorite(0);
+		 }
 
 		@Test
 		 public void testFavorite() throws Exception
 		 {  
 			artistRadioCases.favorite();
+			/*
+			WaitUtility.injectJQuery(driver);
+			WaitUtility.fetchAjax(driver);
+			WaitUtility.fetchtAjaxSendData(driver);
+			
+			WaitUtility.sleep(600*000);
+			*/
+	      
 		 }
 		
 		 @Test
@@ -113,8 +155,12 @@ public class RunJunitTest2 {
 		 @Test
 		 public void testBrowsePerfectFor() throws Exception
 		 {
-		    
-			 perfectForCases.browsePerfectFor();
+			 try{
+				   perfectForCases.browsePerfectFor();
+			    }catch(Exception e)
+			    {
+			    	handleException(e);
+			    }
 		 }
 		
 
@@ -136,9 +182,14 @@ public class RunJunitTest2 {
 
 	     @After
 	    public void tearDown() throws Exception{
-		    driver.quit(); 
+		   driver.quit();
+	    	 
+	    	 
 	    	if (Page.getErrors().length() > 0)
-				 fail(Page.getErrors().toString());
+	    	{	
+	    		fail(Page.getErrors().toString());
+	    		
+	    	}	
 	    	
 	    	
 	    }
@@ -150,10 +201,9 @@ public class RunJunitTest2 {
 	    	   Page.takeScreenshot(driver, name.getMethodName());
 	        }catch(Exception eX)
 	        {
-	        	
+	        	eX.printStackTrace();
 	        }
 	    }
 	    
 	
-
 }

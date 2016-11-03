@@ -47,6 +47,44 @@ public class Utils {
 	public static final String browserStack_AUTOMATE_KEY = "SGtW65fVhR9zqp7KpVUo";
 	public static final String browserStack_URL = "http://" + browserStack_USERNAME + ":" + browserStack_AUTOMATE_KEY + "@hub.browserstack.com/wd/hub";
 
+	public static final String USERNAME = "michelleWangNYC";
+    public static final String ACCESS_KEY = "YOUR_ACCESS_KEY";
+    public static final String sauceLabsURL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:443/wd/hub";
+   
+    
+    public static WebDriver  createWebDriverOnSauceLabs( String browser, String browserVersion, String platform) throws Exception
+    {
+    	RemoteWebDriver driver;
+		
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+		
+		if (browser.equalsIgnoreCase("intenet explorer") || browser.equalsIgnoreCase("ie"))
+		{
+			DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
+			caps.setCapability("platform", "Windows 10");
+			caps.setCapability("version", "11.103");
+		}else if (browser.equalsIgnoreCase("chrome"))
+		{
+			DesiredCapabilities caps = DesiredCapabilities.chrome();
+			caps.setCapability("platform", "Windows 10");
+			caps.setCapability("version", "48.0");
+			
+		}else 
+	    	return null;
+	
+		//replace USERNAME:ACCESS_KEY@SUBDOMAIN with your credentials found in the Gridlastic dashboard
+		driver = new RemoteWebDriver(new URL(sauceLabsURL),capabilities);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		driver.manage().window().maximize(); // Always maximize firefox on windows
+		
+    // On LINUX/FIREFOX the "driver.manage().window().maximize()" option does not expand browser window to max screen size. Always set a window size.
+	if (platform_name.equalsIgnoreCase("linux") && browser.equalsIgnoreCase("firefox")) {
+		driver.manage().window().setSize(new Dimension(1920, 1080));	
+	}
+    
+		
+		return driver;
+	}
 
 	public static WebDriver  createWebDriver() 
 	{
@@ -115,7 +153,6 @@ public class Utils {
 	
 	  }
 	
-
 	public static String OSDetector() 
 	{
 		String os = System.getProperty("os.name").toLowerCase();
@@ -139,7 +176,7 @@ public class Utils {
 		RemoteWebDriver driver;
 		
 	
-		 String platform_name = OSDetector(); //"win7";
+		 String platform_name = OSDetector(); //"WIN10";
 	
 	
 		
@@ -176,7 +213,8 @@ public class Utils {
 		} 
 		
 		if (platform.equalsIgnoreCase("windows"))
-	    	capabilities.setPlatform(Platform.WIN10);
+	    	//capabilities.setPlatform(Platform.WIN10);
+			capabilities.setPlatform(Platform.WIN8);
 		else
 			capabilities.setPlatform(Platform.MAC);
 	

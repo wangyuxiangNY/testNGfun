@@ -207,6 +207,8 @@ public abstract class Page {
     			//System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
  	       String screenshotName = testMethod + dateFormat.format(date) + ".png";
  	       System.out.println("See screenshotName:" + screenshotName);
+ 	       if (driver == null)
+ 	    	   System.out.println("TakesCREENSHOT. driver is null");
             File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
          //The below method will save the screen shot in d drive with name "screenshot.png"
             FileUtils.copyFile(scrFile, new File(screenshotName));
