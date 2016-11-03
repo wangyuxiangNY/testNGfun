@@ -40,7 +40,11 @@ public class GridTest {
 	
 	// String browser = "chrome";
 	// String browser, platform;
-	final String hubURL = "http://192.168.1.5:4444/wd/hub";
+	//final String hubURL = "http://192.168.1.5:4444/wd/hub";
+	public static final String USERNAME = "michelleWangNYC";
+    public static final String ACCESS_KEY = "aeee6bed-a92e-4ff0-828b-68d0fdd9ae84";
+	final String sauceLabsHubURL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:443/wd/hub";
+			// "http://ondemand.saucelabs.com:80/wd/hub";
 	final String URL = "http://www.iheart.com";
 	
 	@BeforeSuite
@@ -54,7 +58,7 @@ public class GridTest {
 	@BeforeMethod
 	public void init(Method method, String browser, String platform) {
 		System.out.println("Test in Browser/platform:" + browser + "/" + platform +" /ThreadID:" +  Thread.currentThread().getId());
-		RemoteDriverFactory.getInstance().setHubURL(hubURL);
+		RemoteDriverFactory.getInstance().setHubURL(sauceLabsHubURL);
 		RemoteDriverFactory.getInstance().setBrowser(browser);
 		RemoteDriverFactory.getInstance().setPlatform(platform);
 
