@@ -101,6 +101,13 @@
     <version>2.0-beta-8</version>
 </dependency>
 
+<!-- https://mvnrepository.com/artifact/io.netty/netty-codec-http -->
+<dependency>
+    <groupId>io.netty</groupId>
+    <artifactId>netty-codec-http</artifactId>
+    <version>4.0.15.Final</version>
+</dependency>
+
 
 <dependency>
    <groupId>net.lightbody.bmp</groupId>
