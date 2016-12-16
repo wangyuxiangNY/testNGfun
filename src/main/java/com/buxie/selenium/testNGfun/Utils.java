@@ -11,16 +11,22 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 
+import net.lightbody.bmp.BrowserMobProxy;
+import net.lightbody.bmp.BrowserMobProxyServer;
+import net.lightbody.bmp.client.ClientUtil;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.FileDetector;
 import org.openqa.selenium.remote.LocalFileDetector;
@@ -28,6 +34,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -52,21 +60,7 @@ public class Utils {
 	{
 		return createWebDriver("firefox");
 	}
-	/*
-	public static WebDriver  createThreadSafeWebDriver(String browser) 
-	{   
-		ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>() // thread local driver object for webdriver
-        {
-		      @Override
-		      protected WebDriver initialValue()
-		      {
-		         return createWebDriver(browser); // can be replaced with other browser drivers
-		      }
-		};
-		
-		return driver.get();
-	  }
-	  */
+	
 	
 	public static ThreadLocal<WebDriver>  createThreadSafeWebDriver(final String browser) 
 	{   
@@ -138,12 +132,49 @@ public class Utils {
 		      return null;
 	      }
 	
-	      driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	    //  driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	      driver.manage().window().maximize();
 	
 	      return driver;
 	
 	  }
+	
+	public static WebDriver launchFirefoxWithProxy(BrowserMobProxy proxy, String url)
+	{      
+			WebDriver driver = createFirefoxDriverWithProxy(proxy);
+			 // create a new HAR with the label "yahoo.com"
+	 	    proxy.newHar("iheart.com");
+	 	    
+			driver.get(url);
+			driver.manage().window().maximize();
+		    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+			return driver;
+	}
+	
+    public static WebDriver  createFirefoxDriverWithProxy( BrowserMobProxy proxy) 
+	{   WebDriver driver;
+	
+	    
+    	//added for nielsen stuff:
+    	 FirefoxProfile profile = new FirefoxProfile();
+    	/*
+    	 String PROXY = "localhost:" + proxyPort;
+    	 
+
+    	 org.openqa.selenium.Proxy proxy = new org.openqa.selenium.Proxy();
+    	 proxy.setHttpProxy(PROXY)
+    	      .setFtpProxy(PROXY)
+    	      .setSslProxy(PROXY);
+    	*/
+    	 Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
+    	 
+    	 DesiredCapabilities cap = new DesiredCapabilities();
+    	 cap.setCapability(CapabilityType.PROXY, seleniumProxy);
+    	  driver = new FirefoxDriver(cap);
+	
+	      return driver;
+	  }
+	
 	
 
 	public static String OSDetector() 
@@ -416,6 +447,10 @@ public class Utils {
 	    _element.click();
 	}
     	
-	
+	public static void swithToFrame(WebDriver driver, String newFrame)
+	{
+		driver.switchTo().defaultContent(); // you are now outside both frames
+		driver.switchTo().frame(newFrame);
+	}
 
 }

@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
@@ -65,7 +66,7 @@ public class GridTest {
 		System.out.println("Double-check :" + RemoteDriverFactory.getInstance().getBrowser() 
 				+	"/" + RemoteDriverFactory.getInstance().getPlatform() +" /ThreadID:" +  Thread.currentThread().getId());
 				
-		
+	
 		driver = RemoteDriverFactory.getInstance().getDriver();
 		driver.get(URL);
         driver.manage().window().maximize();

@@ -148,8 +148,6 @@ public class AllAboutJavascript {
 				    					"callback(dataArray);" + 
 				    		" }, 5*60*1000);" +
 	        				"};" +
-	                 
-					
 	       		"})(XMLHttpRequest.prototype.open,arguments[arguments.length - 1]);" 
 	        	
 	           		 );  

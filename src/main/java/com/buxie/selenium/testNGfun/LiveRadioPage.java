@@ -15,6 +15,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.Select;
 
 
@@ -48,7 +50,9 @@ public  class LiveRadioPage extends Page{
     
     public LiveRadioPage(WebDriver driver)
     {
-    	super(driver);
+    //	super(driver);
+    	this.driver = driver;
+		PageFactory.initElements(new AjaxElementLocatorFactory(driver, 30), this);
     }
     
    public void playRandomStation()
@@ -58,7 +62,7 @@ public  class LiveRadioPage extends Page{
    
 	
 	
-	public void filterStation()
+	public void filterStation_good()
 	{   
 	    new Select(country).selectByIndex(1);
 	    WaitUtility.waitForPageToLoad(driver);
@@ -66,6 +70,24 @@ public  class LiveRadioPage extends Page{
 		WaitUtility.selectDropDown(driver, By.name("city"), 1);
 		WaitUtility.waitForPageToLoad(driver);
 		  
+	}	
+	
+	
+	public void filterStation()
+	{   
+	    new Select(country).selectByIndex(1);
+	    new Select(city).selectByIndex(1);
+		//WaitUtility.selectDropDown(driver, By.name("city"), 1);
+	}	
+	
+	
+	public void filterStation(int countryIndex, int cityIndex)
+	{   
+	    new Select(country).selectByIndex(countryIndex);
+	   
+	   // new Select(WaitUtility.waitForElementToPresent(driver, By.name("city"), 30)).selectByIndex(cityIndex);
+	   // new Select(city).selectByIndex(cityIndex);
+		WaitUtility.selectDropDown(driver, By.name("city"), cityIndex);
 	}	
 	
 	
@@ -81,12 +103,14 @@ public  class LiveRadioPage extends Page{
 	{
 	  // List<WebElement>  stations = stations.findElements(By.className("station-thumb"));//By.className("icon-play"));
        System.out.println("See  STATION count:" + stations.size());
-     
-       String chosenStationName = stations.get(index).getAttribute("alt");
+       String chosenStationName = WaitUtility.waitForElementToBeVisible(driver, stations.get(index), 30).getAttribute("alt");
+      // String chosenStationName = stations.get(index).getAttribute("alt");
        stations.get(index).click();
+       
+       //handlePreroll();
+       pausePreroll();
+       resumePreroll();
       
-       // waitForPreroll();
-        
        return  chosenStationName;
        
 	}
@@ -103,6 +127,7 @@ public  class LiveRadioPage extends Page{
 	    
 				
 	}
+	
 	
 	
 }

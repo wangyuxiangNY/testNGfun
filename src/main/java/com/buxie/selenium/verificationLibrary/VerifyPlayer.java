@@ -37,4 +37,6 @@ public class VerifyPlayer extends Player implements Verify {
 		softAssert.assertTrue(player.isThumbDownFilled(), "ThumbdD is not working.");
 	}
 
+	
+	
 }

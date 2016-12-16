@@ -15,11 +15,11 @@ import org.openqa.selenium.support.ui.Select;
 public class Navigation extends Page{
    
 	@FindBy(css=".header-menu-main > li:nth-child(1) > a:nth-child(1)") private static WebElement forYou;
-	@FindBy(css=".header-menu-main > li:nth-child(2) > a:nth-child(1)") private static WebElement liveRadio;
-	@FindBy(css=".header-menu-main > li:nth-child(3) > a:nth-child(1)") private  static WebElement artistRadio;
-	@FindBy(css=".header-menu-main > li:nth-child(4) > a:nth-child(1)") private  static WebElement genres;
-	@FindBy(css=".header-menu-main > li:nth-child(5) > a:nth-child(1)") private  static WebElement podcasts;
-	@FindBy(css=".header-menu-main > li:nth-child(6) > a:nth-child(1)") private static  WebElement perfectFor;
+	@FindBy(css=".header-menu-main > li:nth-child(3) > a:nth-child(1)") private static WebElement liveRadio;
+	@FindBy(css=".header-menu-main > li:nth-child(4) > a:nth-child(1)") private  static WebElement artistRadio;
+	@FindBy(css=".header-menu-main > li:nth-child(5) > a:nth-child(1)") private  static WebElement genres;
+	@FindBy(css=".header-menu-main > li:nth-child(6) > a:nth-child(1)") private  static WebElement podcasts;
+	@FindBy(css=".header-menu-main > li:nth-child(7) > a:nth-child(1)") private static  WebElement perfectFor;
 //	@FindBy(css=".header-menu-main > li:nth-child(7) > a:nth-child(1)") private  static WebElement more;
 	@FindBy(css="#page-view-container > div > div.header > div.header-wrapper > div > div.header-left > div > div:nth-child(1) > button > i")
 	   private  static WebElement more;
@@ -55,13 +55,19 @@ public class Navigation extends Page{
 	    }
 	
 	    
-	public  LiveRadioPage gotoLive()
+	public  LiveRadioPage gotoLive_working()
 	{  
 		WaitUtility.waitForElementToBeClickable(driver, liveRadio).click();
 		
 		WaitUtility.waitForPageToLoad(driver);
         return PageFactory.initElements(driver, LiveRadioPage.class);
 	}
+	
+	public  void gotoLive()
+	{  
+		WaitUtility.waitForElementToBeClickable(driver, liveRadio).click();
+	}
+	
 	
 	public    ForYou gotoForYou()
 	{   

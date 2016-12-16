@@ -147,6 +147,16 @@ public class RunWithTestNG {
 		 perfectForCases.browsePerfectFor();
 		// Verify.softAssert.assertAll();
 	 }
+	 
+	
+		 @Test
+		 public void testPlayArtiestRadio() throws Exception
+		 {
+		    
+			 artistRadioCases.playArtistRadio();
+			// Verify.softAssert.assertAll();
+		 }
+		
 	
 
 		@AfterMethod

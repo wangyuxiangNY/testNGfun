@@ -78,15 +78,15 @@ public class TestNGParallelRun {
         		" / run with Thread Id." + Thread.currentThread().getId());
     }
 	
-	
+	/*
 	 @Test
      public void testPopularUserFlow() 
      {
          forYouCases.flowAlong();
      }
-
+*/
 	 
-	 /*
+	 
 	@Test(groups ="ArtistRadioTest")
 	 public void testFilterAndPlayCustomAfterLogin() throws Exception
 	 {  
@@ -153,7 +153,7 @@ public class TestNGParallelRun {
 		// Verify.softAssert.assertAll();
 	 }
 	
-*/
+
 		@AfterMethod
 	    public void tearDown(ITestResult result) throws Exception
 		{

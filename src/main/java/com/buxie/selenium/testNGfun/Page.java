@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -23,6 +24,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+
+import com.buxie.forVideo.FlashObjectWebDriver;
+
 import org.apache.log4j.Logger;
 
 public abstract class Page {
@@ -289,5 +293,31 @@ public abstract class Page {
     	return PageFactory.initElements(driver, Player.class);
     }
     
+    public void handlePreroll()
+    {  
+    	WebElement ad = WaitUtility.waitForElementToBeVisible(driver, By.id("ads-player"), 30);
+        System.out.println("See ad:" + ad.getAttribute("innerHTML"));
+    	
+        WaitUtility.waitForElementToDisppear(driver, By.id("ads-player"), 35);
+    	System.out.println("Preroll is done.");
+    }
     
+    public void pausePreroll()
+    {
+    	WebElement ad = WaitUtility.waitForElementToBeVisible(driver, By.id("ads-player"), 30);
+        System.out.println("See ad:" + ad.getAttribute("innerHTML"));
+        WaitUtility.sleep(5000);
+    	FlashObjectWebDriver flashApp = new FlashObjectWebDriver(driver, "ads-player");
+    	flashApp.callFlashObject("pauseVideo");
+    	System.out.println("Preroll paused.");
+    	 WaitUtility.sleep(5000);
+    	
+    }
+    
+    public void resumePreroll()
+    {   
+    	FlashObjectWebDriver flashApp = new FlashObjectWebDriver(driver, "ads-player");
+    	flashApp.callFlashObject("playVideo");
+    	System.out.println("Preroll resumed.");
+    }
 }

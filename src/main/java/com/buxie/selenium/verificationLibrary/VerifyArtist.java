@@ -18,4 +18,5 @@ public class VerifyArtist extends ArtistRadioPage implements Verify{
 		softAssert.assertAll();
 	}
 
+	
 }

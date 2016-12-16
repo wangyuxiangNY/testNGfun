@@ -45,7 +45,18 @@ public class ArtistRadioCases extends TestCase{
 		navigation.gotoArtistRadio();
 		//artistRadioPage.chooseGenre(1);
 	    artistRadioPage.playFirstStation();
-	   
+	    
+	    //Is pre-roll triggered?
+	    
+	    
+	}
+	
+	public void playArtistRadioWithoutLogin() throws Exception
+	{
+		navigation.gotoArtistRadio();
+		//artistRadioPage.chooseGenre(1);
+	    artistRadioPage.playFirstStation();
+	    
 	}
 	
 }

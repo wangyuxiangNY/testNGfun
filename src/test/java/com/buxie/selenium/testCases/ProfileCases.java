@@ -20,7 +20,7 @@ public class ProfileCases extends TestCase{
 	    profilePage.extendMyStaion();
 	    profilePage.playStation(stationIndex);
 	    profilePage.waitForPreroll();
-	    verifyPlayer.verifyPlayerIsPlaying();
+	  //  verifyPlayer.verifyPlayerIsPlaying();
 	    
 	}
 

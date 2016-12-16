@@ -26,5 +26,17 @@ public class LiveRadioCases extends TestCase {
 	    
 	}
 	
+	public void playLive()
+	{   
+		navigation.gotoLive();
+	    liveRadioPage.playFirstStation();
+	}
 	
+	
+	public void playFilteredLive()
+	{   
+		navigation.gotoLive();
+		liveRadioPage.filterStation(1, 3);
+	    liveRadioPage.playFirstStation();
+	}
 }

@@ -60,17 +60,15 @@ public class WaitUtility {
 	      } catch(Throwable error) {
 	              System.out.println("Timeout waiting for Page Load Request to complete.");
 	      }
-	      
-	      WaitUtility.sleep(3000);
 	 } 
 	
 	
-	/*
+
 	public static void waitForAjax(WebDriver driver)
 	{    injectJQuery(driver);
 		//Check: how many on-going ajax call on this page?
 		long ajaxCallCount = (Long)((JavascriptExecutor)driver ).executeScript("return jQuery.active");
-	//	System.out.println("Ajax call count:" + ajaxCallCount);
+		System.out.println("Ajax call count:" + ajaxCallCount);
 	    while (true) // Handle timeout somewhere
 	    {
 	        boolean ajaxIsComplete =(Boolean) ((JavascriptExecutor)driver ).executeScript("return jQuery.active == 0");
@@ -83,7 +81,7 @@ public class WaitUtility {
 		System.out.println("Active Ajax call count after waiting:" + ajaxCallCount);
 	}
 
-	*/
+
 	
 	/** dynamically load jQuery */
 	public static void injectJQuery(WebDriver driver){
@@ -119,51 +117,6 @@ public class WaitUtility {
 	    System.out.println("Jquery is loaded.");
 	}	
 	
-	
-	
-	/**  This one is no good. I don't like it. 
-	 * Waits for an element to appear on the page before returning. Example:
-	 * WebElement waitElement =
-	 * fluentWait(By.cssSelector(div[class='someClass']));
-	 * 
-	 * @param locator
-	 * @return
-	 */
-	protected static WebElement waitForElementToAppear(WebDriver driver, final By locator, int timeOutInSecond)
-	{
-		 driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-	        
-	  Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(timeOutInSecond, TimeUnit.SECONDS).pollingEvery(1, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
-
-	  WebElement element = null;
-	  try {
-	    element = wait.until(new Function<WebDriver, WebElement>() {
-
-	      public WebElement apply(WebDriver driver)
-	      {
-	        return driver.findElement(locator);
-	      }
-	    });
-	  } catch (Exception e) {
-	    try {
-	      // I want the error message on what element was not found
-	      driver.findElement(locator);
-	    } catch (NoSuchElementException renamedErrorOutput) {
-	      // print that error message
-	      renamedErrorOutput.addSuppressed(e);
-	      // throw new
-	      // NoSuchElementException("Timeout reached when waiting for element to be found!"
-	      // + e.getMessage(), correctErrorOutput);
-	      throw renamedErrorOutput;
-	    }
-	    e.addSuppressed(e);
-	    throw new NoSuchElementException("Timeout reached when searching for element!", e);
-	  }
-
-	  driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-      
-	  return element;
-	}
 	 
 	/**
 	 * Waits for an element to appear on the page before returning. Example:
@@ -173,18 +126,14 @@ public class WaitUtility {
 	 * @param locator
 	 * @return
 	 */
-	protected  static WebElement fluentWaitIgnoreAll(WebDriver driver, final By locator, int timeOutInSecond)
+	public  static WebElement fluentWaitIgnoreAll(WebDriver driver, final By locator, int timeOutInSecond)
 	{   
-		System.out.println("fluentWaitIgnoreAll(..) by threadID: " +  Thread.currentThread().getId());
-		
-		if (driver == null)
-		   System.out.println("WaitUtility.fluentWaitIgnoreAll(): driver is null");
 		cancelImplicitWait(driver);
 		 
 		 List<Class <? extends Exception>> exceptionsToIgnore = new ArrayList<Class <? extends Exception>>();
 		 exceptionsToIgnore.add(NoSuchElementException.class);
-		 exceptionsToIgnore.add(StaleElementReferenceException.class);
-		 exceptionsToIgnore.add(WebDriverException.class);
+	//	 exceptionsToIgnore.add(StaleElementReferenceException.class);  //this makes no sense, since it will only throw during interaction
+//		 exceptionsToIgnore.add(WebDriverException.class);
 		 //exceptionsToIgnore.add(Exception.class);
 		
 		  Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(timeOutInSecond, TimeUnit.SECONDS).pollingEvery(1, TimeUnit.SECONDS).ignoreAll(exceptionsToIgnore);
@@ -194,8 +143,9 @@ public class WaitUtility {
 			  element = wait.until(new Function<WebDriver, WebElement>() {
 	
 		      public WebElement apply(WebDriver driver)
-		      {
-		    	  return driver.findElement(locator);
+		      {  
+		    	     return driver.findElement(locator);
+			       
 		      }
 		    });
 		  } catch (Exception e)
@@ -258,12 +208,49 @@ public class WaitUtility {
 	
 	}
 	
+	//
+	//this will wait for elememt to be visible for 20 seconds
 	public static WebElement waitForElementToBeVisible(WebDriver driver, By locator)
 	{
-		WebElement element = driver.findElement(locator);
-		WebDriverWait wait = new WebDriverWait(driver, 20); //here, wait time is 20 seconds
+		return waitForElementToBeVisible(driver, locator, 30);
+	}	
 	
-		wait.until(ExpectedConditions.visibilityOf(element)); //this will wait for elememt to be visible for 20 seconds
+	public static WebElement waitForElementToBeVisible(WebDriver driver, By locator, int timeoutInSecond)
+	{
+		cancelImplicitWait(driver);
+		
+		WebDriverWait wait = new WebDriverWait(driver, timeoutInSecond); 
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+		
+		setImplicitWait(driver, 20);
+		
+		return driver.findElement(locator);
+	}	
+	
+	//This method is invalid?
+	public static WebElement waitForElementToBeVisible(WebDriver driver, WebElement element, int timeoutInSecond)
+	{
+		WebDriverWait wait = new WebDriverWait(driver, timeoutInSecond); 
+		wait.until(ExpectedConditions.visibilityOf(element)); 
+		return element;
+	}	
+	
+	
+	public static WebElement waitForElementToPresent(WebDriver driver, By locator, int timeoutInSecond)
+	{
+		//WebElement element = driver.findElement(locator);
+		WebDriverWait wait = new WebDriverWait(driver, timeoutInSecond);
+		wait.until(ExpectedConditions.presenceOfElementLocated(locator)); 
+		return driver.findElement(locator);
+	}	
+
+	public static WebElement waitForElementToDisppear(WebDriver driver, By locator, int timeoutInSecond)
+	{
+		WebElement element = driver.findElement(locator);
+		WebDriverWait wait = new WebDriverWait(driver, timeoutInSecond); 
+	
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+
 		return element;
 	}	
 	

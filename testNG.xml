@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Test IHEART In different browsers" parallel="tests" verbose="1" thread-count="2">
+    
     <test name="Test in Firefox">
     <parameter name="browser" value="firefox"/>
         <classes>
         <class name="com.buxie.selenium.testNGfun.TestNGParallelRun"/>
         </classes>
     </test>
-     <test name="Test in Chrome">
+    
+    <test name="Test in Chrome">
     <parameter name="browser" value="chrome"/>
         <classes>
         <class name="com.buxie.selenium.testNGfun.TestNGParallelRun"/>
         </classes>
     </test>
-   
 </suite>

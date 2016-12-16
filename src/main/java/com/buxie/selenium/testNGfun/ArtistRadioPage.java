@@ -70,6 +70,10 @@ public class ArtistRadioPage extends Page {
      
        String chosenStationName = stations.get(index).getAttribute("alt");
        stations.get(index).click();
+       
+       WaitUtility.sleep(3000);
+     
+       
        return  chosenStationName;
        
 	}
@@ -104,5 +108,6 @@ public class ArtistRadioPage extends Page {
 	}
 	
 	
+  
 	
 }

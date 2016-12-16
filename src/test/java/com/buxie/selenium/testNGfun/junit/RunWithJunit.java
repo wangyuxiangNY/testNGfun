@@ -10,6 +10,7 @@ import com.buxie.selenium.testCases.ProfileCases;
 import com.buxie.selenium.testNGfun.Page;
 import com.buxie.selenium.testNGfun.Utils;
 import com.buxie.selenium.testNGfun.WaitUtility;
+import com.buxie.selenium.testNGfun.XpathAndCSS;
 
 import static org.junit.Assert.*;
 
@@ -24,6 +25,7 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -37,9 +39,10 @@ public class RunWithJunit {
 	LiveRadioCases liveRadioCases;
 	PodcastCases podcastCases;
 	
+	XpathAndCSS xpath;
 	
 	//String browser = "chrome";
-	 String browser = "firefox";
+	String browser = "firefox";
 	//String browser = "edge";
 	// String browser = "ie";
 	 
@@ -54,14 +57,15 @@ public class RunWithJunit {
     public void init()throws Exception
 	{
 		driver = Utils.launchBrowser(URL, browser);
-		 WaitUtility.waitForPageToLoad(driver);
-		 
+		
         forYouCases = new ForYouCases(driver);
         perfectForCases = new PerfectForCases(driver);
         profileCases = new ProfileCases(driver);
         liveRadioCases = new LiveRadioCases(driver);
         podcastCases = new PodcastCases(driver);
         artistRadioCases = new ArtistRadioCases(driver);
+        
+        xpath = new XpathAndCSS(driver);
 	   
         artistRadioCases.getErrors().delete(0, artistRadioCases.getErrors().length());
 	        
@@ -78,12 +82,36 @@ public class RunWithJunit {
 		
 	}
 	
+	@Test
+	 public void testFlash() throws Exception
+	 {  
+		//WaitUtility.sleep(8000);
+    	System.out.println("SEE ad section:" + driver.findElement(By.id("media__video_large-media_0--wrapper")).getAttribute("innerHTML"));
+       
+  
+	 }
+	
+	
+	@Test
+	 public void testXpath() throws Exception
+	 {  
+		xpath.xpath();
+	 }
+	
+
+	@Test
+	 public void testCSS() throws Exception
+	 {  
+		xpath.css();
+	 }
 	
 	@Test
 	 public void testForYou_NotForMe() throws Exception
 	 {  
 		forYouCases.notForMe(0);
 	 }
+	
+
 	
 	
 	@Test
@@ -131,9 +159,22 @@ public class RunWithJunit {
    public void testThumbUpLive() throws Exception
    {  
 		 liveRadioCases.thumbUp();
+   }
+	 
+	 @Test
+	   public void testFilteredLive() throws Exception
+	   {  
+			 liveRadioCases.playFilteredLive();
+			
+	   }
+			
+
+	 @Test
+   public void testPlayLive() throws Exception
+   {  
+		 liveRadioCases.playLive();
 		
    }
-			
 	
 	 @Test
    public void testPlayStastionFromProfile() throws Exception
@@ -165,12 +206,19 @@ public class RunWithJunit {
 	 }
 	
 	
-	   
+	 @Test
+	 public void testPlayArtiestRadio() throws Exception
+	 {
+	    
+		 artistRadioCases.playArtistRadio();
+		
+	 }
+	  
 	     
 
      @After
     public void tearDown() throws Exception{
-	    driver.quit();
+	  //  driver.quit();
     	 
     	 
     	if (artistRadioCases.getErrors().length() > 0)

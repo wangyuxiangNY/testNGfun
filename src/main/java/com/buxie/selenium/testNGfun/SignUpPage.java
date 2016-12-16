@@ -51,7 +51,7 @@ public class SignUpPage extends Page{
 	{
 		//Give it some time to pop up
 		
-		return WaitUtility.waitForElementToAppear(driver, By.className("dialog-header"), 30).getText().length() > 1;
+		return WaitUtility.waitForElementToBeVisible(driver, By.className("dialog-header"), 30).getText().length() > 1;
 
 		//return WaitUtility.fluentWaitIgnoringAll(driver, By.className("dialog-header"), 30).getText().length() > 1;
 	}
