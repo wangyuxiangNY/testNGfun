@@ -1,4 +1,4 @@
-package com.buxie.ajax;
+package com.buxie.internationalization;
 
 
 
@@ -24,18 +24,20 @@ import com.buxie.selenium.testNGfun.WaitUtility;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 
-public class RunWithJunit {
+public class TestLocalized {
+
 	 WebDriver driver;
+	 GooglePage page;
 	
-	LiveRadioPage liveRadio;
-	NavigationForAjax navigation;
 	
 	String browser = "chrome";
 	//String browser = "firefox";
 	//String browser = "edge";
 	// String browser = "ie";
 	 
-	final String URL = "http://www.iheart.com/";
+	final String URL = "https://www.google.ae";
+			//"http://www.google.co.jp";
+	//"http://www.google.hk/";
 	
 
 	
@@ -47,21 +49,17 @@ public class RunWithJunit {
 	{
 		driver = Utils.launchBrowser(URL, browser);
 		
-        liveRadio = new LiveRadioPage(driver);
-        navigation = new NavigationForAjax(driver);
+        page = new GooglePage(driver);
         
     }
 	
 		
 
 	 @Test
-	 public void testLiveFilter() throws Exception
+	 public void testSearch() throws Exception
 	 {  
 	 
-		 NavigationForAjax.gotoLive();
-		 //WaitUtility.injectJQuery(driver);
-		 
-		 liveRadio.filterStation(1, 2, 3);
+		page.search("الامارات العربية المتحدة");
 	 }
 	
 
@@ -76,4 +74,5 @@ public class RunWithJunit {
     }
 
     
+	
 }
