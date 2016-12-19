@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test; 
@@ -45,8 +46,13 @@ public class TestLocalized {
 	//String browser = "firefox";
 	//String browser = "edge";
 	// String browser = "ie";
-	 
-	final String URL = "https://www.google.ae";
+	static String URL;
+    static {
+	  
+	  Properties p = System.getProperties();
+	  URL = p.getProperty("AUT URL");
+    }  
+	  // = "https://www.google.ae";
 			//"http://www.google.co.jp";
 	//"http://www.google.hk/";
 	
@@ -58,6 +64,7 @@ public class TestLocalized {
 	@Before
     public void init()throws Exception
 	{
+		
 		driver = Utils.launchBrowser(URL, browser);
 		
         page = new GooglePage(driver);
